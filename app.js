@@ -6,19 +6,17 @@ const dotenv = require('dotenv');
 // Rutes
 var indexRouter = require('./routes/indexRouter');
 
-// Prova DB
-dotenv.config();
-const port = process.env.PORT || 5556;
 
-// Conexio a base de dades - Implementar
+dotenv.config();
+const port = process.env.PORT || 5000;
+
+
+// Conexio a base de dades
 const mongoose = require('mongoose');
 var mongoDB = process.env.MONGODB_URI;
-
-
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
 
 
 // Ruta de les vistes
@@ -31,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname + '/public')));
 
 
+// Vista default
 app.get('/', function(req, res) {  
   res.render('home');
 });
@@ -39,6 +38,7 @@ app.get('/', function(req, res) {
 const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
 
 app.use('/home', indexRouter);
 module.exports = app;
