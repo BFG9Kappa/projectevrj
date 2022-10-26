@@ -15,6 +15,5 @@ nom: { type: String, required: true },
     password: { type: String, required: true },
 });
 
-
 // Export model.
 module.exports = mongoose.model("Usuari", UsuariSchema);
