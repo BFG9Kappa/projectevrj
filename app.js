@@ -5,15 +5,15 @@ const dotenv = require('dotenv');
 
 // Rutes
 var indexRouter = require('./routes/indexRouter');
-var usuarisRouter = require('./routes/usuarisRouter');
 var loginRouter = require('./routes/loginRouter');
+var usuarisRouter = require('./routes/usuarisRouter');
+var horariRouter = require('./routes/horariRouter');
 var baixesmediquesRouter = require('./routes/baixesmediquesRouter');
 var absnoprevistesRouter = require('./routes/absnoprevistesRouter');
 
 
 dotenv.config();
 const port = process.env.PORT || 5000;
-
 
 // Conexio a base de dades
 const mongoose = require('mongoose');
@@ -45,8 +45,9 @@ const server = app.listen(port, () => {
 
 
 app.use('/home', indexRouter);
-app.use('/usuaris', usuarisRouter);
 app.use('/login', loginRouter);
+app.use('/usuaris', usuarisRouter);
+app.use('/horaris', horariRouter);
 app.use('/baixesmediques', baixesmediquesRouter);
 app.use('/absnoprevistes', absnoprevistesRouter);
 

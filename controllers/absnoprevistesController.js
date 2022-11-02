@@ -1,6 +1,5 @@
 var AbsenciaNoPrevista = require("../models/absnoprevista");
 
-
 class absnoprevistaController {
 /*
 	static list(req, res, next) {

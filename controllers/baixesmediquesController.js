@@ -1,6 +1,5 @@
 var BaixaMedica = require("../models/baixamedica");
 
-
 class baixamedicaController {
 
   static async list(req,res,next) {

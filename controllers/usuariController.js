@@ -9,17 +9,14 @@ class usuariController {
           if (err) {
             return next(err);
           }
-          
           res.render('usuari/list',{list:list})
       }); 
-		
 	}
 
   static create_get(req, res, next) {
       res.render('usuari/new');
   }
 
-  
 
   static create_post(req, res, next) {
     
