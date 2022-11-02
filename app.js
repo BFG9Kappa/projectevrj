@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 
 // Rutes
 var indexRouter = require('./routes/indexRouter');
+var usuarisRouter = require('./routes/usuarisRouter');
+var loginRouter = require('./routes/loginRouter');
 
 
 dotenv.config();
@@ -41,4 +43,7 @@ const server = app.listen(port, () => {
 
 
 app.use('/home', indexRouter);
+app.use('/usuaris', usuarisRouter);
+app.use('/login', loginRouter);
+
 module.exports = app;
