@@ -7,10 +7,11 @@ const dotenv = require('dotenv');
 var indexRouter = require('./routes/indexRouter');
 var usuarisRouter = require('./routes/usuarisRouter');
 var loginRouter = require('./routes/loginRouter');
+var baixesmediquesRouter = require('./routes/baixesmediquesRouter');
 
 
 dotenv.config();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5555;
 
 
 // Conexio a base de dades
@@ -45,5 +46,6 @@ const server = app.listen(port, () => {
 app.use('/home', indexRouter);
 app.use('/usuaris', usuarisRouter);
 app.use('/login', loginRouter);
+app.use('/baixesmediques', baixesmediquesRouter);
 
 module.exports = app;

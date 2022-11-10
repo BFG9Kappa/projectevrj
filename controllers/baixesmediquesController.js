@@ -1,38 +1,36 @@
-var Publisher = require("../models/publisher");
+var BaixaMedica = require("../models/baixamedica");
 
 
-class publisherController {
+class baixamedicaController {
 
-	static list(req, res, next) {
-		Publisher.find()        
-        .exec(function (err, list) {
-          if (err) {
-            return next(err);
-          }
-          
-          res.render('publishers/list',{list:list})
-      }); 
-		
-	}
+  static async list(req,res,next) {
+    try {
+      var list_baixesmediques = await Baixamedica.find();
+      res.render('baixesmediques/list',{list:list_baixesmediques})   
+    }
+    catch(e) {
+      res.send('Error!');
+    }          
+  }
 
   static create_get(req, res, next) {
-      res.render('publishers/new');
+      res.render('baixesmediques/new');
   }
 
   
-
-  static create_post(req, res, next) {
-    
-    Publisher.create(req.body, (error, newRecord) => {
+  static create_post(req, res) {
+    // console.log(req.body)
+    BaixaMedica.create(req.body, function (error, newBaixamedica)  {
         if(error){
-            res.render('publishers/new',{error:'error'})
-        }else{
-             
-            res.redirect('/publisher')
+            //console.log(error)
+            res.render('baixesmediques/new',{error:error.message})
+        }else{             
+            res.redirect('/baixesmediques')
         }
-    })
+    })    
   }
-
+  
+/*
   static update_get(req, res, next) {
     Publisher.findById(req.params.id, function (err, publisher) {
         if (err) {
@@ -86,7 +84,7 @@ class publisherController {
       }
     }) 
   }
-
+*/
 }
 
-module.exports = publisherController;
+module.exports = baixamedicaController;
