@@ -8,6 +8,7 @@ var indexRouter = require('./routes/indexRouter');
 var usuarisRouter = require('./routes/usuarisRouter');
 var loginRouter = require('./routes/loginRouter');
 var baixesmediquesRouter = require('./routes/baixesmediquesRouter');
+var absnoprevistesRouter = require('./routes/absnoprevistesRouter');
 
 
 dotenv.config();
@@ -47,5 +48,6 @@ app.use('/home', indexRouter);
 app.use('/usuaris', usuarisRouter);
 app.use('/login', loginRouter);
 app.use('/baixesmediques', baixesmediquesRouter);
+app.use('/absnoprevistes', absnoprevistesRouter);
 
 module.exports = app;

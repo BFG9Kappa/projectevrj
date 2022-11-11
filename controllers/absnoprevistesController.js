@@ -19,8 +19,6 @@ class absnoprevistaController {
       res.render('absnoprevistes/new');
   }
 
-  
-
   static create_post(req, res) {
     // console.log(req.body)
     AbsenciaNoPrevista.create(req.body, function (error, newAbsenciaNoPrevista)  {
