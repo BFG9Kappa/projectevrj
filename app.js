@@ -11,7 +11,6 @@ var horariRouter = require('./routes/horariRouter');
 var baixesmediquesRouter = require('./routes/baixesmediquesRouter');
 var absnoprevistesRouter = require('./routes/absnoprevistesRouter');
 
-
 dotenv.config();
 const port = process.env.PORT || 5000;
 
