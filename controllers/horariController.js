@@ -2,16 +2,17 @@ var Horari = require("../models/horari");
 
 class HorariController {
 
-    // Version 1
-    static async list(req, res, next) {
-        try {
-            var list_horaris = await Horari.find();
-            res.render('horaris/list', { list: list_horaris })
-        }
-        catch (e) {
-            res.send('Error!');
-        }
+    static list(req,res,next) {
+      Horari.find()        
+          .exec(function (err, list_horari) {
+            if (err) {
+              return next(err);
+            }
+            //res.send('prova horari');
+            res.render('horaris/list',{list:list_horari})
+        }); 		
     }
+
 }
 
 module.exports = HorariController;
