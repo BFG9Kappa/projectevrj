@@ -1,8 +1,8 @@
-var Publisher = require("../models/publisher");
+var AbsenciaNoPrevista = require("../models/absnoprevista");
 
 
-class publisherController {
-
+class absnoprevistaController {
+/*
 	static list(req, res, next) {
 		Publisher.find()        
         .exec(function (err, list) {
@@ -14,25 +14,25 @@ class publisherController {
       }); 
 		
 	}
-
+*/
   static create_get(req, res, next) {
-      res.render('publishers/new');
+      res.render('absnoprevistes/new');
   }
 
   
 
-  static create_post(req, res, next) {
-    
-    Publisher.create(req.body, (error, newRecord) => {
+  static create_post(req, res) {
+    // console.log(req.body)
+    AbsenciaNoPrevista.create(req.body, function (error, newAbsenciaNoPrevista)  {
         if(error){
-            res.render('publishers/new',{error:'error'})
-        }else{
-             
-            res.redirect('/publisher')
+            //console.log(error)
+            res.render('absnoprevistes/new',{error:error.message})
+        }else{             
+            res.redirect('/absnoprevistes')
         }
-    })
+    })    
   }
-
+/*
   static update_get(req, res, next) {
     Publisher.findById(req.params.id, function (err, publisher) {
         if (err) {
@@ -86,7 +86,7 @@ class publisherController {
       }
     }) 
   }
-
+*/
 }
 
-module.exports = publisherController;
+module.exports = absnoprevistaController;
