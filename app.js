@@ -12,7 +12,7 @@ var absnoprevistesRouter = require('./routes/absnoprevistesRouter');
 
 
 dotenv.config();
-const port = process.env.PORT || 5555;
+const port = process.env.PORT || 5000;
 
 
 // Conexio a base de dades
