@@ -89,4 +89,4 @@ class absprevistaController {
 */
 }
 
-module.exports = publisherController;
+module.exports = absprevistaController;
