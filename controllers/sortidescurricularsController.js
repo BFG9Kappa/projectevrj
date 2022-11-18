@@ -1,7 +1,7 @@
-var AbsenciaPrevista = require("../models/absprevista");
+var SortidaCurricularPrevista = require("../models/sortidacurricular");
 
 
-class absprevistaController {
+class sortidacurricularController {
 /*
 	static list(req, res, next) {
 		Publisher.find()        
@@ -16,19 +16,19 @@ class absprevistaController {
 	}
 */
   static create_get(req, res, next) {
-      res.render('absprevistes/new');
+      res.render('sortidescurriculars/new');
   }
 
   
 
   static create_post(req, res, next) {
     
-    AbsenciaPrevista.create(req.body, (error, newRecord) => {
+    SortidaCurricularPrevista.create(req.body, (error, newRecord) => {
         if(error){
-            res.render('publishers/new',{error:'error'})
+            res.render('sortidescurriculars/new',{error:'error'})
         }else{
              
-            res.redirect('/publisher')
+            res.redirect('/sortidacurricular')
         }
     })
   }
@@ -89,4 +89,4 @@ class absprevistaController {
 */
 }
 
-module.exports = absprevistaController;
+module.exports = sortidacurricularController;
