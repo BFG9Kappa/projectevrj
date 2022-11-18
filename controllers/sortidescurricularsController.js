@@ -1,4 +1,4 @@
-var SortidaCurricularPrevista = require("../models/sortidacurricular");
+var SortidaCurricular = require("../models/sortidacurricular");
 
 
 class sortidacurricularController {
@@ -23,7 +23,7 @@ class sortidacurricularController {
 
   static create_post(req, res, next) {
     
-    SortidaCurricularPrevista.create(req.body, (error, newRecord) => {
+    SortidaCurricular.create(req.body, (error, newRecord) => {
         if(error){
             res.render('sortidescurriculars/new',{error:'error'})
         }else{
@@ -32,7 +32,7 @@ class sortidacurricularController {
         }
     })
   }
-/*
+
   static update_get(req, res, next) {
     Publisher.findById(req.params.id, function (err, publisher) {
         if (err) {
@@ -56,7 +56,7 @@ class sortidacurricularController {
         _id: req.params.id,
       });    
     
-      Publisher.findByIdAndUpdate(
+      SortidaCurricular.findByIdAndUpdate(
         req.params.id,
         publisher,
         {},
@@ -86,7 +86,7 @@ class sortidacurricularController {
       }
     }) 
   }
-*/
+
 }
 
 module.exports = sortidacurricularController;

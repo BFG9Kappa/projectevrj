@@ -11,6 +11,7 @@ var SortidaCurricularSchema = new Schema({
         professors:{ type: String},
         hora_inici:{ type: Number},
         hora_arribada:{ type: Number},
+        estat:{ type: String},
       });
 
 
