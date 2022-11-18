@@ -1,16 +1,13 @@
 require('dotenv').config({ path: '../.env' })
 const mongoose = require('mongoose');
 
-// 
+// Importar models
 var Horari = require("../models/horari");
-
-// Per carregar dades d'un CSV
-// const csv=require('csvtojson')
 
 // Carregar dades de fitxers JSON
 var horarisJSON = require('./provaHoraris.json');
 
-
+// 
 var mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 //mongoose.Promise = global.Promise;
@@ -45,10 +42,6 @@ async function seeder() {
     // Esborrar contingut col·leccions
     await Horari.collection.drop();
 
-    // versió per CSV
-    // const jsonObj = await csv()
-    //                 .fromFile('./genres.csv')     
-    // genreList = await Genre.insertMany(jsonObj);
-
+    // Inserir dades
     var horaris = await Horari.insertMany(horarisJSON.horaris);  
 }
