@@ -1,0 +1,18 @@
+{
+    "horaris": [
+        {
+            "horainici": 8,
+            "horafi": 10,
+            "nomassignatura": "FOL",
+            "aula": 104,
+            "codiprofessor": 1
+        },
+        {
+            "horainici": 10,
+            "horafi": 11,
+            "nomassignatura": "FOL",
+            "aula": 204,
+            "codiprofessor": 1
+        }
+    ]
+}
