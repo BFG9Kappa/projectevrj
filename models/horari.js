@@ -7,7 +7,7 @@ var HorariSchema = new Schema({
     horafi: { type: Number, required: true },
     nomassignatura: { type: String, required: true },
     aula: { type: Number, required: true },
-    codiprofe: { type: Number, required: true },
+    codiprofessor: { type: Number, required: true },
 });
 
 module.exports = mongoose.model("Horari", HorariSchema);
