@@ -13,5 +13,6 @@ Modificar fitxer .env amb les credencials de la base de dades.
 
 ```sh
 cd dataSeeders
-node seeder.js
+node seederCsv.js
+node seederJson.js
 ```
