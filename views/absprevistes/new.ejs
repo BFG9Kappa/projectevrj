@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+
+
+<main>
+
+	<div class="card mt-4">
+	  <div class="card-header">
+	     <h5 class="card-title">Document absencia prevista</h5>
+	  </div>
+	  <div class="card-body">
+
+	   	<form method="POST" action="/absprevistes/create">
+				<div class="form-group">
+					 <label for="data_absprevista">Data absència</label>            
+                     <input type="date" name="data_absprevista" class="form-control">
+					 <label for="motiu_abs">Motiu absencia</label>
+					 <textarea name="motiu_abs" class="form-control"></textarea></div>
+					 <label for="arxiuabs">Document justificatiu</label>
+					 <input type="file" class="form-control">
+
+				</div>
+				<button type="submit" class="btn btn-primary">Guarda
+				</button>
+			</form>
+
+			<% if (typeof error !== "undefined") { %>
+				<div class="alert alert-primary mt-2" role="alert">   <p><%= error %></p>
+				</div>
+			<% } %>
+
+	  </div>
+	</div>
+	
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

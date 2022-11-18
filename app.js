@@ -10,6 +10,8 @@ var usuarisRouter = require('./routes/usuarisRouter');
 var horariRouter = require('./routes/horariRouter');
 var baixesmediquesRouter = require('./routes/baixesmediquesRouter');
 var absnoprevistesRouter = require('./routes/absnoprevistesRouter');
+var absprevistesRouter = require('./routes/absprevistesRouter');
+var sortidescurricularsRouter = require('./routes/sortidescurricularsRouter');
 
 
 dotenv.config();
@@ -51,5 +53,8 @@ app.use('/usuaris', usuarisRouter);
 app.use('/horaris', horariRouter);
 app.use('/baixesmediques', baixesmediquesRouter);
 app.use('/absnoprevistes', absnoprevistesRouter);
+app.use('/absprevistes', absprevistesRouter);
+app.use('/sortidescurriculars', sortidescurricularsRouter);
+
 
 module.exports = app;

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+
+
+<main>
+
+	<div class="card mt-4">
+	  <div class="card-header">
+	     <h5 class="card-title">Document Sortida Curricular</h5>
+	  </div>
+	  <div class="card-body">
+
+	   	<form method="POST" action="/sortidescurriculars/create">
+				<div class="form-group">
+					 <label for="data_sortida">Data sortida curricular</label>            
+                     <input type="date" name="data_sortida" class="form-control">
+					 <label for="lloc">LLoc de sortida</label>
+					 <input type="text" name="lloc" class="form-control">
+					 <label for="ruta">Ruta</label>
+					 <input type="text" name="ruta" class="form-control">
+					 <label for="objectius">Objectius</label>
+					 <input type="text" name="objectius" class="form-control">
+					 <label for="grups">Grups</label>
+					 <input type="text" name="grups" class="form-control">
+					 <label for="professors">Professors</label>
+					 <input type="text" name="professors" class="form-control">
+					 <label for="hora_inici">Hora inici</label>
+					 <input type="number" name="hora_inici" class="form-control">
+					 <label for="hora_arribada">Hora arribada</label>
+					 <input type="number" name="hora_arribada" class="form-control">
+
+				</div>
+				<button type="submit" class="btn btn-primary">Guarda
+				</button>
+			</form>
+
+			<% if (typeof error !== "undefined") { %>
+				<div class="alert alert-primary mt-2" role="alert">   <p><%= error %></p>
+				</div>
+			<% } %>
+
+	  </div>
+	</div>
+	
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>

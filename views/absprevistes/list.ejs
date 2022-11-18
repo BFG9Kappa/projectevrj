@@ -13,7 +13,7 @@
 	<div class="card mt-2">
 		
 		<div class="card-header">
-	     <h5 class="card-title">Lista baixesmediques</h5>
+	     <h5 class="card-title">Lista absencies previstes</h5>
 	  </div>
 
     <div class="card-body">
@@ -23,16 +23,16 @@
 				    <tr>		      
 				      <th scope="col">Name</th>
 				      <th scope="col">
-				      	<a href="/absnoprevistes/create" class="btn btn-primary">New</a>
+				      	<a href="/absprevistes/create" class="btn btn-primary">New</a>
 				      </th>
 				    </tr>
 		  		</thead>
 			  	<tbody>
-			  		<% list.forEach( function(absnoprevista) { %>
+			  		<% list.forEach( function(absprevista) { %>
 					    <tr>		      
-					      <td><%= absnoprevista.name %></td>
+					      <td><%= absprevista.name %></td>
 					      <td>					      	
-					      	<a class="btn btn-secondary" href="/absnoprevistes/update/<%=absnoprevista._id%>" class="card-link">Edit</a>
+					      	<a class="btn btn-secondary" href="/absprevistes/update/<%=absprevista._id%>" class="card-link">Edit</a>
 					      </td>		      
 					    </tr>
 			   		<% }); %>	     
