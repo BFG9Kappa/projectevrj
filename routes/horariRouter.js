@@ -3,7 +3,6 @@ var router = express.Router();
 
 const horari_controller = require("../controllers/horariController");
 
-
 router.get("/", horari_controller.list);
 
 /*

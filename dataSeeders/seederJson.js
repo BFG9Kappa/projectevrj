@@ -43,5 +43,5 @@ async function seeder() {
     await Horari.collection.drop();
 
     // Inserir dades
-    var horaris = await Horari.insertMany(horarisJSON.horaris);  
+    var horaris = await Horari.insertMany(horarisJSON.horaris);
 }
