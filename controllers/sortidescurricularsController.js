@@ -1,90 +1,89 @@
 var SortidaCurricular = require("../models/sortidacurricular");
 
-
 class sortidacurricularController {
-/*
-	static list(req, res, next) {
-		Publisher.find()        
-        .exec(function (err, list) {
-          if (err) {
-            return next(err);
-          }
-          
-          res.render('publishers/list',{list:list})
-      }); 
-		
-	}
-*/
+  /*
+    static list(req, res, next) {
+      Publisher.find()        
+          .exec(function (err, list) {
+            if (err) {
+              return next(err);
+            }
+            
+            res.render('publishers/list',{list:list})
+        }); 
+    	
+    }
+  */
   static create_get(req, res, next) {
-      res.render('sortidescurriculars/new');
+    res.render('sortidescurriculars/new');
   }
 
-  
+
 
   static create_post(req, res, next) {
-    
+
     SortidaCurricular.create(req.body, (error, newRecord) => {
-        if(error){
-            res.render('sortidescurriculars/new',{error:'error'})
-        }else{
-             
-            res.redirect('/sortidacurricular')
-        }
+      if (error) {
+        res.render('sortidescurriculars/new', { error: 'error' })
+      } else {
+
+        res.redirect('/sortidacurricular')
+      }
     })
   }
 
   static update_get(req, res, next) {
     Publisher.findById(req.params.id, function (err, publisher) {
-        if (err) {
-          return next(err);
-        }
-        if (publisher == null) {
-          // No results.
-          var err = new Error("Publisher not found");
-          err.status = 404;
-          return next(err);
-        }
-        // Success.
-        res.render("publishers/update", { publisher: publisher });
+      if (err) {
+        return next(err);
+      }
+      if (publisher == null) {
+        // No results.
+        var err = new Error("Publisher not found");
+        err.status = 404;
+        return next(err);
+      }
+      // Success.
+      res.render("publishers/update", { publisher: publisher });
     });
-      
+
   }
 
   static update_post(req, res, next) {
-      var publisher = new Publisher({
-        name: req.body.name,
-        _id: req.params.id,
-      });    
-    
-      SortidaCurricular.findByIdAndUpdate(
-        req.params.id,
-        publisher,
-        {},
-        function (err, thepublisher) {
-          if (err) {
-            res.render("publishers/update", { publisher: publisher, error: err.message });
+    var publisher = new Publisher({
+      name: req.body.name,
+      _id: req.params.id,
+    });
 
-          }
-          res.render("publishers/update", { publisher: publisher, message: 'Publisher Updated'});
-        
+    SortidaCurricular.findByIdAndUpdate(
+      req.params.id,
+      publisher,
+      {},
+      function (err, thepublisher) {
+        if (err) {
+          res.render("publishers/update", { publisher: publisher, error: err.message });
+
         }
-      );
+        res.render("publishers/update", { publisher: publisher, message: 'Publisher Updated' });
+
+      }
+    );
   }
 
   static async delete_get(req, res, next) {
-      
-      res.render('publishers/delete',{id: req.params.id})
+
+    res.render('publishers/delete', { id: req.params.id })
   }
 
   static async delete_post(req, res, next) {
-    
-    Publisher.findByIdAndRemove(req.params.id, (error)=> {
-      if(error){
+
+    Publisher.findByIdAndRemove(req.params.id, (error) => {
+      if (error) {
         res.redirect('/publisher')
-      }else{
+      } else {
         res.redirect('/publisher')
       }
-    }) 
+    })
   }
 
 }

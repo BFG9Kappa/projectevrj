@@ -1,71 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <%- include('../partials/head'); %>
+	<%- include('../partials/head'); %>
 </head>
+
 <body class="container">
-
-<header>
-  <%- include('../partials/header'); %>
-</header>
-
-
-
-<main>
-
-	<script>
-		window.onload = function(){
-	  var fecha = new Date(); //Fecha actual
-	  var mes = fecha.getMonth()+1; //obteniendo mes
-	  var dia = fecha.getDate(); //obteniendo dia
-	  var ano = fecha.getFullYear(); //obteniendo año
-	  if(dia<10)
-		dia='0'+dia; //agrega cero si el menor de 10
-	  if(mes<10)
-		mes='0'+mes //agrega cero si el menor de 10
-	  document.getElementById('fechaActual').value=ano+"-"+mes+"-"+dia;
-	}
-	
-	
-	</script>
-
-
-	<div class="card mt-4">
-	  <div class="card-header">
-	     <h5 class="card-title">Document de baixa</h5>
-	  </div>
-	  <div class="card-body">
-
-	   	<form method="POST" action="/absnoprevistes/create">
-				<div class="form-group">
-					 <label for="data_absnoprevista">Data absència</label>
-					 <input type="date" id="fechaActual" value="" ></br>
-                     <label for="horari_profe">Horari professor</label>
-                     <input type="date" name="horariprofe" class="form-control">
-					 <label for="motiu_abs">Motiu absencia</label>
-					 <textarea name="motiu_abs" class="form-control"></textarea></div>
-					 <label for="arxiuabs">Document justificatiu</label>
-					 <input type="file" class="form-control">
-
-				</div>
-				<button type="submit" class="btn btn-primary">Guarda
-				</button>
+	<header>
+		<%- include('../partials/header'); %>
+	</header>
+	<main>
+		<script>
+			window.onload = function () {
+				var fecha = new Date(); //Fecha actual
+				var mes = fecha.getMonth() + 1; //obteniendo mes
+				var dia = fecha.getDate(); //obteniendo dia
+				var ano = fecha.getFullYear(); //obteniendo año
+				if (dia < 10)
+					dia = '0' + dia; //agrega cero si el menor de 10
+				if (mes < 10)
+					mes = '0' + mes //agrega cero si el menor de 10
+				document.getElementById('fechaActual').value = ano + "-" + mes + "-" + dia;
+			}
+		</script>
+		<div class="card mt-4">
+			<div class="card-header">
+				<h5 class="card-title">Document de baixa</h5>
+			</div>
+			<div class="card-body">
+				<form method="POST" action="/absnoprevistes/create">
+					<div class="form-group">
+						<label for="data_absnoprevista">Data absència</label>
+						<input type="date" id="fechaActual" value=""></br>
+						<label for="horari_profe">Horari professor</label>
+						<input type="date" name="horariprofe" class="form-control">
+						<label for="motiu_abs">Motiu absencia</label>
+						<textarea name="motiu_abs" class="form-control"></textarea>
+					</div>
+					<label for="arxiuabs">Document justificatiu</label>
+					<input type="file" class="form-control">
+			</div>
+			<button type="submit" class="btn btn-primary">Guarda
+			</button>
 			</form>
-
-			<% if (typeof error !== "undefined") { %>
-				<div class="alert alert-primary mt-2" role="alert">   <p><%= error %></p>
+			<% if (typeof error !=="undefined" ) { %>
+				<div class="alert alert-primary mt-2" role="alert">
+					<p>
+						<%= error %>
+					</p>
 				</div>
-			<% } %>
-
-	  </div>
-	</div>
-	
-
-</main>
-
-<footer>
-  <%- include('../partials/footer'); %>
-</footer>
-
+				<% } %>
+		</div>
+		</div>
+	</main>
+	<footer>
+		<%- include('../partials/footer'); %>
+	</footer>
 </body>
+
 </html>

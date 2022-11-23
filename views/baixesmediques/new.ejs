@@ -1,51 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <%- include('../partials/head'); %>
+	<%- include('../partials/head'); %>
 </head>
+
 <body class="container">
 
-<header>
-  <%- include('../partials/header'); %>
-</header>
+	<header>
+		<%- include('../partials/header'); %>
+	</header>
 
-<main>
+	<main>
 
-	<div class="card mt-4">
-	  <div class="card-header">
-	     <h5 class="card-title">Document de baixa</h5>
-	  </div>
-	  <div class="card-body">
+		<div class="card mt-4">
+			<div class="card-header">
+				<h5 class="card-title">Document de baixa</h5>
+			</div>
+			<div class="card-body">
 
-	   	<form method="POST" action="/baixesmediques/create">
-				<div class="form-group">
-					 <label for="data_inicial_baixa">Data inical baixa mèdica</label>
-					 <input type="date" name="data_inicial_baixa" class="form-control">
-                     <label for="data_prevista_alta">Data prevista alta medica</label>
-                     <input type="date" name="data_prevista_alta" class="form-control">
-					 <label for="comentari">Comentari</label>
-					 <textarea name="comentari" class="form-control"></textarea></div></br>
-					 <input type="file" class="form-control">
+				<form method="POST" action="/baixesmediques/create">
+					<div class="form-group">
+						<label for="data_inicial_baixa">Data inical baixa mèdica</label>
+						<input type="date" name="data_inicial_baixa" class="form-control">
+						<label for="data_prevista_alta">Data prevista alta medica</label>
+						<input type="date" name="data_prevista_alta" class="form-control">
+						<label for="comentari">Comentari</label>
+						<textarea name="comentari" class="form-control"></textarea>
+					</div></br>
+					<input type="file" class="form-control">
 
-				</div>
-				<button type="submit" class="btn btn-primary">Guarda
-				</button>
+			</div>
+			<button type="submit" class="btn btn-primary">Guarda
+			</button>
 			</form>
 
-			<% if (typeof error !== "undefined") { %>
-				<div class="alert alert-primary mt-2" role="alert">   <p><%= error %></p>
+			<% if (typeof error !=="undefined" ) { %>
+				<div class="alert alert-primary mt-2" role="alert">
+					<p>
+						<%= error %>
+					</p>
 				</div>
-			<% } %>
+				<% } %>
 
-	  </div>
-	</div>
-	
+		</div>
+		</div>
 
-</main>
 
-<footer>
-  <%- include('../partials/footer'); %>
-</footer>
+	</main>
+
+	<footer>
+		<%- include('../partials/footer'); %>
+	</footer>
 
 </body>
+
 </html>

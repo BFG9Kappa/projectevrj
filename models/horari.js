@@ -10,4 +10,5 @@ var HorariSchema = new Schema({
     codiprofessor: { type: Number, required: true },
 });
 
+// Export model.
 module.exports = mongoose.model("Horari", HorariSchema);
