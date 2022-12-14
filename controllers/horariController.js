@@ -2,6 +2,8 @@ var Horari = require("../models/horari");
 
 class HorariController {
 
+
+
   static list(req, res, next) {
     Horari.find()
       .exec(function (err, list_horari) {
