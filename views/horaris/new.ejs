@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+
+    <main>
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title">Afegir horari</h5>
+            </div>
+            <div class="card-body">
+
+                <form method="POST" action="/horaris/create">
+                    <div class="form-group">
+                        <label class="form-label">Hora inici</label>
+                        <input type="text" name="horainici" class="form-control">
+                        <label class="form-label">Hora fi</label>
+                        <input type="text" name="horafi" class="form-control">
+                        <label class="form-label">Nom assignatura</label>
+                        <input type="text" name="nomassignatura" class="form-control">
+                        <label class="form-label">Aula</label>
+                        <input type="text" name="aula" class="form-control">
+                        <label class="form-label">Codi professor</label>
+                        <input type="text" name="codiprofessor" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save
+                    </button>
+                </form>
+                <% if (typeof error !=="undefined" ) { %>
+                    <div class="alert alert-primary mt-2" role="alert">
+                        <p>
+                            <%= error %>
+                        </p>
+                    </div>
+                    <% } %>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+
+</body>
+
+</html>
