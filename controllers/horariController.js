@@ -31,13 +31,11 @@ class HorariController {
       if (err) {
         return next(err);
       }
-      if (horari == null) {
-        // No results.
+      if (horari == null) { // Sense resultats.
         var err = new Error("Horari not found");
         err.status = 404;
         return next(err);
-      }
-      // Success.
+      } // Correcte.
       res.render("horaris/update", { horari: horari });
     });
   }
@@ -49,7 +47,7 @@ class HorariController {
       nomassignatura: req.body.nomassignatura,
       aula: req.body.aula,
       codiprofessor: req.body.codiprofessor,
-      _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+      _id: req.params.id,  // Fa falta per sobreescriure el objecte.
     });
     Horari.findByIdAndUpdate(
       req.params.id,
@@ -57,10 +55,8 @@ class HorariController {
       { runValidators: true }, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
       function (err, horariFound) {
         if (err) {
-          //return next(err);
           res.render("horaris/update", { horari: horari, error: err.message });
         }
-        //res.redirect('/genres/update/'+ genreFound._id);
         res.render("horaris/update", { horari: horari, message: 'Horari Updated' });
       }
     );
@@ -73,6 +69,7 @@ class HorariController {
   static async delete_post(req, res, next) {
     Horari.findByIdAndRemove(req.params.id, function (error) {
       if (error) {
+        
         res.redirect('/horaris')
       } else {
         res.redirect('/horaris')
