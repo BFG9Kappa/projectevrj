@@ -6,27 +6,30 @@
 </head>
 
 <body class="container">
-
     <header>
         <%- include('partials/header'); %>
     </header>
-
     <main>
-
-        <div class="card mt-2">
+        <div class="card mt-4">
+			<div class="card-header">
+				<h5 class="card-title">Accedir</h5>
+			</div>
             <div class="card-body">
-                <form method="" action="">
-                    Correu
-                    <input type="email">
-                    <br>
-                    Contrasenya
-                    <input type="password">
-                    <br>
-                    <input type="button" value="entrar">
+                <form method="POST" action="/usuari/create">
+                    <div>
+                        <label for="Correu">Correu</label>
+                        <input type="email" name="email" class="form-control" placeholder="usuari@gmail.com">
+                        <br>
+                        <label for="Correu">Constrasenya</label>
+                        <input type="password" name="password" class="form-control">    
+                    </div>
+                    
                 </form>
+          
             </div>
+            <button type="submit" class="btn btn-primary">Guarda</button>
         </div>
-
+          
     </main>
 
     <footer>
