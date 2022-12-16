@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+
+<body class="container">
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="card-title">Edit Genre</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/horaris/update/<%= horari._id %>">
+                    <div class="form-group">
+                        <label for="name">Hora inici</label>
+                        <input type="text" name="horainici" class="form-control" value="<%= horari.horainici %>">
+                        <label for="name">Hora fi</label>
+                        <input type="text" name="horafi" class="form-control" value="<%= horari.horafi %>">
+                        <label for="name">Nom assignatura</label>
+                        <input type="text" name="nomassignatura" class="form-control"
+                            value="<%= horari.nomassignatura %>">
+                        <label for="name">Aula</label>
+                        <input type="text" name="aula" class="form-control" value="<%= horari.aula %>">
+                        <label for="name">Codi professor</label>
+                        <input type="text" name="codiprofessor" class="form-control"
+                            value="<%= horari.codiprofessor %>">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Desar</button>
+                    <a class="btn btn-danger" href="/horaris/delete/<%= horari._id %>" role="button">Esborrar</a>
+                </form>
+                <% if (typeof error !=="undefined" ) { %>
+                    <div class="alert alert-primary mt-2" role="alert">
+                        <p>
+                            <%= error %>
+                        </p>
+                    </div>
+                    <% } %>
+                        <% if (typeof message !=="undefined" ) { %>
+                            <div class="alert alert-primary mt-2" role="alert">
+                                <p>
+                                    <%= message %>
+                                </p>
+                            </div>
+                            <% } %>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+</body>
+
+</html>

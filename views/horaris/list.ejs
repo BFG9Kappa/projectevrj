@@ -9,7 +9,10 @@
     /*
     borra esto luego macho
     */
-    table, th, tr, td {
+    table,
+    th,
+    tr,
+    td {
         border: 1px solid black
     }
 </style>
@@ -19,7 +22,7 @@
         <%- include('../partials/header'); %>
     </header>
     <main>
-        <div class="card mt-2">
+        <div class="card mt-4">
             <div class="card-header">
                 <h5 class="card-title">Horari</h5>
             </div>
@@ -30,16 +33,74 @@
 
                     <thead>
                         <tr>
+
                             <th scope="col">Hora</th>
                             <th scope="col">Dilluns</th>
                             <th scope="col">Dimarts</th>
                             <th scope="col">Dimecres</th>
                             <th scope="col">Dijous</th>
                             <th scope="col">Divendres</th>
+                            <th scope="col">Operacions</th>
+
+                            <!--
+                            <th scope="col">Hora inici</th>
+                            <th scope="col">Hora fi</th>
+                            <th scope="col">Assignatura</th>
+                            <th scope="col">Aula</th>
+                            <th scope="col">Professor</th>
+                            <th scope="col" colspan="2">Operacions</th>
+                            -->
                         </tr>
                     </thead>
                     <tbody>
+
+                        <!-- Prova 
+                        <% list.forEach(function(horari) { %>
+                            <tr>
+                                <td>
+                                    <%= horari.horainici %>
+                                </td>
+                                <td>
+                                    <%= horari.horafi %>
+                                </td>
+                                <td>
+                                    <%= horari.nomassignatura %>
+                                </td>
+                                <td>
+                                    <%= horari.aula %>
+                                </td>
+                                <td>
+                                    <%= horari.codiprofessor %>
+                                </td>
+                                <td>
+                                    <a class="btn btn-secondary" class="card-link" href="/horaris/update/<%=horari._id%>">Editar</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" class="card-link" href="/horaris/delete/<%=horari._id%>">Esborrar</a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                            -->
+
+
+                        <% list.forEach(function(horari) { %>
+                            <tr>
+                                <td>
+                                    <%= horari.horainici %> - <%= horari.horafi %>
+                                </td>
+                                <td>
+                                    <%= horari.nomassignatura %>
+                                </td>
+
+                                <td>
+                                    <a class="btn btn-secondary" href="/horaris/update/<%=horari._id%>"
+                                        class="card-link">Edit</a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                 
                         <!-- Diurn -->
+                        <!--
                         <tr>
                             <td>8:00 - 9:00</td>
                         </tr>
@@ -62,7 +123,7 @@
                         <tr>
                             <td>13:30 - 14:30</td>
                         </tr>
-                        <!-- Nocturn -->
+
                         <tr>
                             <td>15:00 - 16:00</td>
                         </tr>
@@ -88,6 +149,7 @@
                         <tr>
                             <td>20:30 - 21:30</td>
                         </tr>
+                        -->
                     </tbody>
                 </table>
             </div>

@@ -1,30 +1,6 @@
 var Horari = require("../models/horari");
 
-//const { body, validationResult } = require("express-validator"); // Validacions
-
 class HorariController {
-
-  /* //Validacions
-  static rules = [
-    // Validate and sanitize fields.
-    body("name")
-      .trim()
-      .isLength({ min: 1})
-      .withMessage('Name must not be empty.')
-      .isLength({ max: 20})
-      .withMessage('Name is too long.')
-      .escape()
-      .custom(async function(value, {req}) {
-          const genre = await Genre.findOne({name:value});
-          if (genre) {
-            if(req.params.id!==genre.id ) {
-              throw new Error('This gender name already exists.');
-            }
-          }
-          return true;
-      })
-  ];
-  */
 
   static list(req, res, next) {
     Horari.find()
@@ -41,15 +17,67 @@ class HorariController {
   }
 
   static create_post(req, res) {
-    // console.log(req.body)
-    Horari.create(req.body, function (error, newHorari)  {
-        if(error){
-            //console.log(error)
-            res.render('horaris/new',{error:error.message})
-        }else{             
-            res.redirect('/horaris')
+    Horari.create(req.body, function (error, newHorari) {
+      if (error) {
+        res.render('horaris/new', { error: error.message })
+      } else {
+        res.redirect('/horaris')
+      }
+    })
+  }
+
+  static update_get(req, res, next) {
+    Horari.findById(req.params.id, function (err, horari) {
+      if (err) {
+        return next(err);
+      }
+      if (horari == null) {
+        // No results.
+        var err = new Error("Horari not found");
+        err.status = 404;
+        return next(err);
+      }
+      // Success.
+      res.render("horaris/update", { horari: horari });
+    });
+  }
+
+  static update_post(req, res, next) {
+    var horari = new Horari({
+      horainici: req.body.horainici,
+      horafi: req.body.horafi,
+      nomassignatura: req.body.nomassignatura,
+      aula: req.body.aula,
+      codiprofessor: req.body.codiprofessor,
+      _id: req.params.id,  // Necessari per a que sobreescrigui el mateix objecte!
+    });
+    Horari.findByIdAndUpdate(
+      req.params.id,
+      horari,
+      { runValidators: true }, // comportament per defecte: buscar i modificar si el troba sense validar l'Schema
+      function (err, horariFound) {
+        if (err) {
+          //return next(err);
+          res.render("horaris/update", { horari: horari, error: err.message });
         }
-    })    
+        //res.redirect('/genres/update/'+ genreFound._id);
+        res.render("horaris/update", { horari: horari, message: 'Horari Updated' });
+      }
+    );
+  }
+
+  static async delete_get(req, res, next) {
+    res.render('horaris/delete', { id: req.params.id })
+  }
+
+  static async delete_post(req, res, next) {
+    Horari.findByIdAndRemove(req.params.id, function (error) {
+      if (error) {
+        res.redirect('/horaris')
+      } else {
+        res.redirect('/horaris')
+      }
+    })
   }
 
 }
