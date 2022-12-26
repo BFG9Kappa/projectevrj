@@ -42,11 +42,12 @@ class HorariController {
 
   static update_post(req, res, next) {
     var horari = new Horari({
-      horainici: req.body.horainici,
-      horafi: req.body.horafi,
-      nomassignatura: req.body.nomassignatura,
+      dia: req.body.dia,
+      hora: req.body.hora,
+      materia: req.body.materia,
       aula: req.body.aula,
-      codiprofessor: req.body.codiprofessor,
+      grup: req.body.grup,
+      professor: req.body.professor,
       _id: req.params.id,  // Fa falta per sobreescriure el objecte.
     });
     Horari.findByIdAndUpdate(

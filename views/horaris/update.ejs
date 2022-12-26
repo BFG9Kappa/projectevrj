@@ -17,18 +17,18 @@
             <div class="card-body">
                 <form method="POST" action="/horaris/update/<%= horari._id %>">
                     <div class="form-group">
-                        <label for="name">Hora inici</label>
-                        <input type="text" name="horainici" class="form-control" value="<%= horari.horainici %>">
-                        <label for="name">Hora fi</label>
-                        <input type="text" name="horafi" class="form-control" value="<%= horari.horafi %>">
-                        <label for="name">Nom assignatura</label>
-                        <input type="text" name="nomassignatura" class="form-control"
-                            value="<%= horari.nomassignatura %>">
+                        <label for="name">Dia</label>
+                        <input type="text" name="dia" class="form-control" value="<%= horari.dia %>">
+                        <label for="name">Hora</label>
+                        <input type="text" name="hora" class="form-control" value="<%= horari.hora %>">
+                        <label for="name">Materia</label>
+                        <input type="text" name="materia" class="form-control" value="<%= horari.materia %>">
                         <label for="name">Aula</label>
                         <input type="text" name="aula" class="form-control" value="<%= horari.aula %>">
-                        <label for="name">Codi professor</label>
-                        <input type="text" name="codiprofessor" class="form-control"
-                            value="<%= horari.codiprofessor %>">
+                        <label for="name">Grup</label>
+                        <input type="text" name="grup" class="form-control" value="<%= horari.grup %>">
+                        <label for="name">Professor</label>
+                        <input type="text" name="professor" class="form-control" value="<%= horari.professor %>">
                     </div>
                     <button class="btn btn-primary" type="submit">Desar</button>
                     <a class="btn btn-danger" href="/horaris/delete/<%= horari._id %>" role="button">Esborrar</a>

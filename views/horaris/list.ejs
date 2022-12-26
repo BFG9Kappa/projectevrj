@@ -33,7 +33,6 @@
 
                     <thead>
                         <tr>
-
                             <th scope="col">Hora</th>
                             <th scope="col">Dilluns</th>
                             <th scope="col">Dimarts</th>
@@ -41,12 +40,12 @@
                             <th scope="col">Dijous</th>
                             <th scope="col">Divendres</th>
                             <th scope="col">Operacions</th>
-
                             <!--
-                            <th scope="col">Hora inici</th>
-                            <th scope="col">Hora fi</th>
-                            <th scope="col">Assignatura</th>
+                            <th scope="col">Dia</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Materia</th>
                             <th scope="col">Aula</th>
+                            <th scope="col">Grup</th>
                             <th scope="col">Professor</th>
                             <th scope="col" colspan="2">Operacions</th>
                             -->
@@ -82,23 +81,6 @@
                             <% }); %>
                             -->
 
-
-                        <% list.forEach(function(horari) { %>
-                            <tr>
-                                <td>
-                                    <%= horari.horainici %> - <%= horari.horafi %>
-                                </td>
-                                <td>
-                                    <%= horari.nomassignatura %>
-                                </td>
-
-                                <td>
-                                    <a class="btn btn-secondary" href="/horaris/update/<%=horari._id%>"
-                                        class="card-link">Edit</a>
-                                </td>
-                            </tr>
-                            <% }); %>
-                 
                         <!-- Diurn -->
                         <!--
                         <tr>
@@ -151,6 +133,44 @@
                         </tr>
                         -->
                     </tbody>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Dia</th>
+                                <th>Hora</th>
+                                <th>Materia</th>
+                                <th>Aula</th>
+                                <th>Grup</th>
+                                <th>Professor</th>
+                            </tr>
+                        </thead>
+                        <% list.forEach(function(horari) { %>
+                            <tr>
+                                <td>
+                                    <%= horari.dia %>
+                                </td>
+                                <td>
+                                    <%= horari.hora %>
+                                </td>
+                                <td>
+                                    <%= horari.materia %>
+                                </td>
+                                <td>
+                                    <%= horari.aula %>
+                                </td>
+                                <td>
+                                    <%= horari.grup %>
+                                </td>
+                                <td>
+                                    <%= horari.professor %>
+                                </td>
+                                <td>
+                                    <a class="btn btn-secondary" href="/horaris/update/<%=horari._id%>"
+                                        class="card-link">Edit</a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </table>
                 </table>
             </div>
         </div>

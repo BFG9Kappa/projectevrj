@@ -3,11 +3,12 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var HorariSchema = new Schema({
-    horainici: { type: Number, required: true },
-    horafi: { type: Number, required: true },
-    nomassignatura: { type: String, required: true },
-    aula: { type: Number, required: true },
-    codiprofessor: { type: Number, required: true },
+    dia: { type: Number, required: true},
+    hora: { type: Number, required: true},
+    materia: { type: String, required: true},
+    aula: { type: String, required: true},
+    grup: { type: String, required: true},
+    professor: { type: String, required: true},
 });
 
 // Export model.
