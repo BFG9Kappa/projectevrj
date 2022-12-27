@@ -1,18 +1,28 @@
 {
     "horaris": [
         {
-            "horainici": 8,
-            "horafi": 10,
-            "nomassignatura": "FOL",
-            "aula": 104,
-            "codiprofessor": 1
+            "dia": 1,
+            "hora": 1,
+            "materia": "DAW_XXX",
+            "aula": "X-101",
+            "grup": "DAWXX",
+            "professor": "gafera"
         },
         {
-            "horainici": 10,
-            "horafi": 11,
-            "nomassignatura": "FOL",
-            "aula": 204,
-            "codiprofessor": 1
+            "dia": 1,
+            "hora": 2,
+            "materia": "DAW_XXX",
+            "aula": "X-101",
+            "grup": "DAWXX",
+            "professor": "gafera"
+        },
+        {
+            "dia": 1,
+            "hora": 3,
+            "materia": "DAM_XXX",
+            "aula": "X-202",
+            "grup": "DAMXX",
+            "professor": "gafera"
         }
     ]
 }
