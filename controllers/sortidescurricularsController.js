@@ -33,38 +33,38 @@ class sortidacurricularController {
   }
 
   static update_get(req, res, next) {
-    Publisher.findById(req.params.id, function (err, publisher) {
+    Sortidacurricular.findById(req.params.id, function (err, sortidacurricular) {
       if (err) {
         return next(err);
       }
-      if (publisher == null) {
+      if (sortidacurricular == null) {
         // No results.
         var err = new Error("Publisher not found");
         err.status = 404;
         return next(err);
       }
       // Success.
-      res.render("publishers/update", { publisher: publisher });
+      res.render("sortidacurriculars/update", { sortidacurricular: sortidacurricular });
     });
 
   }
 
   static update_post(req, res, next) {
-    var publisher = new Publisher({
+    var sortidacurricular = new Sortidacurricular({
       name: req.body.name,
       _id: req.params.id,
     });
 
     SortidaCurricular.findByIdAndUpdate(
       req.params.id,
-      publisher,
+      sortidacurricular,
       {},
-      function (err, thepublisher) {
+      function (err, thesortidacurricular) {
         if (err) {
-          res.render("publishers/update", { publisher: publisher, error: err.message });
+          res.render("sortidacurriculars/update", { sortidacurricular: sortidacurricular, error: err.message });
 
         }
-        res.render("publishers/update", { publisher: publisher, message: 'Publisher Updated' });
+        res.render("sortidacurriculars/update", { sortidacurricular: sortidacurricular, message: 'Sortidacurricular Updated' });
 
       }
     );
@@ -72,16 +72,16 @@ class sortidacurricularController {
 
   static async delete_get(req, res, next) {
 
-    res.render('publishers/delete', { id: req.params.id })
+    res.render('sortidacurriculars/delete', { id: req.params.id })
   }
 
   static async delete_post(req, res, next) {
 
     Publisher.findByIdAndRemove(req.params.id, (error) => {
       if (error) {
-        res.redirect('/publisher')
+        res.redirect('/sortidacurricular')
       } else {
-        res.redirect('/publisher')
+        res.redirect('/sortidacurricular')
       }
     })
   }
