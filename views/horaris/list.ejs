@@ -27,10 +27,9 @@
                 <h5 class="card-title">Horari</h5>
             </div>
             <div class="card-body">
+
                 <table class="table table-striped">
-
                     <a href="/horaris/create" class="btn btn-primary">Nou</a>
-
                     <thead>
                         <tr>
                             <th scope="col">Hora</th>
@@ -105,7 +104,8 @@
                         </tr>
                     </tbody>
                 </table>
-                <!-- taula dades -->
+
+                <!-- taula dades prova -->
                 <br><br>
                 <table>
                     <thead>
@@ -118,33 +118,57 @@
                             <th>Professor</th>
                         </tr>
                     </thead>
-                    <% list.forEach(function(horari) { %>
+                    <tbody>
+                        <% list.forEach(function(horari) { %>
+                            <tr>
+                                <td>
+                                    <%= horari.dia %>
+                                </td>
+                                <td>
+                                    <%= horari.hora %>
+                                </td>
+                                <td>
+                                    <%= horari.materia %>
+                                </td>
+                                <td>
+                                    <%= horari.aula %>
+                                </td>
+                                <td>
+                                    <%= horari.grup %>
+                                </td>
+                                <td>
+                                    <%= horari.professor %>
+                                </td>
+                                <td>
+                                    <a class="btn btn-secondary" href="/horaris/update/<%=horari._id%>"
+                                        class="card-link">Edit</a>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+
+                <!-- prova versio 2 -->
+                <br><br>
+                <table>
+                    <thead>
                         <tr>
                             <td>
-                                <%= horari.dia %>
-                            </td>
-                            <td>
-                                <%= horari.hora %>
-                            </td>
-                            <td>
-                                <%= horari.materia %>
-                            </td>
-                            <td>
-                                <%= horari.aula %>
-                            </td>
-                            <td>
-                                <%= horari.grup %>
-                            </td>
-                            <td>
-                                <%= horari.professor %>
-                            </td>
-                            <td>
-                                <a class="btn btn-secondary" href="/horaris/update/<%=horari._id%>"
-                                    class="card-link">Edit</a>
+                                test
                             </td>
                         </tr>
+                    </thead>
+                    <tbody>
+                        <% list.forEach(function(horari) { %>
+                            <tr>
+                                <td>
+                                    <%= horari %>
+                                </td>
+                            </tr>
                         <% }); %>
+                    </tbody>
                 </table>
+
             </div>
         </div>
     </main>

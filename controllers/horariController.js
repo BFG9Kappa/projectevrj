@@ -8,7 +8,20 @@ class HorariController {
         if (err) {
           return next(err);
         }
-        res.render('horaris/list', { list: list_horari })
+
+        // Crear segon array amb franjes !!
+
+        // Preparem el array per imprimirlo
+        var horari = new Array(6);
+        for (var i = 0; i < 5; i++) horari[i] = new Array(15)
+        list_horari.forEach(function (h) {
+          //horari[h.hora][h.dia] = h.materia
+          horari[h.hora][h.dia] = h.materia + h.aula
+        })
+        console.log(horari)
+
+        //res.render('horaris/list', { list: list_horari });
+        res.render('horaris/list', { list: horari});
       });
   }
 
@@ -70,7 +83,7 @@ class HorariController {
   static async delete_post(req, res, next) {
     Horari.findByIdAndRemove(req.params.id, function (error) {
       if (error) {
-        
+
         res.redirect('/horaris')
       } else {
         res.redirect('/horaris')
