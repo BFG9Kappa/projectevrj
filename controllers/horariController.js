@@ -16,7 +16,7 @@ class HorariController {
         for (var i = 0; i < 5; i++) horari[i] = new Array(15)
         list_horari.forEach(function (h) {
           //horari[h.hora][h.dia] = h.materia
-          horari[h.hora][h.dia] = h.materia + h.aula
+          horari[h.hora][h.dia] = h.materia + ' ' + h.aula + ' ' + h.grup
         })
         console.log(horari)
 
