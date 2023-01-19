@@ -38,20 +38,43 @@
                             <th scope="col">Dimecres</th>
                             <th scope="col">Dijous</th>
                             <th scope="col">Divendres</th>
-                            <!--
                             <th scope="col">Operacions</th>
-                            <th scope="col">Dia</th>
+                    </thead>
+                    <tbody>
+                        <% for(var i=1; i<16; i++) { %>
+                            <tr>
+                                <td>
+                                    <%= taulahorari[i] %>
+                                </td>
+                                <% for(var j=1; j<6; j++) { %>
+                                    <td>
+                                        <%= list[i][j] %>
+                                    </td>
+                                    <% } %>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+
+                <!--
+                <table class="table table-striped">
+                    <a href="/horaris/create" class="btn btn-primary">Nou</a>
+                    <thead>
+                        <tr>
                             <th scope="col">Hora</th>
-                            <th scope="col">Materia</th>
-                            <th scope="col">Aula</th>
-                            <th scope="col">Grup</th>
-                            <th scope="col">Professor</th>
-                            <th scope="col" colspan="2">Operacions</th>
-                            -->
+                            <th scope="col">Dilluns</th>
+                            <th scope="col">Dimarts</th>
+                            <th scope="col">Dimecres</th>
+                            <th scope="col">Dijous</th>
+                            <th scope="col">Divendres</th>
+                            <th scope="col">Operacions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Diurn -->
+                        Diurn
+                        <tr>
+                            <td>Mati</td>
+                        </tr>
                         <tr>
                             <td>8:00 - 9:00</td>
                         </tr>
@@ -104,70 +127,7 @@
                         </tr>
                     </tbody>
                 </table>
-
-                <!-- taula dades prova -->
-                <br><br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Dia</th>
-                            <th>Hora</th>
-                            <th>Materia</th>
-                            <th>Aula</th>
-                            <th>Grup</th>
-                            <th>Professor</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% list.forEach(function(horari) { %>
-                            <tr>
-                                <td>
-                                    <%= horari.dia %>
-                                </td>
-                                <td>
-                                    <%= horari.hora %>
-                                </td>
-                                <td>
-                                    <%= horari.materia %>
-                                </td>
-                                <td>
-                                    <%= horari.aula %>
-                                </td>
-                                <td>
-                                    <%= horari.grup %>
-                                </td>
-                                <td>
-                                    <%= horari.professor %>
-                                </td>
-                                <td>
-                                    <a class="btn btn-secondary" href="/horaris/update/<%=horari._id%>"
-                                        class="card-link">Edit</a>
-                                </td>
-                            </tr>
-                            <% }); %>
-                    </tbody>
-                </table>
-
-                <!-- prova versio 2 -->
-                <br><br>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>
-                                test
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% list.forEach(function(horari) { %>
-                            <tr>
-                                <td>
-                                    <%= horari %>
-                                </td>
-                            </tr>
-                        <% }); %>
-                    </tbody>
-                </table>
+            -->
 
             </div>
         </div>
