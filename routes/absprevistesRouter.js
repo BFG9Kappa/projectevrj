@@ -3,7 +3,7 @@ var router = express.Router();
 
 const absprevista_controller = require("../controllers/absprevistesController");
 
-//router.get("/", absnoprevista_controller.list);
+router.get("/", absprevista_controller.list);
 
 router.get("/create", absprevista_controller.create_get);
 router.post("/create", absprevista_controller.create_post);

@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var AbsPrevistaSchema = new Schema({
   data_absprevista: { type: Date, required: true },
-  motiu_abs: { type: String },
+  motiu_abs: { type: String, required: true },
 });
 
 // Export model.

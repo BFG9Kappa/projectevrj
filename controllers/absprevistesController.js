@@ -1,33 +1,37 @@
 var AbsenciaPrevista = require("../models/absprevista");
 
 class absprevistaController {
-  /*
+  
     static list(req, res, next) {
-      Publisher.find()        
-          .exec(function (err, list) {
+      AbsenciaPrevista.find()        
+          .exec(function (err, list_absprevista) {
             if (err) {
               return next(err);
             }
             
-            res.render('publishers/list',{list:list})
+            res.render('absprevistes/list',{ list: list_absprevista })
         }); 
     	
     }
-  */
+  
   static create_get(req, res, next) {
-    res.render('absprevistes/new');
-  }
-
-
+      
+        var AbsenciaPrevista = {
+          "data_absprevista" : "",
+          "motiu_abs" : ""
+        }
+        res.render('absprevistes/new',{AbsenciaPrevista:AbsenciaPrevista});
+    }
+  
 
   static create_post(req, res, next) {
 
     AbsenciaPrevista.create(req.body, (error, newRecord) => {
       if (error) {
-        res.render('publishers/new', { error: 'error' })
+        res.render('absprevistes/new', { error: 'error' })
       } else {
 
-        res.redirect('/publisher')
+        res.redirect('/absprevistes')
       }
     })
   }

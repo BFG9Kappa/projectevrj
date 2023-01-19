@@ -20,7 +20,7 @@
 						<tr>
 							<th scope="col">Name</th>
 							<th scope="col">
-								<a href="/absprevistes/create" class="btn btn-primary">New</a>
+								<a href="/absprevistes/new" class="btn btn-primary">New</a>
 							</th>
 						</tr>
 					</thead>
@@ -28,7 +28,7 @@
 						<% list.forEach( function(absprevista) { %>
 							<tr>
 								<td>
-									<%= absprevista.name %>
+									<%= absprevista.data_absprevista %>
 								</td>
 								<td>
 									<a class="btn btn-secondary" href="/absprevistes/update/<%=absprevista._id%>"
