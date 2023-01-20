@@ -35,45 +35,45 @@ class absprevistaController {
       }
     })
   }
-  /*
+   /*
     static update_get(req, res, next) {
-      Publisher.findById(req.params.id, function (err, publisher) {
+      AbsenciaPrevista.findById(req.params.id, function (err, AbsenciaPrevista) {
           if (err) {
             return next(err);
           }
-          if (publisher == null) {
+          if (AbsenciaPrevista == null) {
             // No results.
-            var err = new Error("Publisher not found");
+            var err = new Error("Absencia prevista not found");
             err.status = 404;
             return next(err);
           }
           // Success.
-          res.render("publishers/update", { publisher: publisher });
+          res.render("absprevistes/update", { AbsenciaPrevista: AbsenciaPrevista });
       });
         
     }
   
     static update_post(req, res, next) {
-        var publisher = new Publisher({
-          name: req.body.name,
+        var AbsenciaPrevista = new AbsenciaPrevista({
+          motiu_abs: req.body.motiu_abs,
           _id: req.params.id,
         });    
       
-        Publisher.findByIdAndUpdate(
+        AbsenciaPrevista.findByIdAndUpdate(
           req.params.id,
-          publisher,
+          AbsenciaPrevista,
           {},
-          function (err, thepublisher) {
+          function (err, theAbsenciaPrevista) {
             if (err) {
-              res.render("publishers/update", { publisher: publisher, error: err.message });
+              res.render("absprevistes/update", { publisher: publisher, error: err.message });
   
             }
-            res.render("publishers/update", { publisher: publisher, message: 'Publisher Updated'});
+            res.render("absprevistes/update", { publisher: publisher, message: 'Publisher Updated'});
           
           }
         );
     }
-  
+ 
     static async delete_get(req, res, next) {
         
         res.render('publishers/delete',{id: req.params.id})
