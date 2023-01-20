@@ -12,18 +12,15 @@
 	<main>
 		<div class="card mt-4">
 			<div class="card-header">
-				<h5 class="card-title">Edit Absencia prevista</h5>
+				<h5 class="card-title">Edita Absencia prevista</h5>
 			</div>
 			<div class="card-body">
-
 				<form method="POST" action="/absprevistes/update/<%= absprevista._id %>">
 					<div class="form-group">
-						<label for="data_inicial_baixa">Data inicial baixa</label>
-						<input type="date" name="data_inicial_baixa" class="form-control"
-							value="<%= baixamedica.name %>">
-						<label for="data_inicial_baixa">Data inicial baixa</label>
-						<input type="date" name="data_inicial_baixa" class="form-control"
-							value="<%= baixamedica.name %>">
+						<label for="data_absprevista">Data absència</label>
+						<input type="date" name="data_absprevista" class="form-control">
+						<label for="motiu_abs">Motiu absencia</label>
+						<textarea name="motiu_abs" class="form-control"></textarea>
 					</div>
 					<button type="submit" class="btn btn-primary">Save
 					</button>

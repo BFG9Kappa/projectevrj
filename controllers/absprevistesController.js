@@ -35,7 +35,7 @@ class absprevistaController {
       }
     })
   }
-   /*
+   
     static update_get(req, res, next) {
       AbsenciaPrevista.findById(req.params.id, function (err, AbsenciaPrevista) {
           if (err) {
@@ -76,20 +76,20 @@ class absprevistaController {
  
     static async delete_get(req, res, next) {
         
-        res.render('publishers/delete',{id: req.params.id})
+        res.render('absprevistes/delete',{id: req.params.id})
     }
   
     static async delete_post(req, res, next) {
       
       Publisher.findByIdAndRemove(req.params.id, (error)=> {
         if(error){
-          res.redirect('/publisher')
+          res.redirect('/absprevistes')
         }else{
-          res.redirect('/publisher')
+          res.redirect('/absprevistes')
         }
       }) 
     }
-  */
+  
 }
 
 module.exports = absprevistaController;
