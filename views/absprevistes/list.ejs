@@ -12,15 +12,17 @@
 	<main>
 		<div class="card mt-2">
 			<div class="card-header">
-				<h5 class="card-title">Lista absencies previstes</h5>
+				<h5 class="card-title">Llista absències previstes</h5>
 			</div>
 			<div class="card-body">
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th scope="col">Name</th>
+							<th scope="col">Referencia Absencia</th>
+							<th scope="col">Data prevista</th>
+							<th scope="col">Motiu</th>
 							<th scope="col">
-								<a href="/absprevistes/create" class="btn btn-primary">New</a>
+								<a href="/absprevistes/create" class="btn btn-primary">Nova</a>
 							</th>
 						</tr>
 					</thead>
@@ -28,11 +30,21 @@
 						<% list.forEach( function(absprevista) { %>
 							<tr>
 								<td>
-									<%= absprevista.name %>
+									<%= absprevista.id %>
+								</td>
+								<td>
+									<%= absprevista.data_absprevista %>
+								</td>
+								<td>
+									<%= absprevista.motiu_abs %>
 								</td>
 								<td>
 									<a class="btn btn-secondary" href="/absprevistes/update/<%=absprevista._id%>"
 										class="card-link">Edit</a>
+								</td>
+								<td>
+									<a class="btn btn-danger" href="/absprevistes/delete/<%=absprevista._id%>"
+										class="card-link">Esborrar</a>
 								</td>
 							</tr>
 							<% }); %>

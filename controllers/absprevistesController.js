@@ -1,91 +1,95 @@
 var AbsenciaPrevista = require("../models/absprevista");
 
 class absprevistaController {
-  /*
+  
     static list(req, res, next) {
-      Publisher.find()        
-          .exec(function (err, list) {
+      AbsenciaPrevista.find()        
+          .exec(function (err, list_absprevista) {
             if (err) {
               return next(err);
             }
             
-            res.render('publishers/list',{list:list})
+            res.render('absprevistes/list',{ list: list_absprevista })
         }); 
     	
     }
-  */
+  
   static create_get(req, res, next) {
-    res.render('absprevistes/new');
-  }
-
-
+      
+        var AbsenciaPrevista = {
+          "data_absprevista" : "",
+          "motiu_abs" : ""
+        }
+        res.render('absprevistes/new',{AbsenciaPrevista:AbsenciaPrevista});
+    }
+  
 
   static create_post(req, res, next) {
 
     AbsenciaPrevista.create(req.body, (error, newRecord) => {
       if (error) {
-        res.render('publishers/new', { error: 'error' })
+        res.render('absprevistes/new', { error: 'error' })
       } else {
 
-        res.redirect('/publisher')
+        res.redirect('/absprevistes')
       }
     })
   }
-  /*
+   
     static update_get(req, res, next) {
-      Publisher.findById(req.params.id, function (err, publisher) {
+      AbsenciaPrevista.findById(req.params.id, function (err, AbsenciaPrevista) {
           if (err) {
             return next(err);
           }
-          if (publisher == null) {
+          if (AbsenciaPrevista == null) {
             // No results.
-            var err = new Error("Publisher not found");
+            var err = new Error("Absencia prevista not found");
             err.status = 404;
             return next(err);
           }
           // Success.
-          res.render("publishers/update", { publisher: publisher });
+          res.render("absprevistes/update", { AbsenciaPrevista: AbsenciaPrevista });
       });
         
     }
   
     static update_post(req, res, next) {
-        var publisher = new Publisher({
-          name: req.body.name,
+        var AbsenciaPrevista = new AbsenciaPrevista({
+          motiu_abs: req.body.motiu_abs,
           _id: req.params.id,
         });    
       
-        Publisher.findByIdAndUpdate(
+        AbsenciaPrevista.findByIdAndUpdate(
           req.params.id,
-          publisher,
+          AbsenciaPrevista,
           {},
-          function (err, thepublisher) {
+          function (err, theAbsenciaPrevista) {
             if (err) {
-              res.render("publishers/update", { publisher: publisher, error: err.message });
+              res.render("absprevistes/update", { publisher: publisher, error: err.message });
   
             }
-            res.render("publishers/update", { publisher: publisher, message: 'Publisher Updated'});
+            res.render("absprevistes/update", { publisher: publisher, message: 'Publisher Updated'});
           
           }
         );
     }
-  
+ 
     static async delete_get(req, res, next) {
         
-        res.render('publishers/delete',{id: req.params.id})
+        res.render('absprevistes/delete',{id: req.params.id})
     }
   
     static async delete_post(req, res, next) {
       
       Publisher.findByIdAndRemove(req.params.id, (error)=> {
         if(error){
-          res.redirect('/publisher')
+          res.redirect('/absprevistes')
         }else{
-          res.redirect('/publisher')
+          res.redirect('/absprevistes')
         }
       }) 
     }
-  */
+  
 }
 
 module.exports = absprevistaController;
