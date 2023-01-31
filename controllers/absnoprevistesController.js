@@ -1,19 +1,18 @@
 var AbsenciaNoPrevista = require("../models/absnoprevista");
 
 class absnoprevistaController {
-  /*
+
     static list(req, res, next) {
-      Publisher.find()        
-          .exec(function (err, list) {
+      AbsenciaNoPrevista.find()        
+          .exec(function (err, list_absencianoprevista) {
             if (err) {
               return next(err);
-            }
-            
-            res.render('publishers/list',{list:list})
+            }           
+            res.render('absnoprevistes/list',{list: list_absencianoprevista})
         }); 
     	
     }
-  */
+  
   static create_get(req, res, next) {
     res.render('absnoprevistes/new');
   }
@@ -29,40 +28,44 @@ class absnoprevistaController {
       }
     })
   }
-  /*
+  
     static update_get(req, res, next) {
-      Publisher.findById(req.params.id, function (err, publisher) {
+      AbsenciaNoPrevista.findById(req.params.id, function (err, absencianoprevista) {
           if (err) {
             return next(err);
           }
-          if (publisher == null) {
+          if (absencianoprevista == null) {
             // No results.
-            var err = new Error("Publisher not found");
+            var err = new Error("Absencia no prevista not found");
             err.status = 404;
             return next(err);
           }
           // Success.
-          res.render("publishers/update", { publisher: publisher });
+          res.render("absnoprevistes/update", { absencianoprevista: absencianoprevista });
       });
         
     }
   
     static update_post(req, res, next) {
-        var publisher = new Publisher({
-          name: req.body.name,
-          _id: req.params.id,
+        var absnoprevista = new AbsenciaNoPrevista({
+          data_absnoprevista: req.body.data_absnoprevista,
+          horari_profe: req.body.horari_profe,
+          hores_ausencia: req.body.hores_ausencia,
+          motius_abs: req.body.motius_abs,
+          document_justificatiu: req.params.document_justificatiu,
+          _id: req.params.id,  // Fa falta per sobreescriure el objecte.
         });    
       
-        Publisher.findByIdAndUpdate(
+        AbsenciaNoPrevista.findByIdAndUpdate(
           req.params.id,
-          publisher,
+          absencianoprevista,
           {},
-          function (err, thepublisher) {
+          function (err, absencianoprevistaFound) {
             if (err) {
-              res.render("publishers/update", { publisher: publisher, error: err.message });
+              res.render("absnoprevistes/update", { absencianoprevista: absencianoprevista, error: err.message });
   
             }
-            res.render("publishers/update", { publisher: publisher, message: 'Publisher Updated'});
+            res.render("absnoprevistes/update", { absencianoprevista: absencianoprevista, message: 'Absencia no prevista Updated'});
           
           }
         );
@@ -70,20 +73,20 @@ class absnoprevistaController {
   
     static async delete_get(req, res, next) {
         
-        res.render('publishers/delete',{id: req.params.id})
+        res.render('absnoprevistes/delete',{id: req.params.id})
     }
   
     static async delete_post(req, res, next) {
       
-      Publisher.findByIdAndRemove(req.params.id, (error)=> {
+      AbsNoPrevista.findByIdAndRemove(req.params.id, (error)=> {
         if(error){
-          res.redirect('/publisher')
+          res.redirect('/absnoprevistes')
         }else{
-          res.redirect('/publisher')
+          res.redirect('/absnoprevistes')
         }
       }) 
     }
-  */
+  
 }
 
 module.exports = absnoprevistaController;

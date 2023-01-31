@@ -12,22 +12,36 @@
 	<main>
 		<div class="card mt-4">
 			<div class="card-header">
-				<h5 class="card-title">Edit Baixamedica</h5>
+				<h5 class="card-title">Edita Absencia no prevista</h5>
 			</div>
 			<div class="card-body">
 				<form method="POST" action="/absnoprevistes/update/<%= absnoprevista._id %>">
 					<div class="form-group">
-						<label for="data_inicial_baixa">Data inicial baixa</label>
-						<input type="date" name="data_inicial_baixa" class="form-control"
-							value="<%= baixamedica.name %>">
-						<label for="data_inicial_baixa">Data inicial baixa</label>
-						<input type="date" name="data_inicial_baixa" class="form-control"
-							value="<%= baixamedica.name %>">
+
+						<label for="name">Data absencia no prevista</label>
+						<input type="date" name="data_absnoprevista" class="form-control"
+							value="<%= absnoprevista.data_absnoprevista %>">
+
+						<label for="horari_profe">Horari professor</label>
+						<input type="date" name="horari_profe" class="form-control"
+							value="<%= absnoprevista.horari_profe %>">
+
+						<label for="horari_profe">Hores ausencia</label>
+						<input type="date" name="hores_ausencia" class="form-control"
+							value="<%= absnoprevista.hores_ausencia %>">
+
+						<label for="horari_profe">Motiu absencia</label>
+						<input type="date" name="motiu_abs" class="form-control"
+							value="<%= absnoprevista.motiu_abs %>">
+
+						<label for="horari_profe">Document justificatiu</label>
+						<input type="date" name="document_justificatiu" class="form-control"
+							value="<%= absnoprevista.document_justificatiu %>">
 					</div>
-					<button type="submit" class="btn btn-primary">Save
+					<button type="submit" class="btn btn-primary">Desar
 					</button>
 					<a class="btn btn-danger" href="/absnoprevistes/delete/<%= absnoprevista._id %>"
-						role="button">Delete</a>
+						role="button">Esborrar</a>
 				</form>
 				<% if (typeof error !=="undefined" ) { %>
 					<div class="alert alert-primary mt-2" role="alert">
