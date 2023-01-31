@@ -10,11 +10,12 @@ class HorariController {
         }
 
         // Franjes de horaris
-        var taulahorari = ["","08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 11:30*", "11:30 - 12:30", "12:30 - 13:30", "13:30 - 14:30", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 18:30*", "18:30 - 19:30", "19:30 - 20:30", "20:30 - 20:30", "20:30 - 21:30"]
+        var taulahorari = ["","08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 11:30*", "11:30 - 12:30", "12:30 - 13:30", "13:30 - 14:30", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 18:30*", "18:30 - 19:30", "19:30 - 20:30", "20:30 - 21:30"]
 
+        console.log(taulahorari.length)
         // Preparem el array per imprimirlo
-        var horari = new Array(16);
-        for (var i = 0; i < 16; i++) horari[i] = new Array(6)
+        var horari = new Array(15);
+        for (var i = 0; i < 15; i++) horari[i] = new Array(6)
         list_horari.forEach(function (h) {
           //horari[h.hora][h.dia] = h.materia
           horari[h.hora][h.dia] = h.materia + ' ' + h.aula + ' ' + h.grup
