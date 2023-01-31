@@ -19,23 +19,48 @@
 
                 <form method="POST" action="/horaris/create">
                     <div class="form-group">
-                        <!--
-                        <label class="form-label">Hora inici</label>
-                        <input type="text" name="horainici" class="form-control">
-                        <label class="form-label">Hora fi</label>
-                        <input type="text" name="horafi" class="form-control">
-                        <label class="form-label">Nom assignatura</label>
-                        <input type="text" name="nomassignatura" class="form-control">
-                        <label class="form-label">Aula</label>
-                        <input type="text" name="aula" class="form-control">
-                        <label class="form-label">Codi professor</label>
-                        <input type="text" name="codiprofessor" class="form-control">
-                        -->
 
+
+                        <label for="dia" class="form-label">Dia</label>
+                        <select class="form-select" id="dia" name="dia">
+                            <option value="1">Dilluns</option>
+                            <option value="2">Dimarts</option>
+                            <option value="3">Dimecres</option>
+                            <option value="4">Dijous</option>
+                            <option value="5">Divendres</option>
+                        </select>
+                          <br>
+                        
+                        <!--
                         <label class="form-label">Dia</label>
                         <input type="text" name="dia" class="form-control">
+                        -->
                         <label class="form-label">Hora</label>
+                        <select class="form-select" id="hora" name="hora">
+                            <optgroup label="Diurn">
+                                <option value="1">08:00 - 09:00</option>
+                                <option value="2">09:00 - 10:00</option>
+                                <option value="3">10:00 - 11:00</option>
+                                <option value="5">11:30 - 12:30</option>
+                                <option value="6">12:30 - 13:30</option>
+                                <option value="7">13:30 - 14:30</option>
+                            </optgroup>
+                            <optgroup label="Nocturn">
+                                <option value="8">15:00 - 16:00</option>
+                                <option value="9">16:00 - 17:00</option>
+                                <option value="10">17:00 - 18:00</option>
+                                <option value="12">18:30 - 19:30</option>
+                                <option value="13">19:30 - 20:30</option>
+                                <option value="14">20:30 - 21:30</option>
+                            </optgroup>
+                        </select>
+                        <br>
+
+                        <!--
                         <input type="text" name="hora" class="form-control">
+                        -->
+
+                        <label for="hora" class="form-label"
                         <label class="form-label">Materia</label>
                         <input type="text" name="materia" class="form-control">
                         <label class="form-label">Aula</label>
