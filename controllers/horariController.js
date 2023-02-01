@@ -12,7 +12,6 @@ class HorariController {
         // Franjes de horaris
         var taulahorari = ["","08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 11:30*", "11:30 - 12:30", "12:30 - 13:30", "13:30 - 14:30", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 18:30*", "18:30 - 19:30", "19:30 - 20:30", "20:30 - 21:30"]
 
-        console.log(taulahorari.length)
         // Preparem el array per imprimirlo
         var horari = new Array(15);
         for (var i = 0; i < 15; i++) horari[i] = new Array(6)
@@ -34,9 +33,9 @@ class HorariController {
   static create_post(req, res) {
     Horari.create(req.body, function (error, newHorari) {
       if (error) {
-        res.render('horaris/new', { error: error.message })
+        res.render('horaris/new', { error: error.message });
       } else {
-        res.redirect('/horaris')
+        res.redirect('/horaris');
       }
     })
   }
@@ -79,16 +78,15 @@ class HorariController {
   }
 
   static async delete_get(req, res, next) {
-    res.render('horaris/delete', { id: req.params.id })
+    res.render('horaris/delete', { id: req.params.id });
   }
 
   static async delete_post(req, res, next) {
     Horari.findByIdAndRemove(req.params.id, function (error) {
       if (error) {
-
-        res.redirect('/horaris')
+        res.redirect('/horaris');
       } else {
-        res.redirect('/horaris')
+        res.redirect('/horaris');
       }
     })
   }
