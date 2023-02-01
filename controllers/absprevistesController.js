@@ -3,15 +3,13 @@ var AbsenciaPrevista = require("../models/absprevista");
 class absprevistaController {
   
     static list(req, res, next) {
-      AbsenciaPrevista.find()        
+      AbsenciaPrevista.find()
           .exec(function (err, list_absprevista) {
             if (err) {
               return next(err);
             }
-            
-            res.render('absprevistes/list',{ list: list_absprevista })
-        }); 
-    	
+              res.render('absprevistes/list',{ list: list_absprevista })
+        });
     }
   
   static create_get(req, res, next) {
@@ -80,8 +78,7 @@ class absprevistaController {
     }
   
     static async delete_post(req, res, next) {
-      
-      Publisher.findByIdAndRemove(req.params.id, (error)=> {
+      AbsenciaPrevista.findByIdAndRemove(req.params.id, (error)=> {
         if(error){
           res.redirect('/absprevistes')
         }else{
