@@ -25,23 +25,28 @@
 		</script>
 		<div class="card mt-4">
 			<div class="card-header">
-				<h5 class="card-title">Document de baixa</h5>
+				<h5 class="card-title">Document absència no prevista</h5>
 			</div>
 			<div class="card-body">
 				<form method="POST" action="/absnoprevistes/create">
 					<div class="form-group">
-						<label for="data_absnoprevista">Data absència</label>
+						<label for="data_absnoprevista">Data absència no prevista</label>
 						<input type="date" id="fechaActual" value=""></br>
+
 						<label for="horari_profe">Horari professor</label>
-						<input type="date" name="horariprofe" class="form-control">
+						<input type="date" name="horari_profe" class="form-control">
+						
+						<label for="hores_ausencia">Horari ausencia</label>
+						<input type="number" name="hores_ausencia" class="form-control">
+
 						<label for="motiu_abs">Motiu absencia</label>
-						<textarea name="motiu_abs" class="form-control"></textarea>
+						<textarea type ="string"name="motiu_abs" class="form-control"></textarea>
+							
+						<label for="arxiuabs">Document justificatiu</label>
+						<input type="file" class="form-control">
 					</div>
-					<label for="arxiuabs">Document justificatiu</label>
-					<input type="file" class="form-control">
 			</div>
-			<button type="submit" class="btn btn-primary">Guarda
-			</button>
+			<button type="submit" class="btn btn-primary">Guarda</button>
 			</form>
 			<% if (typeof error !=="undefined" ) { %>
 				<div class="alert alert-primary mt-2" role="alert">
