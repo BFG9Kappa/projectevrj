@@ -35,38 +35,39 @@ class absprevistaController {
   }
    
     static update_get(req, res, next) {
-      AbsenciaPrevista.findById(req.params.id, function (err, AbsenciaPrevista) {
+      AbsenciaPrevista.findById(req.params.id, function (err, absenciaprevista) {
           if (err) {
             return next(err);
           }
-          if (AbsenciaPrevista == null) {
+          if (absenciaprevista == null) {
             // No results.
             var err = new Error("Absencia prevista not found");
             err.status = 404;
             return next(err);
           }
           // Success.
-          res.render("absprevistes/update", { AbsenciaPrevista: AbsenciaPrevista });
+          res.render("absprevistes/update", { absenciaprevista: absenciaprevista });
+          
       });
         
     }
   
     static update_post(req, res, next) {
-        var AbsenciaPrevista = new AbsenciaPrevista({
+        var absenciaprevista = new AbsenciaPrevista({
+          data_absprevista: req.body.data_absprevista,
           motiu_abs: req.body.motiu_abs,
           _id: req.params.id,
-        });    
-      
+        });
+
         AbsenciaPrevista.findByIdAndUpdate(
           req.params.id,
-          AbsenciaPrevista,
-          {},
+          absenciaprevista,
+          { runValidators: true },
           function (err, theAbsenciaPrevista) {
             if (err) {
-              res.render("absprevistes/update", { publisher: publisher, error: err.message });
-  
+              res.render("absprevistes/update", { absenciaprevista: absenciaprevista, error: err.message });
             }
-            res.render("absprevistes/update", { publisher: publisher, message: 'Publisher Updated'});
+            res.render("absprevistes/update", { absenciaprevista: absenciaprevista, message: 'Absencia Prevista Actualitzada'});
           
           }
         );
