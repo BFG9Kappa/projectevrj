@@ -30,7 +30,6 @@
 
                 <table class="table table-striped">
                     <a href="/horaris/create" class="btn btn-primary">Nou</a>
-                    <a href="/horaris/formupdate" class="btn btn-primary">Actualitzar</a>
                     <br/>
                     <br/>
                     <thead>
@@ -41,7 +40,6 @@
                             <th scope="col">Dimecres</th>
                             <th scope="col">Dijous</th>
                             <th scope="col">Divendres</th>
-                            <th scope="col">Operacions</th>
                     </thead>
                     <tbody>
                         <% for(var i=1; i<15; i++) { %>
@@ -52,9 +50,12 @@
                                 <% for(var j=1; j<6; j++) {    %>
                                     <td>
                                         <%= list[i][j].materia %>
-                                        <a class="btn btn-secondary" href="/horaris/update/" class="card-link">Edit</a>
+                                        <%= list[i][j].aula %>
+                                        <%= list[i][j].grup %>
+
+                                        <a class="btn btn-secondary" href="/horaris/update/<%= list[i][j].id %>" class="card-link">Editar</a>
                                         <!--
-                                        <a class="btn btn-danger" href="/horaris/delete/<%=list[i]._id%>" class="card-link">Esborrar</a>
+                                        <a class="btn btn-danger" href="/horaris/delete/<%= list[i][j].id %>" class="card-link">Esborrar</a>
                                         -->
                                     </td>
                                     <% } %>

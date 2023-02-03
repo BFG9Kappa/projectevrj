@@ -21,11 +21,14 @@ class HorariController {
                   horari[i][j] = {}
 
         list_horari.forEach(function (h) {
-          //horari[h.hora][h.dia] = h.materia;          
-          horari[h.hora][h.dia].id =  h.id
-          horari[h.hora][h.dia].materia =  h.materia// .materia //h.materia + ' ' + h.aula + ' ' + h.grup;
+          //horari[h.hora][h.dia] = h.materia; 
+          horari[h.hora][h.dia].id = h.id;
+          horari[h.hora][h.dia].materia = h.materia;
+          horari[h.hora][h.dia].aula = h.aula;
+          horari[h.hora][h.dia].grup = h.grup;
+          //horari[h.hora][h.dia].materia = h.materia;// .materia //h.materia + ' ' + h.aula + ' ' + h.grup;
         })
-        console.log(horari); // debug
+        //console.log(horari); // debug
 
         //res.render('horaris/list', { list: list_horari });
         res.render('horaris/list', { list: horari, taulahores:taulahores });
@@ -45,23 +48,6 @@ class HorariController {
       }
     })
   }
-
-  /*
-  static update_form(req, res, next) {
-    res.render('horaris/formupdate');
-  }
-
-
-  static update_form(req, res, next) {
-    Horari.find()
-        .exec(function (err, list_horari) {
-          if (err) {
-            return next(err);
-          }
-            res.render('horaris/formupdate',{ list: list_horari });
-      });
-  }
-  */
 
   static update_get(req, res, next) {
     Horari.findById(req.params.id, function (err, horari) {
@@ -95,7 +81,7 @@ class HorariController {
         if (err) {
           res.render("horaris/update", { horari: horari, error: err.message });
         }
-        res.render("horaris/update", { horari: horari, message: 'Horari Updated' });
+        res.render("horaris/update", { horari: horari, message: 'Horari actualitzat' });
       }
     );
   }
