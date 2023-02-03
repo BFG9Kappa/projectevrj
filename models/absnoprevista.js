@@ -5,9 +5,9 @@ var Schema = mongoose.Schema;
 var AbsNoPrevistaSchema = new Schema({
 
   data_absnoprevista: { type: Date },
-  horari_profe: { type: Date, required: true },
-  hores_ausencia: { type: Number, required: true },
-  motiu_abs: { type: String, required: true},
+  horari_profe: { type: Date},
+  hores_ausencia: { type: Number},
+  motiu_abs: { type: String},
   document_justificatiu: { type: String },
 
 });

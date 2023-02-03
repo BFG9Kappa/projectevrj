@@ -12,27 +12,41 @@
 	<main>
 		<div class="card mt-2">
 			<div class="card-header">
-				<h5 class="card-title">Lista baixesmediques</h5>
+				<h5 class="card-title">Llista baixes mediques</h5>
 			</div>
 			<div class="card-body">
 				<table class="table table-striped">
+					<a href="/baixesmediques/create" class="btn btn-primary">Nou</a>
 					<thead>
 						<tr>
-							<th scope="col">Name</th>
-							<th scope="col">
-								<a href="/baixesmediques/create" class="btn btn-primary">New</a>
-							</th>
+							<th scope="col">ID</th>						
+							<th scope="col">Data inicial baixa</th>
+							<th scope="col">Data prevista alta </th>
+							<th scope="col">Comentari</th>					
 						</tr>
 					</thead>
 					<tbody>
 						<% list.forEach( function(baixamedica) { %>
 							<tr>
 								<td>
-									<%= baixamedica.name %>
+									<%= baixamedica.id %>
+								</td>
+								<td>
+									<%= baixamedica.data_inicial_baixa %>
+								</td>
+								<td>
+									<%= baixamedica.data_prevista_alta %>
+								</td>
+								<td>
+									<%= baixamedica.comentari %>
 								</td>
 								<td>
 									<a class="btn btn-secondary" href="/baixesmediques/update/<%=baixamedica._id%>"
 										class="card-link">Edit</a>
+								</td>
+								<td>
+									<a class="btn btn-danger" href="/baixesmediques/delete/<%=baixamedica._id%>"
+										class="card-link">Esborrar</a>
 								</td>
 							</tr>
 							<% }); %>

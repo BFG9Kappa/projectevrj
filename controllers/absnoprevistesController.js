@@ -1,14 +1,14 @@
-var AbsenciaNoPrevista = require("../models/absnoprevista");
+var AbsNoPrevista = require("../models/absnoprevista");
 
-class absnoprevistaController {
+class absnoprevistesController {
 
     static list(req, res, next) {
-      AbsenciaNoPrevista.find()        
-          .exec(function (err, list_absencianoprevista) {
+      AbsNoPrevista.find()        
+          .exec(function (err, list_absnoprevista) {
             if (err) {
               return next(err);
             }           
-            res.render('absnoprevistes/list',{list: list_absencianoprevista})
+            res.render('absnoprevistes/list',{list: list_absnoprevista})
         }); 
     	
     }
@@ -19,7 +19,7 @@ class absnoprevistaController {
 
   static create_post(req, res) {
     // console.log(req.body)
-    AbsenciaNoPrevista.create(req.body, function (error, newAbsenciaNoPrevista) {
+    AbsNoPrevista.create(req.body, function (error, newAbsNoPrevista) {
       if (error) {
         //console.log(error)
         res.render('absnoprevistes/new', { error: error.message })
@@ -30,24 +30,24 @@ class absnoprevistaController {
   }
   
     static update_get(req, res, next) {
-      AbsenciaNoPrevista.findById(req.params.id, function (err, absencianoprevista) {
+      AbsNoPrevista.findById(req.params.id, function (err, absnoprevista) {
           if (err) {
             return next(err);
           }
-          if (absencianoprevista == null) {
+          if (absnoprevista == null) {
             // No results.
             var err = new Error("Absencia no prevista not found");
             err.status = 404;
             return next(err);
           }
           // Success.
-          res.render("absnoprevistes/update", { absencianoprevista: absencianoprevista });
+          res.render("absnoprevistes/update", { absnoprevista: absnoprevista });
       });
         
     }
   
     static update_post(req, res, next) {
-        var absnoprevista = new AbsenciaNoPrevista({
+        var absnoprevista = new AbsNoPrevista({
           data_absnoprevista: req.body.data_absnoprevista,
           horari_profe: req.body.horari_profe,
           hores_ausencia: req.body.hores_ausencia,
@@ -56,16 +56,16 @@ class absnoprevistaController {
           _id: req.params.id,  // Fa falta per sobreescriure el objecte.
         });    
       
-        AbsenciaNoPrevista.findByIdAndUpdate(
+        AbsNoPrevista.findByIdAndUpdate(
           req.params.id,
-          absencianoprevista,
+          absnoprevista,
           {},
-          function (err, absencianoprevistaFound) {
+          function (err, absnoprevistaFound) {
             if (err) {
-              res.render("absnoprevistes/update", { absencianoprevista: absencianoprevista, error: err.message });
+              res.render("absnoprevistes/update", { absnoprevista: absnoprevista, error: err.message });
   
             }
-            res.render("absnoprevistes/update", { absencianoprevista: absencianoprevista, message: 'Absencia no prevista Updated'});
+            res.render("absnoprevistes/update", { absnoprevista: absnoprevista, message: 'Absencia no prevista Updated'});
           
           }
         );
@@ -89,4 +89,4 @@ class absnoprevistaController {
   
 }
 
-module.exports = absnoprevistaController;
+module.exports = absnoprevistesController;
