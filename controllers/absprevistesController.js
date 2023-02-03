@@ -47,6 +47,7 @@ class absprevistaController {
           }
           // Success.
           res.render("absprevistes/update", { absenciaprevista: absenciaprevista });
+          
       });
         
     }
@@ -56,16 +57,15 @@ class absprevistaController {
           data_absprevista: req.body.data_absprevista,
           motiu_abs: req.body.motiu_abs,
           _id: req.params.id,
-        });    
-      
+        });
+
         AbsenciaPrevista.findByIdAndUpdate(
           req.params.id,
-          AbsenciaPrevista,
-          {},
+          absenciaprevista,
+          { runValidators: true },
           function (err, theAbsenciaPrevista) {
             if (err) {
               res.render("absprevistes/update", { absenciaprevista: absenciaprevista, error: err.message });
-  
             }
             res.render("absprevistes/update", { absenciaprevista: absenciaprevista, message: 'Absencia Prevista Actualitzada'});
           
