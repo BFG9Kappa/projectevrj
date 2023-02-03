@@ -16,14 +16,11 @@
                 <h5 class="card-title">Afegir horari</h5>
             </div>
             <div class="card-body">
-
                 <a href="/horaris" class="btn btn-primary">Tornar</a>
                 <br>
                 <br>
-
                 <form method="POST" action="/horaris/create">
                     <div class="form-group">
-
                         <label for="dia" class="form-label">Dia</label>
                         <select class="form-select" id="dia" name="dia">
                             <option value="1">Dilluns</option>
@@ -33,7 +30,6 @@
                             <option value="5">Divendres</option>
                         </select>
                         <br>
-                        
                         <label class="form-label">Hora</label>
                         <select class="form-select" id="hora" name="hora">
                             <optgroup label="Diurn">
@@ -54,29 +50,16 @@
                             </optgroup>
                         </select>
                         <br>
-
                         <label class="form-label">Materia</label>
                         <input type="text" name="materia" class="form-control">
-
                         <label class="form-label">Aula</label>
                         <input type="text" name="aula" class="form-control">
-
                         <label class="form-label">Grup</label>
                         <input type="text" name="grup" class="form-control">
-
                         <label class="form-label">Professor</label>
                         <input type="text" name="professor" class="form-control">
-
-                        <!--
-                        <label class="form-label">Dia</label>
-                        <input type="text" name="dia" class="form-control">
-                        <input type="text" name="hora" class="form-control">
-                        <label for="hora" class="form-label">
-                        -->
-                        
                     </div>
-                    <button type="submit" class="btn btn-primary">Save
-                    </button>
+                    <button type="submit" class="btn btn-primary">Desar</button>
                 </form>
                 <% if (typeof error !=="undefined" ) { %>
                     <div class="alert alert-primary mt-2" role="alert">
