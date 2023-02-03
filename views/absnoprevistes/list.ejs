@@ -12,27 +12,50 @@
 	<main>
 		<div class="card mt-2">
 			<div class="card-header">
-				<h5 class="card-title">Lista baixesmediques</h5>
+				<h5 class="card-title">Llista absències no previstes</h5>
 			</div>
 			<div class="card-body">
 				<table class="table table-striped">
+					<a href="/absnoprevistes/create" class="btn btn-primary">Nou</a>
 					<thead>
 						<tr>
-							<th scope="col">Name</th>
-							<th scope="col">
-								<a href="/absnoprevistes/create" class="btn btn-primary">New</a>
-							</th>
+							<th scope="col">ID</th>						
+							<th scope="col">Data absencia no prevista</th>
+							<th scope="col">Horari professor</th>
+							<th scope="col">Hores ausencia</th>
+							<th scope="col">Motiu absencia</th>
+							<th scope="col">Document justificatiu</th>
+							<th scope="col">Operacions</th>		
 						</tr>
 					</thead>
 					<tbody>
 						<% list.forEach( function(absnoprevista) { %>
 							<tr>
 								<td>
-									<%= absnoprevista.name %>
+									<%= absnoprevista.id %>
+								</td>
+								<td>
+									<%= absnoprevista.data_absnoprevista %>
+								</td>
+								<td>
+									<%= absnoprevista.horari_profe %>
+								</td>
+								<td>
+									<%= absnoprevista.hores_ausencia %>
+								</td>
+								<td>
+									<%= absnoprevista.motiu_abs %>
+								</td>
+								<td>
+									<%= absnoprevista.document_justificatiu %>
 								</td>
 								<td>
 									<a class="btn btn-secondary" href="/absnoprevistes/update/<%=absnoprevista._id%>"
-										class="card-link">Edit</a>
+										class="card-link">Edita</a>
+								</td>
+								<td>
+									<a class="btn btn-danger" href="/absnoprevistes/delete/<%=absnoprevista._id%>"
+										class="card-link">Esborrar</a>
 								</td>
 							</tr>
 							<% }); %>

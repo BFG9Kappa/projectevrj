@@ -1,19 +1,19 @@
 var SortidaCurricular = require("../models/sortidacurricular");
 
 class sortidacurricularController {
-  /*
+  
     static list(req, res, next) {
-      Publisher.find()        
-          .exec(function (err, list) {
+      SortidaCurricular.find()        
+          .exec(function (err, list_sortidacurricular) {
             if (err) {
               return next(err);
             }
             
-            res.render('publishers/list',{list:list})
+            res.render('sortidescurriculars/list',{list:list_sortidacurricular})
         }); 
     	
     }
-  */
+  
   static create_get(req, res, next) {
     res.render('sortidescurriculars/new');
   }
@@ -22,18 +22,18 @@ class sortidacurricularController {
 
   static create_post(req, res, next) {
 
-    SortidaCurricular.create(req.body, (error, newRecord) => {
+    SortidaCurricular.create(req.body, (error, newSortidaCurricular) => {
       if (error) {
         res.render('sortidescurriculars/new', { error: 'error' })
       } else {
 
-        res.redirect('/sortidacurricular')
+        res.redirect('/sortidescurriculars')
       }
     })
   }
 
   static update_get(req, res, next) {
-    Sortidacurricular.findById(req.params.id, function (err, sortidacurricular) {
+    SortidaCurricular.findById(req.params.id, function (err, sortidacurricular) {
       if (err) {
         return next(err);
       }
@@ -44,14 +44,22 @@ class sortidacurricularController {
         return next(err);
       }
       // Success.
-      res.render("sortidacurriculars/update", { sortidacurricular: sortidacurricular });
+      res.render("sortidescurriculars/update", { sortidacurricular: sortidacurricular });
     });
 
   }
 
   static update_post(req, res, next) {
-    var sortidacurricular = new Sortidacurricular({
-      name: req.body.name,
+    var sortidacurricular = new SortidaCurricular({
+      data_sortida: req.body.data_sortida,
+      lloc: req.body.lloc,
+      ruta: req.body.ruta,
+      objectius: req.body.objectius,
+      grups: req.body.grups,
+      professors: req.body.professors,
+      hora_inici: req.body.hora_inici,
+      hora_arribada: req.body.hora_arribada,
+      estat: req.body.estat,
       _id: req.params.id,
     });
 
@@ -72,16 +80,16 @@ class sortidacurricularController {
 
   static async delete_get(req, res, next) {
 
-    res.render('sortidacurriculars/delete', { id: req.params.id })
+    res.render('sortidescurriculars/delete', { id: req.params.id })
   }
 
   static async delete_post(req, res, next) {
 
-    Publisher.findByIdAndRemove(req.params.id, (error) => {
+    SortidaCurricular.findByIdAndRemove(req.params.id, (error) => {
       if (error) {
-        res.redirect('/sortidacurricular')
+        res.redirect('/sortidescurriculars')
       } else {
-        res.redirect('/sortidacurricular')
+        res.redirect('/sortidescurriculars')
       }
     })
   }

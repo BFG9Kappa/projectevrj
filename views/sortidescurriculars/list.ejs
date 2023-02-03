@@ -18,24 +18,60 @@
 			</div>
 			<div class="card-body">
 				<table class="table table-striped">
+					<a href="/sortidescurriculars/create" class="btn btn-primary">Nou</a>
 					<thead>
-						<tr>
-							<th scope="col">Name</th>
-							<th scope="col">
-								<a href="/sortidescurriculars/create" class="btn btn-primary">New</a>
+						<tr>					
+							<th scope="col">Data sortida</th>
+							<th scope="col">Lloc</th>
+							<th scope="col">Ruta</th>
+							<th scope="col">Objectius</th>
+							<th scope="col">Grups</th>
+							<th scope="col">Professors</th>
+							<th scope="col">Hora inici</th>
+							<th scope="col">Hora arribada</th>
+							<th scope="col">Estat</th>
+							<th scope="col">Operacions</th>					
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-						<% list.forEach( function(absprevista) { %>
+						<% list.forEach( function(sortidacurricular) { %>
 							<tr>
 								<td>
-									<%= absprevista.name %>
+									<%= sortidacurricular.data_sortida %>
+								</td>
+								<td>
+									<%= sortidacurricular.lloc %>
+								</td>
+								<td>
+									<%= sortidacurricular.ruta %>
+								</td>
+								<td>
+									<%= sortidacurricular.objectius %>
+								</td>
+								<td>
+									<%= sortidacurricular.grups %>
+								</td>
+								<td>
+									<%= sortidacurricular.professors %>
+								</td>
+								<td>
+									<%= sortidacurricular.hora_inici %>
+								</td>
+								<td>
+									<%= sortidacurricular.hora_arribada %>
+								</td>
+								<td>
+									<%= sortidacurricular.estat %>
 								</td>
 								<td>
 									<a class="btn btn-secondary"
 										href="/sortidescurriculars/update/<%=sortidacurricular._id%>"
 										class="card-link">Edit</a>
+								</td>
+								<td>
+									<a class="btn btn-danger" href="/sortidescurriculars/delete/<%=sortidacurricular._id%>"
+										class="card-link">Esborrar</a>
 								</td>
 							</tr>
 							<% }); %>

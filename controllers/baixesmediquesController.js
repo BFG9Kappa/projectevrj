@@ -1,10 +1,10 @@
 var BaixaMedica = require("../models/baixamedica");
 
-class baixamedicaController {
+class baixesmediquesController {
 
   static async list(req, res, next) {
     try {
-      var list_baixesmediques = await Baixamedica.find();
+      var list_baixesmediques = await BaixaMedica.find();
       res.render('baixesmediques/list', { list: list_baixesmediques })
     }
     catch (e) {
@@ -29,40 +29,40 @@ class baixamedicaController {
     })
   }
 
-  /*
+
     static update_get(req, res, next) {
-      Publisher.findById(req.params.id, function (err, publisher) {
+      BaixaMedica.findById(req.params.id, function (err, baixamedica) {
           if (err) {
             return next(err);
           }
-          if (publisher == null) {
+          if (baixamedica == null) {
             // No results.
-            var err = new Error("Publisher not found");
+            var err = new Error("BaixaMedica not found");
             err.status = 404;
             return next(err);
           }
           // Success.
-          res.render("publishers/update", { publisher: publisher });
+          res.render("baixesmediques/update", { baixamedica: baixamedica });
       });
         
     }
   
     static update_post(req, res, next) {
-        var publisher = new Publisher({
+        var baixamedica = new BaixaMedica({
           name: req.body.name,
           _id: req.params.id,
         });    
       
-        Publisher.findByIdAndUpdate(
+        BaixaMedica.findByIdAndUpdate(
           req.params.id,
-          publisher,
+          baixamedica,
           {},
-          function (err, thepublisher) {
+          function (err, baixamedicaFound) {
             if (err) {
-              res.render("publishers/update", { publisher: publisher, error: err.message });
+              res.render("baixesmediques/update", { baixamedica: baixamedica, error: err.message });
   
             }
-            res.render("publishers/update", { publisher: publisher, message: 'Publisher Updated'});
+            res.render("baixesmediques/update", { baixamedica: baixamedica, message: 'Publisher Updated'});
           
           }
         );
@@ -70,20 +70,20 @@ class baixamedicaController {
   
     static async delete_get(req, res, next) {
         
-        res.render('publishers/delete',{id: req.params.id})
+        res.render('baixesmediques/delete',{id: req.params.id})
     }
   
     static async delete_post(req, res, next) {
       
-      Publisher.findByIdAndRemove(req.params.id, (error)=> {
+      BaixaMedica.findByIdAndRemove(req.params.id, (error)=> {
         if(error){
-          res.redirect('/publisher')
+          res.redirect('/baixesmediques')
         }else{
-          res.redirect('/publisher')
+          res.redirect('/baixesmediques')
         }
       }) 
     }
-  */
+  
 }
 
-module.exports = baixamedicaController;
+module.exports = baixesmediquesController;

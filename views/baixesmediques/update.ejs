@@ -12,22 +12,28 @@
 	<main>
 		<div class="card mt-4">
 			<div class="card-header">
-				<h5 class="card-title">Edit Baixamedica</h5>
+				<h5 class="card-title">Edita Baixa medica</h5>
 			</div>
 			<div class="card-body">
 				<form method="POST" action="/baixesmediques/update/<%= baixamedica._id %>">
 					<div class="form-group">
+
 						<label for="data_inicial_baixa">Data inicial baixa</label>
-						<input type="date" name="data_inicial_baixa" class="form-control"
-							value="<%= baixamedica.name %>">
-						<label for="data_inicial_baixa">Data inicial baixa</label>
-						<input type="date" name="data_inicial_baixa" class="form-control"
-							value="<%= baixamedica.name %>">
+						<input type="text" name="data_inicial_baixa" class="form-control"
+							value="<%= baixamedica.data_inicial_baixa %>">
+
+						<label for="data_prevista_alta">Data prevista alta</label>
+						<input type="text" name="data_inicial_baixa" class="form-control"
+							value="<%= baixamedica.data_prevista_alta %>">
+
+						<label for="comentari">Comentari</label>
+						<input type="text" name="comentari" class="form-control"
+							value="<%= baixamedica.comentari %>">
 					</div>
-					<button type="submit" class="btn btn-primary">Save
+					<button type="submit" class="btn btn-primary">Guarda
 					</button>
 					<a class="btn btn-danger" href="/baixesmediques/delete/<%= baixamedica._id %>"
-						role="button">Delete</a>
+						role="button">Esborra</a>
 				</form>
 				<% if (typeof error !=="undefined" ) { %>
 					<div class="alert alert-primary mt-2" role="alert">

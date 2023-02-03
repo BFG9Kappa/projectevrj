@@ -19,23 +19,27 @@
 					<div class="form-group">
 
 						<label for="data_sortida">Data sortida curricular</label>
-						<input type="date" name="data_sortida" class="form-control"
-							value="<%= sortidacurricular.name %>">
+						<input type="date" name="data_sortida" class="form-control" value="<%= sortidacurricular.data_sortida %>">
+
 						<label for="lloc">LLoc de sortida</label>
-						<input type="text" name="lloc" class="form-control">
+						<input type="text" name="lloc" class="form-control" value="<%= sortidacurricular.lloc">
+
 						<label for="ruta">Ruta</label>
-						<input type="text" name="ruta" class="form-control">
+						<input type="text" name="ruta" class="form-control" value="<%= sortidacurricular.ruta">
+
 						<label for="objectius">Objectius</label>
-						<input type="text" name="objectius" class="form-control">
+						<input type="text" name="objectius" class="form-control" value="<%= sortidacurricular.objectius">
+
 						<label for="grups">Grups</label>
-						<input type="text" name="grups" class="form-control">
+						<input type="text" name="grups" class="form-control" value="<%= sortidacurricular.grups">
+
 						<label for="professors">Professors</label>
-						<input type="text" name="professors" class="form-control">
+						<input type="text" name="professors" class="form-control" value="<%= sortidacurricular.professors">
 					</div>
-					<button type="submit" class="btn btn-primary">Save
+					<button type="submit" class="btn btn-primary">Guarda
 					</button>
 					<a class="btn btn-danger" href="/absprevistes/delete/<%= absprevista._id %>"
-						role="button">Delete</a>
+						role="button">Esborra</a>
 				</form>
 				<% if (typeof error !=="undefined" ) { %>
 					<div class="alert alert-primary mt-2" role="alert">
