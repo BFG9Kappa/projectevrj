@@ -40,17 +40,23 @@
                             <th scope="col">Dimecres</th>
                             <th scope="col">Dijous</th>
                             <th scope="col">Divendres</th>
-                            <th scope="col">Operacions</th>
                     </thead>
                     <tbody>
                         <% for(var i=1; i<15; i++) { %>
                             <tr>
                                 <td>
-                                    <%= taulahorari[i] %>
+                                    <%= taulahores[i] %>
                                 </td>
-                                <% for(var j=1; j<6; j++) { %>
+                                <% for(var j=1; j<6; j++) {    %>
                                     <td>
-                                        <%= list[i][j] %>
+                                        <%= list[i][j].materia %>
+                                        <%= list[i][j].aula %>
+                                        <%= list[i][j].grup %>
+
+                                        <a class="btn btn-secondary" href="/horaris/update/<%= list[i][j].id %>" class="card-link">Editar</a>
+                                        <!--
+                                        <a class="btn btn-danger" href="/horaris/delete/<%= list[i][j].id %>" class="card-link">Esborrar</a>
+                                        -->
                                     </td>
                                     <% } %>
                             </tr>
