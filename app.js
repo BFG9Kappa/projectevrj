@@ -15,7 +15,7 @@ var sortidescurricularsRouter = require('./routes/sortidescurricularsRouter');
 
 
 dotenv.config();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5003;
 
 
 // Conexio a base de dades
