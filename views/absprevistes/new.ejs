@@ -10,7 +10,7 @@
 		<%- include('../partials/header'); %>
 	</header>
 	<main>
-		<div class="card mt-4">
+		<div class="card mt-2">
 			<div class="card-header">
 				<h5 class="card-title">Document absencia prevista</h5>
 			</div>
@@ -21,12 +21,11 @@
 						<input type="date" name="data_absprevista" class="form-control">
 						<label for="motiu_abs">Motiu absencia</label>
 						<textarea name="motiu_abs" class="form-control"></textarea>
+						<label for="arxiuabs">Document justificatiu</label>
+						<input type="file" id="arxiuabs" class="form-control">
 					</div>
-					<label for="arxiuabs">Document justificatiu</label>
-					<input type="file" class="form-control">
 			</div>
-			<button type="submit" class="btn btn-primary">Guarda
-			</button>
+			<button type="submit" class="btn btn-primary">Guarda</button>
 			</form>
 			<% if (typeof error !=="undefined" ) { %>
 				<div class="alert alert-primary mt-2" role="alert">

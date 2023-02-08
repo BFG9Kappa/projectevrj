@@ -10,7 +10,7 @@
         <%- include('../partials/header'); %>
     </header>
     <main>
-        <div class="card mt-4">
+        <div class="card mt-2">
             <div class="card-header">
                 <h5 class="card-title">Editar Horari</h5>
             </div>
@@ -59,16 +59,12 @@
                 </form>
                 <% if (typeof error !=="undefined" ) { %>
                     <div class="alert alert-primary mt-2" role="alert">
-                        <p>
-                            <%= error %>
-                        </p>
+                        <p><%= error %></p>
                     </div>
                     <% } %>
                         <% if (typeof message !=="undefined" ) { %>
                             <div class="alert alert-primary mt-2" role="alert">
-                                <p>
-                                    <%= message %>
-                                </p>
+                                <p><%= message %></p>
                             </div>
                             <% } %>
             </div>

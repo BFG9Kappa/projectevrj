@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<%- include('../partials/head'); %>
 </head>
-
 <body class="container">
 	<header>
 		<%- include('../partials/header'); %>
@@ -16,7 +14,9 @@
 			</div>
 			<div class="card-body">
 				<table class="table table-striped">
-					<a href="/absnoprevistes/create" class="btn btn-primary">Nou</a>
+					<a href="/absnoprevistes/create" class="btn btn-primary">Nova</a>
+					<br>
+					<br>
 					<thead>
 						<tr>
 							<th scope="col">ID</th>						
@@ -25,7 +25,7 @@
 							<th scope="col">Hores ausencia</th>
 							<th scope="col">Motiu absencia</th>
 							<th scope="col">Document justificatiu</th>
-							<th scope="col">Operacions</th>		
+							<th scope="col" colspan="2">Operacions</th>		
 						</tr>
 					</thead>
 					<tbody>
@@ -51,7 +51,7 @@
 								</td>
 								<td>
 									<a class="btn btn-secondary" href="/absnoprevistes/update/<%=absnoprevista._id%>"
-										class="card-link">Edita</a>
+										class="card-link">Editar</a>
 								</td>
 								<td>
 									<a class="btn btn-danger" href="/absnoprevistes/delete/<%=absnoprevista._id%>"
@@ -68,5 +68,4 @@
 		<%- include('../partials/footer'); %>
 	</footer>
 </body>
-
 </html>

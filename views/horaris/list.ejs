@@ -22,16 +22,15 @@
         <%- include('../partials/header'); %>
     </header>
     <main>
-        <div class="card mt-4">
+        <div class="card mt-2">
             <div class="card-header">
                 <h5 class="card-title">Horari</h5>
             </div>
             <div class="card-body">
-
                 <table class="table table-striped">
                     <a href="/horaris/create" class="btn btn-primary">Nou</a>
-                    <br/>
-                    <br/>
+                    <br>
+                    <br>
                     <thead>
                         <tr>
                             <th scope="col">Hora</th>
@@ -52,7 +51,6 @@
                                         <%= list[i][j].materia %>
                                         <%= list[i][j].aula %>
                                         <%= list[i][j].grup %>
-
                                         <a class="btn btn-secondary" href="/horaris/update/<%= list[i][j].id %>" class="card-link">Editar</a>
                                         <!--
                                         <a class="btn btn-danger" href="/horaris/delete/<%= list[i][j].id %>" class="card-link">Esborrar</a>
@@ -63,80 +61,6 @@
                             <% } %>
                     </tbody>
                 </table>
-
-                <!--
-                <table class="table table-striped">
-                    <a href="/horaris/create" class="btn btn-primary">Nou</a>
-                    <thead>
-                        <tr>
-                            <th scope="col">Hora</th>
-                            <th scope="col">Dilluns</th>
-                            <th scope="col">Dimarts</th>
-                            <th scope="col">Dimecres</th>
-                            <th scope="col">Dijous</th>
-                            <th scope="col">Divendres</th>
-                            <th scope="col">Operacions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        Diurn
-                        <tr>
-                            <td>Mati</td>
-                        </tr>
-                        <tr>
-                            <td>8:00 - 9:00</td>
-                        </tr>
-                        <tr>
-                            <td>9:00 - 10:00</td>
-                        </tr>
-                        <tr>
-                            <td>10:00 - 11:00</td>
-                        </tr>
-                        <tr>
-                            <td>11:00 - 11:30</td>
-                            <td colspan="5">Esbarjo</td>
-                        </tr>
-                        <tr>
-                            <td>11:30 - 12:30</td>
-                        </tr>
-                        <tr>
-                            <td>12:30 - 13:30</td>
-                        </tr>
-                        <tr>
-                            <td>13:30 - 14:30</td>
-                        </tr>
-                        <tr>
-                            <td colspan="6"> Tarde</td>
-                        </tr>
-                        <tr>
-                            <td>15:00 - 16:00</td>
-                        </tr>
-                        <tr>
-                            <td>16:00 - 17:00</td>
-                        </tr>
-                        <tr>
-                            <td>17:00 - 18:00</td>
-                        </tr>
-                        <tr>
-                            <td>18:00 - 18:30</td>
-                            <td colspan="5">Esbarjo</td>
-                        </tr>
-                        <tr>
-                            <td>18:30 - 19:30</td>
-                        </tr>
-                        <tr>
-                            <td>19:30 - 20:30</td>
-                        </tr>
-                        <tr>
-                            <td>20:30 - 20:30</td>
-                        </tr>
-                        <tr>
-                            <td>20:30 - 21:30</td>
-                        </tr>
-                    </tbody>
-                </table>
-            -->
-
             </div>
         </div>
     </main>

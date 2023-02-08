@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<%- include('../partials/head'); %>
 </head>
-
 <body class="container">
 	<header>
 		<%- include('../partials/header'); %>
@@ -23,7 +21,7 @@
 				document.getElementById('fechaActual').value = ano + "-" + mes + "-" + dia;
 			}
 		</script>
-		<div class="card mt-4">
+		<div class="card mt-2">
 			<div class="card-header">
 				<h5 class="card-title">Afegir absència no prevista</h5>
 			</div>
@@ -46,21 +44,21 @@
 						<input type="file" class="form-control">
 					</div>
 			</div>
+<<<<<<< HEAD
 			<button type="submit" class="btn btn-primary">Desa</button>
+=======
+			<button type="submit" class="btn btn-primary">Desar</button>
+>>>>>>> 5bcd771ea53eebd0c9d01e3631c3aead49e7e48b
 			</form>
 			<% if (typeof error !=="undefined" ) { %>
 				<div class="alert alert-primary mt-2" role="alert">
-					<p>
-						<%= error %>
-					</p>
+					<p><%= error %></p>
 				</div>
 				<% } %>
-		</div>
 		</div>
 	</main>
 	<footer>
 		<%- include('../partials/footer'); %>
 	</footer>
 </body>
-
 </html>
