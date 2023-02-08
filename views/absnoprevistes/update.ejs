@@ -19,11 +19,11 @@
 					<div class="form-group">
 
 						<label for="name">Data absencia no prevista</label>
-						<input type="text" name="data_absnoprevista" class="form-control"
+						<input type="date" name="data_absnoprevista" class="form-control"
 							value="<%= absnoprevista.data_absnoprevista %>">
 
 						<label for="horari_profe">Horari professor</label>
-						<input type="text" name="horari_profe" class="form-control"
+						<input type="date" name="horari_profe" class="form-control"
 							value="<%= absnoprevista.horari_profe %>">
 
 						<label for="hores_ausencia">Hores ausencia</label>
@@ -31,8 +31,8 @@
 							value="<%= absnoprevista.hores_ausencia %>">
 
 						<label for="motiu_abs">Motiu absencia</label>
-						<input type="string" name="motiu_abs" class="form-control"
-							value="<%= absnoprevista.motiu_abs %>">
+						<textarea name="motiu_abs" class="form-control"
+						value="<%= absnoprevista.motiu_abs %>"></textarea> 
 
 						<label for="document_justificatiu">Document justificatiu</label>
 						<input type="file" name="document_justificatiu" class="form-control"
@@ -55,8 +55,8 @@
 									<%= message %>
 								</p>
 							</div>
-							<% } %>
-			</div>
+						<% } %>
+				</div>
 		</div>
 	</main>
 	<footer>
