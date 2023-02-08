@@ -10,19 +10,28 @@ class HorariController {
         }
 
         // Franjes de horaris
-        var taulahorari = ["","08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 11:30*", "11:30 - 12:30", "12:30 - 13:30", "13:30 - 14:30", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 18:30*", "18:30 - 19:30", "19:30 - 20:30", "20:30 - 21:30"]
+        var taulahores = ["","08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 11:30*", "11:30 - 12:30", "12:30 - 13:30", "13:30 - 14:30", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 18:30*", "18:30 - 19:30", "19:30 - 20:30", "20:30 - 21:30"];
 
         // Preparem el array per imprimirlo
         var horari = new Array(15);
-        for (var i = 0; i < 15; i++) horari[i] = new Array(6)
+        for (var i = 0; i < 15; i++) horari[i] = new Array(6);
+
+        for (var i = 0; i < 15; i++) 
+          for (var j = 0; j < 6; j++) 
+                  horari[i][j] = {}
+
         list_horari.forEach(function (h) {
-          //horari[h.hora][h.dia] = h.materia
-          horari[h.hora][h.dia] = h.materia + ' ' + h.aula + ' ' + h.grup
+          //horari[h.hora][h.dia] = h.materia; 
+          horari[h.hora][h.dia].id = h.id;
+          horari[h.hora][h.dia].materia = h.materia;
+          horari[h.hora][h.dia].aula = h.aula;
+          horari[h.hora][h.dia].grup = h.grup;
+          //horari[h.hora][h.dia].materia = h.materia;// .materia //h.materia + ' ' + h.aula + ' ' + h.grup;
         })
-        //console.log(horari) debug
+        //console.log(horari); // debug
 
         //res.render('horaris/list', { list: list_horari });
-        res.render('horaris/list', { list: horari, taulahorari:taulahorari });
+        res.render('horaris/list', { list: horari, taulahores:taulahores });
       });
   }
 
@@ -72,7 +81,7 @@ class HorariController {
         if (err) {
           res.render("horaris/update", { horari: horari, error: err.message });
         }
-        res.render("horaris/update", { horari: horari, message: 'Horari Updated' });
+        res.render("horaris/update", { horari: horari, message: 'Horari actualitzat' });
       }
     );
   }
