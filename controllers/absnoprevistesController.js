@@ -51,7 +51,7 @@ class absnoprevistesController {
           data_absnoprevista: req.body.data_absnoprevista,
           horari_profe: req.body.horari_profe,
           hores_ausencia: req.body.hores_ausencia,
-          motius_abs: req.body.motius_abs,
+          motiu_abs: req.body.motiu_abs,
           document_justificatiu: req.params.document_justificatiu,
           _id: req.params.id,  // Fa falta per sobreescriure el objecte.
         });    
