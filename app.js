@@ -3,6 +3,8 @@ const path = require('path');
 const app = express();
 const dotenv = require('dotenv');
 
+
+
 // Rutes
 var indexRouter = require('./routes/indexRouter');
 var loginRouter = require('./routes/loginRouter');
@@ -15,7 +17,7 @@ var sortidescurricularsRouter = require('./routes/sortidescurricularsRouter');
 
 
 dotenv.config();
-const port = process.env.PORT || 5003;
+const port = process.env.PORT || 5005;
 
 
 // Conexio a base de dades
@@ -24,6 +26,9 @@ var mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+// Paquete para las fechas
+app.locals.moment = require('moment');
 
 
 // Ruta de les vistes
@@ -45,6 +50,8 @@ app.get('/', function(req, res) {
 const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+
 
 
 app.use('/home', indexRouter);

@@ -1,6 +1,9 @@
 var AbsNoPrevista = require("../models/absnoprevista");
 
+
+
 class absnoprevistesController {
+  
 
     static list(req, res, next) {
       AbsNoPrevista.find()        
