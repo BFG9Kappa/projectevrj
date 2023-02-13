@@ -35,10 +35,10 @@
 									<%= baixamedica.id %>
 								</td>
 								<td>
-									<%= baixamedica.data_inicial_baixa %>
+									<%= moment(baixamedica.data_inicial_baixa).format('DD/MM/YYYY') %>
 								</td>
 								<td>
-									<%= baixamedica.data_prevista_alta %>
+									<%= moment(baixamedica.data_prevista_alta).format('DD/MM/YYYY') %>
 								</td>
 								<td>
 									<%= baixamedica.comentari %>

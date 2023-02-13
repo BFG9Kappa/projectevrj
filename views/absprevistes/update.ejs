@@ -16,7 +16,8 @@
 				<form method="POST" action="/absprevistes/update/<%= absenciaprevista._id%>">
 					<div class="form-group">
 						<label for="name">Data absència</label>
-                        <input type="text" name="data_absprevista" class="form-control" value="<%= absenciaprevista.data_absprevista %>">
+                        <input type="date" name="data_absprevista" class="form-control" value="<%= moment(absenciaprevista.data_absprevista).format('DD/MM/YYYY') %>">
+
 						<label for="name">Motiu</label>
                         <input type="text" name="motiu_abs" class="form-control" value="<%= absenciaprevista.motiu_abs %>">
 					</div>

@@ -37,7 +37,7 @@
 
 						<label for="name">Horari professor</label>
 						<input type="date" name="horari_profe" class="form-control"
-							value="<%= absnoprevista.horari_profe %>">
+							value="<%= moment(absnoprevista.horari_profe).format('DD/MM/YYYY') %>">
 
 						<label for="name">Hores ausencia</label>
 						<input type="number" name="hores_ausencia" class="form-control"
