@@ -46,7 +46,7 @@ class HorariController {
       } else {
         res.redirect('/horaris');
       }
-    })
+    });
   }
 
   static update_get(req, res, next) {
@@ -97,7 +97,7 @@ class HorariController {
       } else {
         res.redirect('/horaris');
       }
-    })
+    });
   }
 
 }
