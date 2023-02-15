@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 // Importar models
 var Horari = require("../models/horari");
 
-// Carregar dades de fitxers JSON
-var horarisJSON = require('./provaHoraris.json');
+// Carregar dades d'un CSV
+const csv = require('csvtojson')
 
 // 
 var mongoDB = process.env.MONGODB_URI;
@@ -43,5 +43,7 @@ async function seeder() {
     await Horari.collection.drop();
 
     // Inserir dades
-    var horaris = await Horari.insertMany(horarisJSON.horaris);
+    const jsonObj = await csv()
+        .fromFile('./dataHoraris.csv')
+    horariList = await Horari.insertMany(jsonObj);
 }
