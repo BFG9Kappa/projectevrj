@@ -32,7 +32,7 @@
 									<%= absprevista.id %>
 								</td>
 								<td>
-									<%= absprevista.data_absprevista %>
+									<%= moment(absprevista.data_absprevista).format('DD/MM/YYYY') %>
 								</td>
 								<td>
 									<%= absprevista.motiu_abs %>

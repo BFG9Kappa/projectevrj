@@ -35,9 +35,9 @@ class baixesmediquesController {
           if (err) {
             return next(err);
           }
-          if (baixamedica == null) {
+          if (baixamedica == null || baixamedica == "") {
             // No results.
-            var err = new Error("BaixaMedica not found");
+            var err = new Error("BaixaMedica no trobada");
             err.status = 404;
             return next(err);
           }
@@ -49,7 +49,9 @@ class baixesmediquesController {
   
     static update_post(req, res, next) {
         var baixamedica = new BaixaMedica({
-          name: req.body.name,
+          data_inicial_baixa: req.body.data_inicial_baixa,
+          data_prevista_alta: req.body.data_prevista_alta,
+          comentari: req.body.comentari,
           _id: req.params.id,
         });    
       
@@ -57,14 +59,16 @@ class baixesmediquesController {
           req.params.id,
           baixamedica,
           {},
+          
           function (err, baixamedicaFound) {
             if (err) {
               res.render("baixesmediques/update", { baixamedica: baixamedica, error: err.message });
   
             }
-            res.render("baixesmediques/update", { baixamedica: baixamedica, message: 'Publisher Updated'});
+            res.render("baixesmediques/update", { baixamedica: baixamedica, message: 'Baixa mèdica actualitzada'});
           
           }
+          
         );
     }
   
