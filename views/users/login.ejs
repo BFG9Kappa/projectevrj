@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include('../partials/head'); %>
+</head>
+<body>
+	<div class="container">
+		<header><%- include('../partials/header'); %></header>
+		<div class="row">
+			<div class="col-md-4 offset-md-4">
+				<div class="login-form bg-light mt-4 p-4">
+					<form action="/auth/login" method="POST" class="row g-3">
+						<h4>Benvingut/da</h4>
+						<div class="col-12">
+							<label>Correu electrònic</label>
+							<input type="text" name="email" class="form-control"/>
+						</div>
+						<div class="col-12">
+							<label>Contrasenya</label>
+							<input type="password" name="password" class="form-control"/>
+						</div>
+						<div class="col-12" style="text-align: center;padding-top: 1em;">
+							<button type="submit" class="btn btn-dark float-end">Accedir</button>
+						</div>
+					</form>
+					<hr class="mt-4" />
+					<div class="col-12">
+						<p class="text-center mb-0">No tens compte? <a href="/auth/register">Enregistrat aquí</a>
+						</p>
+					</div>
+				</div>
+				<% if (typeof message !=="undefined" ) { %>
+					<div class="alert alert-danger mt-4" role="alert">
+						<p><%= message %></p>
+					</div>
+					<% } %>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<%- include('../partials/footer'); %>
+	</footer>
+</body>
+</html>
