@@ -20,11 +20,11 @@
 
 						<label for="name">Data inicial baixa</label>
 						<input type="date" name="data_inicial_baixa" class="form-control"
-							value="<%= baixamedica.data_inicial_baixa %>">
+							value="<%= baixamedica.data_inicial_baixa.toISOString().slice(0, 10) %>">
 
 						<label for="name">Data prevista alta</label>
 						<input type="date" name="data_inicial_baixa" class="form-control"
-							value="<%= baixamedica.data_prevista_alta %>">
+							value="<%= baixamedica.data_prevista_alta.toISOString().slice(0, 10) %>">
 
 						<label for="name">Comentari</label>
 						<textarea name="comentari" class="form-control"><%= baixamedica.comentari %></textarea>
