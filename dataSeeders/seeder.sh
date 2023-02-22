@@ -1,7 +1,16 @@
 #!/bin/bash
 
 # Horaris
-node seederHoraris.js
+node horarisSeeder.js
+
+# Absències previstes
+#
+
+# Absències no previstes
+#
 
 # Baixes mediques
-node seederBaixesmediques.js
+node baixesmediquesSeeder.js
+
+# Sortides Curriculars
+#

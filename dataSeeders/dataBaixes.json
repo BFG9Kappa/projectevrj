@@ -1,0 +1,19 @@
+{
+	"baixes": [
+		{
+			"data_inicial_baixa": 1667725200000,
+			"data_prevista_alta": 1668589200000,
+			"comentari": ""
+		},
+		{
+			"data_inicial_baixa": 1676246400000,
+			"data_prevista_alta": 1676851200000,
+			"comentari": "Femur fracturat"
+		},
+		{
+			"data_inicial_baixa": 1672650360000,
+			"data_prevista_alta": 1676883900000,
+			"comentari": "Baixa per accident de transit"
+		}
+	]
+}
