@@ -17,7 +17,7 @@ class sortidacurricularController {
 	static create_post(req, res, next) {
 		SortidaCurricular.create(req.body, (error, newSortidaCurricular) => {
 			if (error) {
-				res.render("sortidescurriculars/new", { error: "error" });
+				res.render("sortidescurriculars/new", { error: error.message });
 			} else {
 				res.redirect("/sortidescurriculars");
 			}
