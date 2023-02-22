@@ -13,16 +13,22 @@ class baixesmediquesController {
   }
 
   static create_get(req, res, next) {
-    res.render('baixesmediques/new');
+      var BaixaMedica = {
+        "data_inicial_baixa" : "",
+        "data_prevista_alt" : "",
+        "comentari" : ""
+      }
+   
+    res.render('baixesmediques/new',{BaixaMedica:BaixaMedica});
   }
 
 
   static create_post(req, res) {
     // console.log(req.body)
-    BaixaMedica.create(req.body, function (error, newBaixamedica) {
+    BaixaMedica.create(req.body, (error, newRecord) =>{
       if (error) {
         //console.log(error)
-        res.render('baixesmediques/new', { error: error.message })
+        res.render('baixesmediques/new', { error: 'error' })
       } else {
         res.redirect('/baixesmediques')
       }
@@ -62,7 +68,7 @@ class baixesmediquesController {
               res.render("baixesmediques/update", { baixamedica: baixamedica, error: err.message });
   
             }
-            res.render("baixesmediques/update", { baixamedica: baixamedica, message: 'Publisher Updated'});
+            res.render("baixesmediques/update", { baixamedica: baixamedica, message: 'Baixa Mèdica Actualitzada'});
           
           }
         );
