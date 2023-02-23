@@ -1,6 +1,29 @@
 var BaixaMedica = require("../models/baixamedica");
 
+//const { body, validationResult } = require("express-validator");
+
 class baixesmediquesController {
+
+	/*static rules = [
+    // Validate and sanitize fields.
+    body("comentari")
+      .trim()
+      .isLength({ max: 500})
+      .withMessage('El comentari és molt llarg.')
+      .escape()
+      .custom(async function(value, {req}) {
+
+          const baixamedica = await BaixaMedica.findOne({comentari:value});
+          if (baixamedica) {
+            if(req.params.id!==baixamedica.id ) {
+              throw new Error('Aquesta baixa te el mateix comentari que un altre.');
+            }
+          }
+          return true;
+      })
+
+  ];
+*/
 	static async list(req, res, next) {
 		try {
 			var list_baixesmediques = await BaixaMedica.find();
@@ -11,10 +34,18 @@ class baixesmediquesController {
 	}
 
 	static create_get(req, res, next) {
-		res.render("baixesmediques/new");
-	}
+		var BaixaMedica = {
+			"data_inicial_baixa" : "",
+			"data_prevista_alt" : "",
+			"comentari" : ""
+		}
+
+	res.render('baixesmediques/new',{BaixaMedica:BaixaMedica});
+}
 
 	static create_post(req, res) {
+		// Recuperem els errors possibles de validació
+		//const errors = validationResult(req);
 		// console.log(req.body)
 		BaixaMedica.create(req.body, function (error, newBaixamedica) {
 			if (error) {
@@ -43,6 +74,7 @@ class baixesmediquesController {
 	}
 
 	static update_post(req, res, next) {
+		//const errors = validationResult(req);
 		var baixamedica = new BaixaMedica({
 			name: req.body.name,
 			_id: req.params.id,
