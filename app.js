@@ -6,14 +6,13 @@ var session = require("express-session");
 
 // Rutes
 var indexRouter = require("./routes/indexRouter");
-var loginRouter = require("./routes/loginRouter");
-var usuarisRouter = require("./routes/usuarisRouter");
+var authRouter = require("./routes/authRouter");
 var horariRouter = require("./routes/horariRouter");
 var baixesmediquesRouter = require("./routes/baixesmediquesRouter");
 var absnoprevistesRouter = require("./routes/absnoprevistesRouter");
 var absprevistesRouter = require("./routes/absprevistesRouter");
 var sortidescurricularsRouter = require("./routes/sortidescurricularsRouter");
-var authRouter = require("./routes/authRouter");
+
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -65,13 +64,12 @@ app.use(function (req, res, next) {
 });
 
 app.use("/home", indexRouter);
-app.use("/login", loginRouter);
-app.use("/usuaris", usuarisRouter);
+app.use("/auth", authRouter);
 app.use("/horaris", horariRouter);
 app.use("/baixesmediques", baixesmediquesRouter);
 app.use("/absnoprevistes", absnoprevistesRouter);
 app.use("/absprevistes", absprevistesRouter);
 app.use("/sortidescurriculars", sortidescurricularsRouter);
-app.use("/auth", authRouter);
+
 
 module.exports = app;
