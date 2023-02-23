@@ -27,12 +27,26 @@
 					<tbody>
 						<% list.forEach( function(baixamedica) { %>
 							<tr>
-								<td><%= baixamedica.id %></td>
-								<td><%= baixamedica.data_inicial_baixa %></td>
-								<td><%= baixamedica.data_prevista_alta %></td>
-								<td><%= baixamedica.comentari %></td>
-								<td><a class="btn btn-secondary" href="/baixesmediques/update/<%=baixamedica._id%>" class="card-link">Edit</a></td>
-								<td><a class="btn btn-danger" href="/baixesmediques/delete/<%=baixamedica._id%>" class="card-link">Esborrar</a></td>
+								<td>
+									<%= baixamedica.id %>
+								</td>
+								<td>
+									<%= moment(baixamedica.data_inicial_baixa).format('DD/MM/YYYY') %>
+								</td>
+								<td>
+									<%= moment(baixamedica.data_prevista_alta).format('DD/MM/YYYY') %>
+								</td>
+								<td>
+									<%= baixamedica.comentari %>
+								</td>
+								<td>
+									<a class="btn btn-secondary" href="/baixesmediques/update/<%=baixamedica._id%>"
+										class="card-link">Edit</a>
+								</td>
+								<td>
+									<a class="btn btn-danger" href="/baixesmediques/delete/<%=baixamedica._id%>"
+										class="card-link">Esborrar</a>
+								</td>
 							</tr>
 						<% }); %>
 					</tbody>

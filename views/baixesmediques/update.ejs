@@ -15,12 +15,16 @@
 			<div class="card-body">
 				<form method="POST" action="/baixesmediques/update/<%= baixamedica._id %>">
 					<div class="form-group">
-						<label for="data_inicial_baixa">Data inicial baixa</label>
-						<input type="text" name="data_inicial_baixa" class="form-control" value="<%= baixamedica.data_inicial_baixa %>">
-						<label for="data_prevista_alta">Data prevista alta</label>
-						<input type="text" name="data_inicial_baixa" class="form-control" value="<%= baixamedica.data_prevista_alta %>">
-						<label for="comentari">Comentari</label>
-						<input type="text" name="comentari" class="form-control" value="<%= baixamedica.comentari %>">
+						<label for="name">Data inicial baixa</label>
+						<input type="date" name="data_inicial_baixa" class="form-control"
+							value="<%= baixamedica.data_inicial_baixa.toISOString().slice(0, 10) %>">
+
+						<label for="name">Data prevista alta</label>
+						<input type="date" name="data_inicial_baixa" class="form-control"
+							value="<%= baixamedica.data_prevista_alta.toISOString().slice(0, 10) %>">
+
+						<label for="name">Comentari</label>
+						<textarea name="comentari" class="form-control"><%= baixamedica.comentari %></textarea>
 					</div>
 					<button type="submit" class="btn btn-primary">Desar</button>
 					<a class="btn btn-danger" href="/baixesmediques/delete/<%= baixamedica._id %>" role="button">Esborrar</a>
