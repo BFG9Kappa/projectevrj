@@ -36,7 +36,7 @@ class baixesmediquesController {
 	static create_get(req, res, next) {
 		var BaixaMedica = {
 			"data_inicial_baixa" : "",
-			"data_prevista_alt" : "",
+			"data_prevista_alta" : "",
 			"comentari" : ""
 		}
 
@@ -76,7 +76,10 @@ class baixesmediquesController {
 	static update_post(req, res, next) {
 		//const errors = validationResult(req);
 		var baixamedica = new BaixaMedica({
-			name: req.body.name,
+			baixamedica: req.body.baixamedica,
+			data_inicial_baixa: req.body.data_inicial_baixa,
+			data_prevista_alta: req.body.data_prevista_alta,
+			comentari: req.body.comentari,
 			_id: req.params.id,
 		});
 
