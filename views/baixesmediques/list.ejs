@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<%- include('../partials/head'); %>
 </head>
-
 <body class="container">
 	<header>
 		<%- include('../partials/header'); %>
@@ -16,9 +14,7 @@
 			</div>
 			<div class="card-body">
 				<table class="table table-striped">
-					<a href="/baixesmediques/create" class="btn btn-primary">Nova</a>
-					<br>
-					<br>
+					<a href="/baixesmediques/create" class="btn btn-primary">Nova</a><br><br>
 					<thead>
 						<tr>
 							<th scope="col">ID</th>
@@ -52,7 +48,7 @@
 										class="card-link">Esborrar</a>
 								</td>
 							</tr>
-							<% }); %>
+						<% }); %>
 					</tbody>
 				</table>
 			</div>
@@ -62,5 +58,4 @@
 		<%- include('../partials/footer'); %>
 	</footer>
 </body>
-
 </html>

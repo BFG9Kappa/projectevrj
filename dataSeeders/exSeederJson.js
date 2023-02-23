@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 var Horari = require("../models/horari");
 
 // Carregar dades de fitxers JSON
-var horarisJSON = require('./provaHoraris.json');
+var horarisJSON = require('./exDataHoraris.json');
 
 // 
 var mongoDB = process.env.MONGODB_URI;

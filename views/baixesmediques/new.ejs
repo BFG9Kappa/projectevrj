@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<%- include('../partials/head'); %>
 </head>
-
 <body class="container">
-
 	<header>
 		<%- include('../partials/header'); %>
 	</header>
-
 	<main>
-
 		<div class="card mt-2">
 			<div class="card-header">
 				<h5 class="card-title">Afegir baixa mèdica</h5>
@@ -22,38 +17,24 @@
 					<div class="form-group">
 						<label for="name">Data inical baixa mèdica</label>
 						<input type="date" name="data_inicial_baixa" class="form-control">
-
 						<label for="name">Data prevista alta medica</label>
 						<input type="date" name="data_prevista_alta" class="form-control">
-
 						<label for="name">Comentari</label>
 						<textarea name="comentari" class="form-control"></textarea>
 					</div></br>
 					<input type="file" class="form-control">
-
 			</div>
-			<button type="submit" class="btn btn-primary">Guarda
-			</button>
+			<button type="submit" class="btn btn-primary">Desar</button>
 			</form>
-
-			<% if (typeof error !=="undefined" ) { %>
+			<% if (typeof error !=="undefined") { %>
 				<div class="alert alert-primary mt-2" role="alert">
-					<p>
-						<%= error %>
-					</p>
+					<p><%= error %></p>
 				</div>
 				<% } %>
-
 		</div>
-		</div>
-
-
 	</main>
-
 	<footer>
 		<%- include('../partials/footer'); %>
 	</footer>
-
 </body>
-
 </html>

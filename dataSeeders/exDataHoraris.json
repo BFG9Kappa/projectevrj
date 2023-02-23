@@ -3,25 +3,25 @@
         {
             "dia": 1,
             "hora": 1,
-            "materia": "DAW_XXX",
-            "aula": "X-101",
-            "grup": "DAWXX",
+            "materia": "DAW_M03",
+            "aula": "A-101",
+            "grup": "DAW1A",
             "professor": "gafera"
         },
         {
             "dia": 1,
             "hora": 2,
-            "materia": "DAW_XXX",
-            "aula": "X-101",
-            "grup": "DAWXX",
+            "materia": "DAW_M03",
+            "aula": "A-101",
+            "grup": "DAW1A",
             "professor": "gafera"
         },
         {
             "dia": 1,
             "hora": 3,
-            "materia": "DAM_XXX",
-            "aula": "X-202",
-            "grup": "DAMXX",
+            "materia": "DAM_M03",
+            "aula": "A-202",
+            "grup": "DAM1A",
             "professor": "gafera"
         }
     ]

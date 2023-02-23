@@ -1,34 +1,47 @@
 var BaixaMedica = require("../models/baixamedica");
 
+//const { body, validationResult } = require("express-validator");
+
 class baixesmediquesController {
 
-  static async list(req, res, next) {
-    try {
-      var list_baixesmediques = await BaixaMedica.find();
-      res.render('baixesmediques/list', { list: list_baixesmediques })
-    }
-    catch (e) {
-      res.send('Error!');
-    }
-  }
+	/*static rules = [
+    // Validate and sanitize fields.
+    body("comentari")
+      .trim()
+      .isLength({ max: 500})
+      .withMessage('El comentari és molt llarg.')
+      .escape()
+      .custom(async function(value, {req}) {
 
-  static create_get(req, res, next) {
-    res.render('baixesmediques/new');
-  }
+          const baixamedica = await BaixaMedica.findOne({comentari:value});
+          if (baixamedica) {
+            if(req.params.id!==baixamedica.id ) {
+              throw new Error('Aquesta baixa te el mateix comentari que un altre.');
+            }
+          }
+          return true;
+      })
 
+  ];
+*/
+	static async list(req, res, next) {
+		try {
+			var list_baixesmediques = await BaixaMedica.find();
+			res.render("baixesmediques/list", { list: list_baixesmediques });
+		} catch (e) {
+			res.send("Error!");
+		}
+	}
 
-  static create_post(req, res) {
-    // console.log(req.body)
-    BaixaMedica.create(req.body, function (error, newBaixamedica) {
-      if (error) {
-        //console.log(error)
-        res.render('baixesmediques/new', { error: error.message })
-      } else {
-        res.redirect('/baixesmediques')
-      }
-    })
-  }
+	static create_get(req, res, next) {
+		var BaixaMedica = {
+			"data_inicial_baixa" : "",
+			"data_prevista_alt" : "",
+			"comentari" : ""
+		}
 
+	res.render('baixesmediques/new',{BaixaMedica:BaixaMedica});
+}
 
     static update_get(req, res, next) {
       BaixaMedica.findById(req.params.id, function (err, baixamedica) {
@@ -88,6 +101,7 @@ class baixesmediquesController {
       }) 
     }
   
+
 }
 
 module.exports = baixesmediquesController;
