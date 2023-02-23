@@ -21,7 +21,7 @@
 							<th scope="col">Data inicial baixa</th>
 							<th scope="col">Data prevista alta </th>
 							<th scope="col">Comentari</th>
-							<th scope="col" colspan="2">Operacions</th>	
+							<th scope="col" colspan="2">Operacions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -31,7 +31,7 @@
 								<td><%= baixamedica.data_inicial_baixa %></td>
 								<td><%= baixamedica.data_prevista_alta %></td>
 								<td><%= baixamedica.comentari %></td>
-								<td><a class="btn btn-secondary" href="/baixesmediques/update/<%=baixamedica._id%>" class="card-link">Edit</a></td>
+								<td><a class="btn btn-secondary" href="/baixesmediques/update/<%=baixamedica._id%>" class="card-link">Editar</a></td>
 								<td><a class="btn btn-danger" href="/baixesmediques/delete/<%=baixamedica._id%>" class="card-link">Esborrar</a></td>
 							</tr>
 						<% }); %>
