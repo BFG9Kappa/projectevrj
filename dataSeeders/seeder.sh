@@ -4,7 +4,7 @@
 node horarisSeeder.js
 
 # Absències previstes
-#
+node absenciesSeeder.js
 
 # Absències no previstes
 #
