@@ -15,7 +15,7 @@
 					<form method="POST" action="/sortidescurriculars/create">
 						<div class="form-group">
 							<label for="data_sortida">Data sortida curricular</label>
-							<input type="date" name="data_sortida" class="form-control" />
+							<input type="date" name="data_sortida" id="data_sortida" class="form-control" />
 
 							<label for="lloc">Lloc de sortida</label>
 							<input type="text" name="lloc" class="form-control" />
@@ -43,10 +43,12 @@
 						</div>
 						<button type="submit" class="btn btn-primary">Desar</button>
 					</form>
-					<% if (typeof error !=="undefined" ) { %>
-					<div class="alert alert-primary mt-2" role="alert">
-						<p><%= error %></p>
-					</div>
+					<% if (typeof errors !== "undefined") { %>
+						<div class="alert alert-danger mt-2" role="alert">
+							<% errors.forEach(function(error) { %>
+								<p><%= error.msg %></p>
+							<% }) %>
+						</div>
 					<% } %>
 				</div>
 			</div>

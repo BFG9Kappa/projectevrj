@@ -18,7 +18,7 @@
 				<form method="POST" action="/sortidescurriculars/update/<%= sortidacurricular._id %>">
 					<div class="form-group">
 						<label for="data_sortida">Data sortida curricular</label>
-						<input type="date" name="data_sortida" class="form-control" value="<%= sortidacurricular.data_sortida.toISOString().slice(0, 10) %>">
+						<input type="date" id="data_sortida" name="data_sortida" class="form-control" value="<%= sortidacurricular.data_sortida.toISOString().slice(0, 10) %>">
 
 						<label for="lloc">LLoc de sortida</label>
 						<input type="text" name="lloc" class="form-control" value="<%= sortidacurricular.lloc %>">

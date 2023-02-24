@@ -40,7 +40,7 @@
 						<% list.forEach( function(sortidacurricular) { %>
 							<tr>
 								<td>
-									<%= sortidacurricular.data_sortida %>
+									<%= moment(sortidacurricular.data_sortida).format('DD/MM/YYYY') %>
 								</td>
 								<td>
 									<%= sortidacurricular.lloc %>
