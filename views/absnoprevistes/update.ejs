@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 	<%- include('../partials/head'); %>
 </head>
 <body class="container">
@@ -8,9 +9,23 @@
 		<%- include('../partials/header'); %>
 	</header>
 	<main>
+		<script>
+			window.onload = function()
+			{
+				var fecha = new Date(); //Fecha actual
+				var mes = fecha.getMonth() + 1; //obteniendo mes
+				var dia = fecha.getDate(); //obteniendo dia
+				var ano = fecha.getFullYear(); //obteniendo año
+				if (dia < 10)
+				dia = '0' + dia; //agrega cero si el menor de 10
+				if (mes < 10)
+				mes = '0' + mes //agrega cero si el menor de 10
+				document.getElementById('fecha-entrada').value = dia + "/" + mes + "/" + ano;
+			}
+		</script>
 		<div class="card mt-4">
 			<div class="card-header">
-				<h5 class="card-title">Editar absencia no prevista</h5>
+				<h5 class="card-title">Edita Absencia no prevista</h5>
 			</div>
 			<div class="card-body">
 				<form method="POST" action="/absnoprevistes/update/<%= absnoprevista._id %>">
