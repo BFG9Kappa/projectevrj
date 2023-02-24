@@ -2,7 +2,6 @@ var AbsNoPrevista = require("../models/absnoprevista");
 const { body, validationResult } = require("express-validator");
 
 class absnoprevistesController {
-
   static rules = [
     // Validate and sanitize fields.
     body("data_absnoprevista")

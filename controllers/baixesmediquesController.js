@@ -124,6 +124,48 @@ class baixesmediquesController {
       })
     }
 
+	static update_post(req, res, next) {
+		//const errors = validationResult(req);
+		var baixamedica = new BaixaMedica({
+			baixamedica: req.body.baixamedica,
+			data_inicial_baixa: req.body.data_inicial_baixa,
+			data_prevista_alta: req.body.data_prevista_alta,
+			comentari: req.body.comentari,
+			_id: req.params.id,
+		});
+
+		BaixaMedica.findByIdAndUpdate(
+			req.params.id,
+			baixamedica,
+			{},
+			function (err, baixamedicaFound) {
+				if (err) {
+					res.render("baixesmediques/update", {
+						baixamedica: baixamedica,
+						error: err.message,
+					});
+				}
+				res.render("baixesmediques/update", {
+					baixamedica: baixamedica,
+					message: "Baixa medica actualitzada",
+				});
+			}
+		);
+	}
+
+	static async delete_get(req, res, next) {
+		res.render("baixesmediques/delete", { id: req.params.id });
+	}
+
+	static async delete_post(req, res, next) {
+		BaixaMedica.findByIdAndRemove(req.params.id, (error) => {
+			if (error) {
+				res.redirect("/baixesmediques");
+			} else {
+				res.redirect("/baixesmediques");
+			}
+		});
+	}
 }
 
 module.exports = baixesmediquesController;
