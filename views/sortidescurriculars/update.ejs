@@ -12,34 +12,32 @@
 	<main>
 		<div class="card mt-4">
 			<div class="card-header">
-				<h5 class="card-title">Edit Sortida Curricular</h5>
+				<h5 class="card-title">Editar sortida curricular</h5>
 			</div>
 			<div class="card-body">
 				<form method="POST" action="/sortidescurriculars/update/<%= sortidacurricular._id %>">
 					<div class="form-group">
-
 						<label for="data_sortida">Data sortida curricular</label>
-						<input type="date" name="data_sortida" class="form-control" value="<%= sortidacurricular.data_sortida %>">
+						<input type="date" name="data_sortida" class="form-control" value="<%= sortidacurricular.data_sortida.toISOString().slice(0, 10) %>">
 
 						<label for="lloc">LLoc de sortida</label>
-						<input type="text" name="lloc" class="form-control" value="<%= sortidacurricular.lloc">
+						<input type="text" name="lloc" class="form-control" value="<%= sortidacurricular.lloc %>">
 
 						<label for="ruta">Ruta</label>
-						<input type="text" name="ruta" class="form-control" value="<%= sortidacurricular.ruta">
+						<input type="text" name="ruta" class="form-control" value="<%= sortidacurricular.ruta %>">
 
 						<label for="objectius">Objectius</label>
-						<input type="text" name="objectius" class="form-control" value="<%= sortidacurricular.objectius">
+						<input type="text" name="objectius" class="form-control" value="<%= sortidacurricular.objectius %>">
 
 						<label for="grups">Grups</label>
-						<input type="text" name="grups" class="form-control" value="<%= sortidacurricular.grups">
+						<input type="text" name="grups" class="form-control" value="<%= sortidacurricular.grups %>">
 
 						<label for="professors">Professors</label>
-						<input type="text" name="professors" class="form-control" value="<%= sortidacurricular.professors">
+						<input type="text" name="professors" class="form-control" value="<%= sortidacurricular.professors %>">
 					</div>
-					<button type="submit" class="btn btn-primary">Guarda
-					</button>
-					<a class="btn btn-danger" href="/absprevistes/delete/<%= absprevista._id %>"
-						role="button">Esborra</a>
+					<button type="submit" class="btn btn-primary">Desar</button>
+					<a class="btn btn-danger" href="/sortidescurriculars/delete/<%= sortidacurricular._id %>"
+						role="button">Esborrar</a>
 				</form>
 				<% if (typeof error !=="undefined" ) { %>
 					<div class="alert alert-primary mt-2" role="alert">

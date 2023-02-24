@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<%- include('../partials/head'); %>
 </head>
-
 <body class="container">
-
 	<header>
 		<%- include('../partials/header'); %>
 	</header>
-
 	<main>
-
 		<div class="card mt-2">
 			<div class="card-header">
 				<h5 class="card-title">Afegir baixa mèdica</h5>
@@ -28,10 +23,8 @@
 						<textarea name="comentari" class="form-control"></textarea>
 					</div></br>
 					<input type="file" class="form-control">
-
 			</div>
-			<button type="submit" class="btn btn-primary">Guarda
-			</button>
+			<button type="submit" class="btn btn-primary">Desar</button>
 			</form>
 				<% if (typeof errors !== "undefined") { %>
 					<div class="alert alert-danger mt-2" role="alert">
@@ -41,7 +34,6 @@
 					</div>
 				<% } %>
 
-		</div>
 		</div>
 	</main>
 

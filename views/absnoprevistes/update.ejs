@@ -1,79 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+	<head>
+		<%- include('../partials/head'); %>
+	</head>
+	<body class="container">
+		<header><%- include('../partials/header'); %></header>
+		<main>
+			<script>
+				window.onload = function () {
+					var fecha = new Date(); //Fecha actual
+					var mes = fecha.getMonth() + 1; //obteniendo mes
+					var dia = fecha.getDate(); //obteniendo dia
+					var ano = fecha.getFullYear(); //obteniendo año
+					if (dia < 10) dia = "0" + dia; //agrega cero si el menor de 10
+					if (mes < 10) mes = "0" + mes; //agrega cero si el menor de 10
+					document.getElementById("fecha-entrada").value =
+						dia + "/" + mes + "/" + ano;
+				};
+			</script>
+			<div class="card mt-4">
+				<div class="card-header">
+					<h5 class="card-title">Editar absencia no prevista</h5>
+				</div>
+				<div class="card-body">
+					<form
+						method="POST"
+						action="/absnoprevistes/update/<%= absnoprevista._id %>"
+					>
+						<div class="form-group">
+							<label for="name">Data absencia no prevista</label>
+							<input
+								type="text"
+								name="data_absnoprevista"
+								class="form-control"
+								value="<%= absnoprevista.data_absnoprevista %>"
+								id="fecha-entrada"
+								disabled
+							/>
 
-	<%- include('../partials/head'); %>
-</head>
-<body class="container">
-	<header>
-		<%- include('../partials/header'); %>
-	</header>
-	<main>
-		<script>
-			window.onload = function()
-			{
-				var fecha = new Date(); //Fecha actual
-				var mes = fecha.getMonth() + 1; //obteniendo mes
-				var dia = fecha.getDate(); //obteniendo dia
-				var ano = fecha.getFullYear(); //obteniendo año
-				if (dia < 10)
-				dia = '0' + dia; //agrega cero si el menor de 10
-				if (mes < 10)
-				mes = '0' + mes //agrega cero si el menor de 10
-				document.getElementById('fecha-entrada').value = dia + "/" + mes + "/" + ano;
-			}
-		</script>
-		<div class="card mt-4">
-			<div class="card-header">
-				<h5 class="card-title">Edita Absencia no prevista</h5>
-			</div>
-			<div class="card-body">
-				<form method="POST" action="/absnoprevistes/update/<%= absnoprevista._id %>">
-					<div class="form-group">
+							<label for="horari_profe">Horari professor</label>
+							<input
+								type="date"
+								id="horari_profe"
+								name="horari_profe"
+								class="form-control"
+								value="<%= absnoprevista.horari_profe.toISOString().slice(0, 10) %>"
+							/>
 
-						<label for="name">Data absencia no prevista</label>
-						<input type="text" name="data_absnoprevista" class="form-control"
-							value="<%= absnoprevista.data_absnoprevista %>">
+							<label for="name">Hores ausencia</label>
+							<input
+								type="number"
+								name="hores_ausencia"
+								class="form-control"
+								value="<%= absnoprevista.hores_ausencia %>"
+							/>
 
-						<label for="horari_profe">Horari professor</label>
-						<input type="text" name="horari_profe" class="form-control"
-							value="<%= absnoprevista.horari_profe %>">
+							<label for="name">Motiu absencia</label>
+							<textarea name="motiu_abs" class="form-control">
+<%= absnoprevista.motiu_abs %></textarea
+							>
 
-						<label for="hores_ausencia">Hores ausencia</label>
-						<input type="number" name="hores_ausencia" class="form-control"
-							value="<%= absnoprevista.hores_ausencia %>">
-
-						<label for="motiu_abs">Motiu absencia</label>
-						<input type="text" name="motiu_abs" class="form-control"
-							value="<%= absnoprevista.motiu_abs %>">
-
-						<label for="document_justificatiu">Document justificatiu</label>
-						<input type="file" name="document_justificatiu" class="form-control"
-							value="<%= absnoprevista.document_justificatiu %>">
-					</div>
-					<button type="submit" class="btn btn-primary">Desar</button>
-					<a class="btn btn-danger" href="/absnoprevistes/delete/<%= absnoprevista._id %>"
-						role="button">Esborrar</a>
-				</form>
-				<% if (typeof error !=="undefined" ) { %>
+							<label for="name">Document justificatiu</label>
+							<input
+								type="file"
+								name="document_justificatiu"
+								class="form-control"
+								value="<%= absnoprevista.document_justificatiu %>"
+							/>
+						</div>
+						<button type="submit" class="btn btn-primary">Desar</button>
+						<a
+							class="btn btn-danger"
+							href="/absnoprevistes/delete/<%= absnoprevista._id %>"
+							role="button"
+							>Esborrar</a
+						>
+					</form>
+					<% if (typeof error !=="undefined" ) { %>
 					<div class="alert alert-primary mt-2" role="alert">
-						<p>
-							<%= error %>
-						</p>
+						<p><%= error %></p>
+					</div>
+					<% } %> <% if (typeof message !=="undefined" ) { %>
+					<div class="alert alert-primary mt-2" role="alert">
+						<p><%= message %></p>
 					</div>
 					<% } %>
-						<% if (typeof message !=="undefined" ) { %>
-							<div class="alert alert-primary mt-2" role="alert">
-								<p>
-									<%= message %>
-								</p>
-							</div>
-							<% } %>
+				</div>
 			</div>
-		</div>
-	</main>
-	<footer>
-		<%- include('../partials/footer'); %>
-	</footer>
-</body>
+		</main>
+		<footer><%- include('../partials/footer'); %></footer>
+	</body>
 </html>

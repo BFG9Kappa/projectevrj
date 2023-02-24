@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<%- include('../partials/head'); %>
-</head>
-<body class="container">
-	<header>
-		<%- include('../partials/header'); %>
-	</header>
-	<main>
-		<div class="card mt-4">
-			<div class="card-header">
-				<h5 class="card-title">Esborrar baixa medica</h5>
-			</div>
-			<div class="card-body">
-				<form method="POST" action="/baixesmediques/delete/<%= id %>">
-					<div class="alert alert-danger" role="alert">
-						Aquesta baixa es eliminara, estàs segur?
-					</div>
-					<button type="submit" class="btn btn-danger">Esborrar</button>
-				</form>
-				<% if (typeof error !=="undefined" ) { %>
+	<head>
+		<%- include('../partials/head'); %>
+	</head>
+	<body class="container">
+		<header><%- include('../partials/header'); %></header>
+		<main>
+			<div class="card mt-4">
+				<div class="card-header">
+					<h5 class="card-title">Esborrar baixa medica</h5>
+				</div>
+				<div class="card-body">
+					<form method="POST" action="/baixesmediques/delete/<%= id %>">
+						<div class="alert alert-danger" role="alert">
+							Aquesta baixa es eliminara, estàs segur?
+						</div>
+						<button type="submit" class="btn btn-danger">Esborrar</button>
+					</form>
+					<% if (typeof error !=="undefined" ) { %>
 					<div class="alert alert-primary mt-2" role="alert">
 						<p>Form could not be submitted due to the following error:</p>
 						<p><%= error %></p>
 					</div>
 					<% } %>
+				</div>
 			</div>
-		</div>
-	</main>
-	<footer>
-		<%- include('../partials/footer'); %>
-	</footer>
-</body>
+		</main>
+		<footer><%- include('../partials/footer'); %></footer>
+	</body>
 </html>

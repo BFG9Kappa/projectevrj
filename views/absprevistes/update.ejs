@@ -1,44 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<%- include('../partials/head'); %>
-</head>
-<body class="container">
-	<header>
-		<%- include('../partials/header'); %>
-	</header>
-	<main>
-		<div class="card mt-4">
-			<div class="card-header">
-				<h5 class="card-title">Edita Absencia prevista</h5>
-			</div>
-			<div class="card-body">
-				<form method="POST" action="/absprevistes/update/<%= absenciaprevista._id%>">
-					<div class="form-group">
-						<label for="name">Data absència</label>
-                        <input type="text" name="data_absprevista" class="form-control" value="<%= absenciaprevista.data_absprevista %>">
-						<label for="name">Motiu</label>
-                        <input type="text" name="motiu_abs" class="form-control" value="<%= absenciaprevista.motiu_abs %>">
-					</div>
-					<button type="submit" class="btn btn-primary">Desar</button>
-					<a class="btn btn-danger" href="/absprevistes/delete/<%= absenciaprevista._id %>"
-						role="button">Borrar</a>
-				</form>
-				<% if (typeof error !=="undefined" ) { %>
+	<head>
+		<%- include('../partials/head'); %>
+	</head>
+	<body class="container">
+		<header><%- include('../partials/header'); %></header>
+		<main>
+			<div class="card mt-4">
+				<div class="card-header">
+					<h5 class="card-title">Edita absencia prevista</h5>
+				</div>
+				<div class="card-body">
+					<form
+						method="POST"
+						action="/absprevistes/update/<%= absenciaprevista._id%>"
+					>
+						<div class="form-group">
+							<label for="name">Data absència</label>
+							<input
+								type="date"
+								name="data_absprevista"
+								id="data_absprevista"
+								class="form-control"
+								value="<%= absenciaprevista.data_absprevista.toISOString().slice(0, 10) %>"
+							/>
+							<label for="name">Motiu</label>
+							<input
+								type="text"
+								name="motiu_abs"
+								class="form-control"
+								value="<%= absenciaprevista.motiu_abs %>"
+							/>
+						</div>
+						<button type="submit" class="btn btn-primary">Desar</button>
+						<a
+							class="btn btn-danger"
+							href="/absprevistes/delete/<%= absenciaprevista._id %>"
+							role="button"
+							>Esborrar</a
+						>
+					</form>
+					<% if (typeof error !=="undefined" ) { %>
 					<div class="alert alert-primary mt-2" role="alert">
 						<p><%= error %></p>
 					</div>
+					<% } %> <% if (typeof message !=="undefined" ) { %>
+					<div class="alert alert-primary mt-2" role="alert">
+						<p><%= message %></p>
+					</div>
 					<% } %>
-						<% if (typeof message !=="undefined" ) { %>
-							<div class="alert alert-primary mt-2" role="alert">
-								<p><%= message %></p>
-							</div>
-					<% } %>
+				</div>
 			</div>
-		</div>
-	</main>
-	<footer>
-		<%- include('../partials/footer'); %>
-	</footer>
-</body>
+		</main>
+		<footer><%- include('../partials/footer'); %></footer>
+	</body>
 </html>
