@@ -21,7 +21,7 @@ class absprevistaController {
 	static create_post(req, res, next) {
 		AbsenciaPrevista.create(req.body, (error, newRecord) => {
 			if (error) {
-				res.render("absprevistes/new", { error: error.message });
+				res.render("absprevistes/new", { error: "error" });
 			} else {
 				res.redirect("/absprevistes");
 			}

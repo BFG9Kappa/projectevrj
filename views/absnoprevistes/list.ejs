@@ -1,82 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<%- include('../partials/head'); %>
-</head>
-<body class="container">
-	<header>
-		<%- include('../partials/header'); %>
-	</header>
-	<main>
-		<script>
+	<head>
+		<%- include('../partials/head'); %>
+	</head>
+	<body class="container">
+		<header><%- include('../partials/header'); %></header>
+		<main>
+			<script>
 				var fecha = new Date(); //Fecha actual
 				var mes = fecha.getMonth() + 1; //obteniendo mes
 				var dia = fecha.getDate(); //obteniendo dia
 				var ano = fecha.getFullYear(); //obteniendo año
-				if (dia < 10)
-					dia = '0' + dia; //agrega cero si el menor de 10
-				if (mes < 10)
-					mes = '0' + mes //agrega cero si el menor de 10
-				document.getElementById('fechaActual').value = ano + "-" + mes + "-" + dia;
-		</script>
-		<div class="card mt-2">
-			<div class="card-header">
-				<h5 class="card-title">Llista absències no previstes</h5>
-			</div>
-			<div class="card-body">
-				<table class="table table-striped">
-					<a href="/absnoprevistes/create" class="btn btn-primary">Nova</a>
-					<br>
-					<br>
-					<thead>
-						<tr>
-							<th scope="col">ID</th>
-							<th scope="col">Data absencia no prevista</th>
-							<th scope="col">Horari professor</th>
-							<th scope="col">Hores ausencia</th>
-							<th scope="col">Motiu absencia</th>
-							<th scope="col">Document justificatiu</th>
-							<th scope="col" colspan="2">Operacions</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% list.forEach( function(absnoprevista) { %>
+				if (dia < 10) dia = "0" + dia; //agrega cero si el menor de 10
+				if (mes < 10) mes = "0" + mes; //agrega cero si el menor de 10
+				document.getElementById("fechaActual").value =
+					ano + "-" + mes + "-" + dia;
+			</script>
+			<div class="card mt-2">
+				<div class="card-header">
+					<h5 class="card-title">Llista absències no previstes</h5>
+				</div>
+				<div class="card-body">
+					<table class="table table-striped">
+						<a href="/absnoprevistes/create" class="btn btn-primary">Nova</a>
+						<br />
+						<br />
+						<thead>
 							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Data absencia no prevista</th>
+								<th scope="col">Horari professor</th>
+								<th scope="col">Hores ausencia</th>
+								<th scope="col">Motiu absencia</th>
+								<th scope="col">Document justificatiu</th>
+								<th scope="col" colspan="2">Operacions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% list.forEach( function(absnoprevista) { %>
+							<tr>
+								<td><%= absnoprevista.id %></td>
 								<td>
-									<%= absnoprevista.id %>
+									<%=
+									moment(absnoprevista.data_absnoprevista).locale('es').format('L');%>
 								</td>
 								<td>
-									<%= absnoprevista.data_absnoprevista %>
+									<%= moment(absnoprevista.horari_profe).format('DD/MM/YYYY') %>
+								</td>
+								<td><%= absnoprevista.hores_ausencia %></td>
+								<td><%= absnoprevista.motiu_abs %></td>
+								<td><%= absnoprevista.document_justificatiu %></td>
+								<td>
+									<a
+										class="btn btn-secondary"
+										href="/absnoprevistes/update/<%=absnoprevista._id%>"
+										class="card-link"
+										>Editar</a
+									>
 								</td>
 								<td>
-									<%= absnoprevista.horari_profe %>
-								</td>
-								<td>
-									<%= absnoprevista.hores_ausencia %>
-								</td>
-								<td>
-									<%= absnoprevista.motiu_abs %>
-								</td>
-								<td>
-									<%= absnoprevista.document_justificatiu %>
-								</td>
-								<td>
-									<a class="btn btn-secondary" href="/absnoprevistes/update/<%=absnoprevista._id%>"
-										class="card-link">Editar</a>
-								</td>
-								<td>
-									<a class="btn btn-danger" href="/absnoprevistes/delete/<%=absnoprevista._id%>"
-										class="card-link">Esborrar</a>
+									<a
+										class="btn btn-danger"
+										href="/absnoprevistes/delete/<%=absnoprevista._id%>"
+										class="card-link"
+										>Esborrar</a
+									>
 								</td>
 							</tr>
 							<% }); %>
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</div>
-	</main>
-	<footer>
-		<%- include('../partials/footer'); %>
-	</footer>
-</body>
+		</main>
+		<footer><%- include('../partials/footer'); %></footer>
+	</body>
 </html>

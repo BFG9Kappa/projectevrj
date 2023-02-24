@@ -1,52 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<%- include('../partials/head'); %>
+	</head>
 
-<head>
-	<%- include('../partials/head'); %>
-</head>
-
-<body class="container">
-	<header>
-		<%- include('../partials/header'); %>
-	</header>
-	<main>
-		<div class="card mt-2">
-			<div class="card-header">
-				<h5 class="card-title">Llista baixes mediques</h5>
-			</div>
-			<div class="card-body">
-				<table class="table table-striped">
-					<a href="/baixesmediques/create" class="btn btn-primary">Nova</a>
-					<br>
-					<br>
-					<thead>
-						<tr>
-							<th scope="col">ID</th>
-							<th scope="col">Data inicial baixa</th>
-							<th scope="col">Data prevista alta </th>
-							<th scope="col">Comentari</th>
-							<th scope="col" colspan="2">Operacions</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% list.forEach( function(baixamedica) { %>
+	<body class="container">
+		<header><%- include('../partials/header'); %></header>
+		<main>
+			<div class="card mt-2">
+				<div class="card-header">
+					<h5 class="card-title">Llista baixes mediques</h5>
+				</div>
+				<div class="card-body">
+					<table class="table table-striped">
+						<a href="/baixesmediques/create" class="btn btn-primary">Nova</a>
+						<br />
+						<br />
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Data inicial baixa</th>
+								<th scope="col">Data prevista alta</th>
+								<th scope="col">Comentari</th>
+								<th scope="col" colspan="2">Operacions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% list.forEach( function(baixamedica) { %>
 							<tr>
 								<td><%= baixamedica.id %></td>
-								<td><%= baixamedica.data_inicial_baixa %></td>
-								<td><%= baixamedica.data_prevista_alta %></td>
+								<td>
+									<%=
+									moment(baixamedica.data_inicial_baixa).format('DD/MM/YYYY') %>
+								</td>
+								<td>
+									<%=
+									moment(baixamedica.data_prevista_alta).format('DD/MM/YYYY') %>
+								</td>
 								<td><%= baixamedica.comentari %></td>
-								<td><a class="btn btn-secondary" href="/baixesmediques/update/<%=baixamedica._id%>" class="card-link">Editar</a></td>
-								<td><a class="btn btn-danger" href="/baixesmediques/delete/<%=baixamedica._id%>" class="card-link">Esborrar</a></td>
+								<td>
+									<a
+										class="btn btn-secondary"
+										href="/baixesmediques/update/<%=baixamedica._id%>"
+										class="card-link"
+										>Editar</a
+									>
+								</td>
+								<td>
+									<a
+										class="btn btn-danger"
+										href="/baixesmediques/delete/<%=baixamedica._id%>"
+										class="card-link"
+										>Esborrar</a
+									>
+								</td>
 							</tr>
 							<% }); %>
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</div>
-	</main>
-	<footer>
-		<%- include('../partials/footer'); %>
-	</footer>
-</body>
-
+		</main>
+		<footer><%- include('../partials/footer'); %></footer>
+	</body>
 </html>
