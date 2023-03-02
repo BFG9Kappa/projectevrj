@@ -15,7 +15,7 @@
 					<form method="POST" action="/sortidescurriculars/create">
 						<div class="form-group">
 							<label for="data_sortida">Data sortida curricular</label>
-							<input type="date" name="data_sortida" id="data_sortida" class="form-control" />
+							<input type="date" name="data_sortida" id="data_sortida" class="form-control"/>
 
 							<label for="lloc">Lloc de sortida</label>
 							<input type="text" name="lloc" class="form-control" />
@@ -31,12 +31,53 @@
 
 							<label for="professors">Professors</label>
 							<input type="text" name="professors" class="form-control" />
+							<br>
 
-							<label for="hora_inici">Hora inici</label>
-							<input type="number" name="hora_inici" class="form-control" />
+							<label class="form-label" for="hora_inici">Hora inici</label>
+							<br>
+							<select class="form-select" id="hora_inici" name="hora_inici">
+                            <optgroup label="Diurn">
+                                <option value="1">08:00 - 09:00</option>
+                                <option value="2">09:00 - 10:00</option>
+                                <option value="3">10:00 - 11:00</option>
+                                <option value="5">11:30 - 12:30</option>
+                                <option value="6">12:30 - 13:30</option>
+                                <option value="7">13:30 - 14:30</option>
+                            </optgroup>
+                            <optgroup label="Nocturn">
+                                <option value="8">15:00 - 16:00</option>
+                                <option value="9">16:00 - 17:00</option>
+                                <option value="10">17:00 - 18:00</option>
+                                <option value="12">18:30 - 19:30</option>
+                                <option value="13">19:30 - 20:30</option>
+                                <option value="14">20:30 - 21:30</option>
+                            </optgroup>
+                        </select>
+												<br>
+												<br>
 
-							<label for="hora_arribada">Hora arribada</label>
-							<input type="number" name="hora_arribada" class="form-control" />
+							<label class="form-label" for="hora_arribada">Hora arribada</label>
+							<br>
+							<select class="form-select" id="hora_arribada" name="hora_arribada">
+                            <optgroup label="Diurn">
+                                <option value="1">08:00 - 09:00</option>
+                                <option value="2">09:00 - 10:00</option>
+                                <option value="3">10:00 - 11:00</option>
+                                <option value="5">11:30 - 12:30</option>
+                                <option value="6">12:30 - 13:30</option>
+                                <option value="7">13:30 - 14:30</option>
+                            </optgroup>
+                            <optgroup label="Nocturn">
+                                <option value="8">15:00 - 16:00</option>
+                                <option value="9">16:00 - 17:00</option>
+                                <option value="10">17:00 - 18:00</option>
+                                <option value="12">18:30 - 19:30</option>
+                                <option value="13">19:30 - 20:30</option>
+                                <option value="14">20:30 - 21:30</option>
+                            </optgroup>
+                        </select>
+												<br>
+												<br>
 
 							<label for="ruta">Estat</label>
 							<input type="text" name="estat" class="form-control" />

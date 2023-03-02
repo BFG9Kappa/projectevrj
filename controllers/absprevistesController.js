@@ -13,6 +13,12 @@ class absprevistaController {
 			.trim()
 			.isLength({ min: 1 })
 			.escape(),
+
+			body("motiu_abs", "El motiu ha de tindre com a mínim 5 caràcters.")
+      .trim()
+      .isLength({ min: 5})
+      .escape()
+			,
 	];
 	static async list(req, res, next) {
 		try {
@@ -47,7 +53,7 @@ class absprevistaController {
 				absenciaprevista: absenciaprevista,
 			});
 		} else {
-			BaixaMedica.create(req.body, function (error, newAbsenciaPrevista) {
+			AbsenciaPrevista.create(req.body, function (error, newAbsenciaPrevista) {
 				if (error) {
 					//console.log(error)
 					res.render("absprevistes/new", { error: error.message });

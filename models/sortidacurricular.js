@@ -9,8 +9,8 @@ var SortidaCurricularSchema = new Schema({
 	objectius: { type: String },
 	grups: { type: String },
 	professors: { type: String },
-	hora_inici: { type: Number },
-	hora_arribada: { type: Number },
+	hora_inici: { type: String },
+	hora_arribada: { type: String },
 	estat: { type: String },
 });
 

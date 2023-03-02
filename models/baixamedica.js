@@ -6,6 +6,7 @@ var BaixaMedicaSchema = new Schema({
 	data_inicial_baixa: { type: Date, required: true },
 	data_prevista_alta: { type: Date, required: true },
 	comentari: { type: String, required: false },
+	document_justificatiu_medic: { type: String, required: false },
 });
 
 // Export model.

@@ -18,27 +18,27 @@
 						<br />
 						<thead>
 							<tr>
-								<th scope="col">ID</th>
-								<th scope="col">Data inicial baixa</th>
-								<th scope="col">Data prevista alta</th>
-								<th scope="col">Comentari</th>
-								<th scope="col" colspan="2">Operacions</th>
+								<th class="align-middle text-center" scope="col">ID</th>
+								<th class="align-middle text-center" scope="col">Data inicial baixa</th>
+								<th class="align-middle text-center" scope="col">Data prevista alta</th>
+								<th class="align-middle text-center" scope="col">Comentari</th>
+								<th class="align-middle text-center" scope="col" colspan="2">Operacions</th>
 							</tr>
 						</thead>
 						<tbody>
 							<% list.forEach( function(baixamedica) { %>
 							<tr>
-								<td><%= baixamedica.id %></td>
-								<td>
+								<td class="align-middle text-center"><%= baixamedica.id %></td>
+								<td class="align-middle text-center">
 									<%=
 									moment(baixamedica.data_inicial_baixa).format('DD/MM/YYYY') %>
 								</td>
-								<td>
+								<td class="align-middle text-center">
 									<%=
 									moment(baixamedica.data_prevista_alta).format('DD/MM/YYYY') %>
 								</td>
-								<td><%= baixamedica.comentari %></td>
-								<td>
+								<td class="align-middle text-center"><%= baixamedica.comentari %></td>
+								<td class="align-middle text-center">
 									<a
 										class="btn btn-secondary"
 										href="/baixesmediques/update/<%=baixamedica._id%>"

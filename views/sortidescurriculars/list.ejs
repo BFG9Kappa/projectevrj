@@ -23,47 +23,47 @@
 					<br>
 					<thead>
 						<tr>
-							<th scope="col">Data sortida</th>
-							<th scope="col">Lloc</th>
-							<th scope="col">Ruta</th>
-							<th scope="col">Objectius</th>
-							<th scope="col">Grups</th>
-							<th scope="col">Professors</th>
-							<th scope="col">Hora inici</th>
-							<th scope="col">Hora arribada</th>
-							<th scope="col">Estat</th>
-							<th scope="col" colspan="2">Operacions</th>
+							<th class="align-middle text-center" scope="col">Data sortida</th>
+							<th class="align-middle text-center" scope="col">Lloc</th>
+							<th class="align-middle text-center" scope="col">Ruta</th>
+							<th class="align-middle text-center" scope="col">Objectius</th>
+							<th class="align-middle text-center" scope="col">Grups</th>
+							<th class="align-middle text-center" scope="col">Professors</th>
+							<th class="align-middle text-center" scope="col">Hora inici</th>
+							<th class="align-middle text-center" scope="col">Hora arribada</th>
+							<th class="align-middle text-center" scope="col">Estat</th>
+							<th class="align-middle text-center" scope="col" colspan="2">Operacions</th>
 							</th>
 						</tr>
 					</thead>
 					<tbody>
 						<% list.forEach( function(sortidacurricular) { %>
 							<tr>
-								<td>
+								<td class="align-middle text-center">
 									<%= moment(sortidacurricular.data_sortida).format('DD/MM/YYYY') %>
 								</td>
-								<td>
+								<td class="align-middle text-center">
 									<%= sortidacurricular.lloc %>
 								</td>
-								<td>
+								<td class="align-middle text-center">
 									<%= sortidacurricular.ruta %>
 								</td>
-								<td>
+								<td class="align-middle text-center">
 									<%= sortidacurricular.objectius %>
 								</td>
-								<td>
+								<td class="align-middle text-center">
 									<%= sortidacurricular.grups %>
 								</td>
-								<td>
+								<td class="align-middle text-center">
 									<%= sortidacurricular.professors %>
 								</td>
-								<td>
+								<td class="align-middle text-center">
 									<%= sortidacurricular.hora_inici %>
 								</td>
-								<td>
+								<td class="align-middle text-center">
 									<%= sortidacurricular.hora_arribada %>
 								</td>
-								<td>
+								<td class="align-middle text-center">
 									<%= sortidacurricular.estat %>
 								</td>
 								<td>

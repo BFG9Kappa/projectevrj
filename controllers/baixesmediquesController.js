@@ -16,6 +16,12 @@ class baixesmediquesController {
       .escape()
 			,
 
+			body("comentari", "El comentari ha de tindre com a mínim 5 caràcters.")
+      .trim()
+      .isLength({ min: 5})
+      .escape()
+			,
+
 			body('data_prevista_alta')
 			.custom((value, { req }) => {
 				const data_inicial_baixa = moment(req.body.data_inicial_baixa, 'DD-MM-YYYY');
