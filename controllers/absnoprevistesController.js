@@ -3,32 +3,29 @@ const { body, validationResult } = require("express-validator");
 
 class absnoprevistesController {
 	static rules = [
-		// Validate and sanitize fields.
-		body("data_absnoprevista")
+		body("horari_profe", "L'horari del professor no pot estar buit.")
 			.trim()
 			.isLength({ min: 1 })
-			.withMessage("Name must not be empty.")
-			.isLength({ max: 20 })
-			.withMessage("Name is too long.")
-			.escape()
-			.custom(async function (value, { req }) {
-				const publisher = await Publisher.findOne({ name: value });
-				if (publisher) {
-					if (req.params.id !== publisher.id) {
-						throw new Error("This publisher name already exists.");
-					}
-				}
-				return true;
-			}),
+			.escape(),
+
+		body("hores_ausencia", "Les hores d'ausencia no pot estar buit.")
+			.trim()
+			.isLength({ min: 1 })
+			.escape(),
+
+			body("motiu_abs", "El motiu de l'absència no pot estar buit.")
+			.trim()
+			.isLength({ min: 1 })
+			.escape(),
 	];
 
-	static list(req, res, next) {
-		AbsNoPrevista.find().exec(function (err, list_absnoprevista) {
-			if (err) {
-				return next(err);
-			}
-			res.render("absnoprevistes/list", { list: list_absnoprevista });
-		});
+	static async list(req, res, next) {
+		try {
+			var list_absnoprevistes = await AbsNoPrevista.find();
+			res.render("absnoprevistes/list", { list: list_absnoprevistes });
+		} catch (e) {
+			res.send("Error!");
+		}
 	}
 
 	static create_get(req, res, next) {
@@ -44,15 +41,33 @@ class absnoprevistesController {
 	}
 
 	static create_post(req, res) {
-		// console.log(req.body)
-		AbsNoPrevista.create(req.body, function (error, newAbsNoPrevista) {
-			if (error) {
-				//console.log(error)
-				res.render("absnoprevistes/new", { error: error.message });
-			} else {
-				res.redirect("/absnoprevistes");
-			}
-		});
+		const errors = validationResult(req);
+		console.log(errors.array());
+		// Tenim errors en les dades enviades
+
+		if (!errors.isEmpty()) {
+			var absnoprevista = {
+				data_absnoprevista: req.body.data_absnoprevista,
+				horari_profe: req.body.horari_profe,
+				hores_ausencia: req.body.hores_ausencia,
+				motiu_abs: req.body.motiu_abs,
+				document_justificatiu: req.params.document_justificatiu,
+				_id: req.params.id, // Fa falta per sobreescriure el objecte.
+			};
+			res.render("absnoprevistes/new", {
+				errors: errors.array(),
+				absnoprevista: absnoprevista,
+			});
+		} else {
+			AbsNoPrevista.create(req.body, function (error, newAbsNoPrevista) {
+				if (error) {
+					//console.log(error)
+					res.render("absnoprevistes/new", { error: error.message });
+				} else {
+					res.redirect("/absnoprevistes");
+				}
+			});
+		}
 	}
 
 	static update_get(req, res, next) {

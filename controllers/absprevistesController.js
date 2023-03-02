@@ -1,13 +1,32 @@
 var AbsenciaPrevista = require("../models/absprevista");
+const { body, validationResult } = require("express-validator");
 
 class absprevistaController {
-	static list(req, res, next) {
-		AbsenciaPrevista.find().exec(function (err, list_absprevista) {
-			if (err) {
-				return next(err);
-			}
-			res.render("absprevistes/list", { list: list_absprevista });
-		});
+
+	static rules = [
+		body("data_absprevista", "La data de l'absència prevista no pot estar buida.")
+			.trim()
+			.isLength({ min: 1 })
+			.escape(),
+
+		body("motiu_abs", "El motiu de l'absència no pot estar buit.")
+			.trim()
+			.isLength({ min: 1 })
+			.escape(),
+
+			body("motiu_abs", "El motiu ha de tindre com a mínim 5 caràcters.")
+      .trim()
+      .isLength({ min: 5})
+      .escape()
+			,
+	];
+	static async list(req, res, next) {
+		try {
+			var list_absprevistes = await AbsenciaPrevista.find();
+			res.render("absprevistes/list", { list: list_absprevistes });
+		} catch (e) {
+			res.send("Error!");
+		}
 	}
 
 	static create_get(req, res, next) {
@@ -18,14 +37,31 @@ class absprevistaController {
 		res.render("absprevistes/new", { AbsenciaPrevista: AbsenciaPrevista });
 	}
 
-	static create_post(req, res, next) {
-		AbsenciaPrevista.create(req.body, (error, newRecord) => {
-			if (error) {
-				res.render("absprevistes/new", { error: "error" });
-			} else {
-				res.redirect("/absprevistes");
-			}
-		});
+	static create_post(req, res) {
+		const errors = validationResult(req);
+		console.log(errors.array());
+		// Tenim errors en les dades enviades
+
+		if (!errors.isEmpty()) {
+			var absenciaprevista = {
+				data_absprevista: req.body.data_absprevista,
+				motiu_abs: req.body.motiu_abs,
+				_id: req.params.id,
+			};
+			res.render("absprevistes/new", {
+				errors: errors.array(),
+				absenciaprevista: absenciaprevista,
+			});
+		} else {
+			AbsenciaPrevista.create(req.body, function (error, newAbsenciaPrevista) {
+				if (error) {
+					//console.log(error)
+					res.render("absprevistes/new", { error: error.message });
+				} else {
+					res.redirect("/absprevistes");
+				}
+			});
+		}
 	}
 
 	static update_get(req, res, next) {

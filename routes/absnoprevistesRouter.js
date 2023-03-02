@@ -4,7 +4,7 @@ var router = express.Router();
 const absnoprevista_controller = require("../controllers/absnoprevistesController");
 
 router.get("/create", absnoprevista_controller.create_get);
-router.post("/create", absnoprevista_controller.create_post);
+router.post("/create", absnoprevista_controller.rules, absnoprevista_controller.create_post);
 
 router.get("/", absnoprevista_controller.list);
 

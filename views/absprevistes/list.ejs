@@ -17,22 +17,22 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th scope="col">ID</th>
-								<th scope="col">Data prevista</th>
-								<th scope="col">Motiu</th>
-								<th scope="col" colspan="2">Operacions</th>
+								<th class="align-middle text-center" scope="col">ID</th>
+								<th class="align-middle text-center" scope="col">Data prevista</th>
+								<th class="align-middle text-center" scope="col">Motiu</th>
+								<th class="align-middle text-center" scope="col" colspan="2">Operacions</th>
 							</tr>
 						</thead>
 						<tbody>
 							<% list.forEach( function(absprevista) { %>
 							<tr>
-								<td><%= absprevista.id %></td>
-								<td>
+								<td class="align-middle text-center"><%= absprevista.id %></td>
+								<td class="align-middle text-center">
 									<%= moment(absprevista.data_absprevista).format('DD/MM/YYYY')
 									%>
 								</td>
-								<td><%= absprevista.motiu_abs %></td>
-								<td>
+								<td class="align-middle text-center"><%= absprevista.motiu_abs %></td>
+								<td class="align-middle text-center">
 									<a
 										class="btn btn-secondary"
 										href="/absprevistes/update/<%=absprevista._id%>"

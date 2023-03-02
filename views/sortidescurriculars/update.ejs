@@ -18,9 +18,9 @@
 				<form method="POST" action="/sortidescurriculars/update/<%= sortidacurricular._id %>">
 					<div class="form-group">
 						<label for="data_sortida">Data sortida curricular</label>
-						<input type="date" name="data_sortida" class="form-control" value="<%= sortidacurricular.data_sortida.toISOString().slice(0, 10) %>">
+						<input type="date" id="data_sortida" name="data_sortida" class="form-control" value="<%= sortidacurricular.data_sortida.toISOString().slice(0, 10) %>">
 
-						<label for="lloc">LLoc de sortida</label>
+						<label for="lloc">Lloc de sortida</label>
 						<input type="text" name="lloc" class="form-control" value="<%= sortidacurricular.lloc %>">
 
 						<label for="ruta">Ruta</label>
@@ -34,6 +34,12 @@
 
 						<label for="professors">Professors</label>
 						<input type="text" name="professors" class="form-control" value="<%= sortidacurricular.professors %>">
+
+						<label for="hora_inici">Hora inici</label>
+						<input type="number" name="hora_inici" class="form-control" value="<%= sortidacurricular.hora_inici %>">
+
+						<label for="hora_arribada">Hora arribada</label>
+						<input type="number" name="hora_arribada" class="form-control" value="<%= sortidacurricular.hora_arribada %>">
 					</div>
 					<button type="submit" class="btn btn-primary">Desar</button>
 					<a class="btn btn-danger" href="/sortidescurriculars/delete/<%= sortidacurricular._id %>"
