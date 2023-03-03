@@ -1,0 +1,11 @@
+{
+	"absnoprevistesData": [
+		{
+			"data_absnoprevista": 1680595200000,
+			"horari_profe": "08:00-14:00",
+			"hores_ausencia": 2,
+			"motiu_abs": "Malaltia",
+			"document_justificatiu": "link_a_document.pdf"
+		}
+	]
+}

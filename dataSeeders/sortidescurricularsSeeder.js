@@ -1,19 +1,18 @@
 require("dotenv").config({ path: "../.env" });
 const mongoose = require("mongoose");
-const Horari = require("../models/horari");
-const csv = require("csvtojson");
+const Sortida = require("../models/sortidacurricular");
+const sortidaCurricularJSON = require("./sortidescurricularsData.json");
 
 async function seeder() {
-	await Horari.collection.drop();
-	const jsonObj = await csv().fromFile("./horarisData.csv");
-	await Horari.insertMany(jsonObj);
+	await Sortida.collection.drop();
+	await Sortida.insertMany(sortidaCurricularJSON.scurricularsData);
 }
 
 const mongoDB = process.env.MONGODB_URI;
 mongoose
 	.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true })
 	.then(function () {
-		console.log("Sembrant: Horaris");
+		console.log("Sembrant: Sortides curriculars");
 		seeder().then(function () {
 			mongoose.connection.close();
 		});

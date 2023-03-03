@@ -1,18 +1,11 @@
 require("dotenv").config({ path: "../.env" });
 const mongoose = require("mongoose");
-
-// Importar models
-const Baixa = require("../models/baixamedica");
-
-// Carregar dades d'un CSV
-const csv = require("csvtojson");
+const Baixa = require("../models/baixamedica"); // Importar models
+const BaixaJSON = require("./baixesmediquesData.json"); // Carregar dades de fitxers JSON
 
 async function seeder() {
-	// Esborrar contingut col·leccions
-	await Baixa.collection.drop();
-	// Inserir dades
-	const jsonObj = await csv().fromFile("./dataBaixes.csv");
-	baixaList = await Baixa.insertMany(jsonObj);
+	await Baixa.collection.drop(); // Esborrar contingut col·leccions
+	await Baixa.insertMany(BaixaJSON.baixesmediquesData); // Inserir dades
 }
 
 const mongoDB = process.env.MONGODB_URI;
