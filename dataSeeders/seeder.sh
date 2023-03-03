@@ -13,7 +13,7 @@ node absprevistesSeeder.js
 node baixesmediquesSeeder.js
 
 # Sortides Curriculars
-#
+node sortidescurricularsSeeder.js
 
 # Usuaris
 #
