@@ -19,7 +19,7 @@ class baixesmediquesController {
 			body("comentari", "El comentari ha de tindre com a mínim 5 caràcters.")
       .trim()
       .isLength({ min: 5})
-      .escape()
+      //.escape()
 			,
 
 			body('data_prevista_alta')

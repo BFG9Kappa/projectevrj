@@ -12,12 +12,13 @@ class absprevistaController {
 		body("motiu_abs", "El motiu de l'absència no pot estar buit.")
 			.trim()
 			.isLength({ min: 1 })
-			.escape(),
+			//.escape()
+			,
 
 			body("motiu_abs", "El motiu ha de tindre com a mínim 5 caràcters.")
       .trim()
       .isLength({ min: 5})
-      .escape()
+      //.escape()
 			,
 	];
 	static async list(req, res, next) {
