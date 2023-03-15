@@ -1,14 +1,14 @@
 {
 	"usuarisData":[
 		{
-			"fullname":"prova",
-			"role": ["librarian","lender","member"],
-			"email":"prova@prova.com",
-			"password": "prova"
+			"fullname":"Joan Gracia Moreno",
+			"role": "professor",
+			"email":"librarian@librarian.com",
+			"password": "librarian"
 		},
 		{
 			"fullname":"Joana Quintana Soler",
-			"role":"lender",
+			"role":"director",
 			"email":"lender@lender.com",
 			"password": "lender"
 		}
