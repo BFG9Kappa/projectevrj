@@ -7,7 +7,7 @@ var UserSchema = new Schema({
   role: [{
     type: String,
     enum: [
-      "professor","director","cap de estudis","secretari","conserge","administrator"
+      "administrador","director","cap de estudis","secretari","conserge","professor"
     ],
     default: "professor"
   }],

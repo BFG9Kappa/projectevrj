@@ -16,4 +16,4 @@ node baixesmediquesSeeder.js
 node sortidescurricularsSeeder.js
 
 # Usuaris
-#
+node usuarisSeeder.js
