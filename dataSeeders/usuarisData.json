@@ -1,0 +1,16 @@
+{
+	"usuarisData":[
+		{
+			"fullname":"Joan Gracia Moreno",
+			"role": "professor",
+			"email":"librarian@librarian.com",
+			"password": "librarian"
+		},
+		{
+			"fullname":"Joana Quintana Soler",
+			"role":"director",
+			"email":"lender@lender.com",
+			"password": "lender"
+		}
+	]
+}

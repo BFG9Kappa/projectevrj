@@ -7,9 +7,9 @@ var UserSchema = new Schema({
   role: [{
     type: String,
     enum: [
-      "member","librarian","lender","administrator"
+      "professor","director","cap de estudis","secretari","conserge","administrator"
     ],
-    default: "member"
+    default: "professor"
   }],
   email: { type: String, required: true },
   password: { type: String, required: true },

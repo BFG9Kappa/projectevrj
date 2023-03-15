@@ -105,7 +105,7 @@ class authController {
 				fullname: req.body.fullname,
 				email: req.body.email,
 				password: hashpwd,
-				role: ["member"],
+				role: ["professor"],
 			});
 			User.create(user, (error, newUser) => {
 				if (error) {
