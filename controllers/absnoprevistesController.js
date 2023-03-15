@@ -16,7 +16,8 @@ class absnoprevistesController {
 			body("motiu_abs", "El motiu de l'absència no pot estar buit.")
 			.trim()
 			.isLength({ min: 1 })
-			.escape(),
+			//.escape()
+			,
 	];
 
 	static async list(req, res, next) {
