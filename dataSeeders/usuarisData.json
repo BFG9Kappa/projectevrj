@@ -1,16 +1,64 @@
 {
 	"usuarisData":[
 		{
-			"fullname":"Joan Gracia Moreno",
-			"role": "professor",
-			"email":"librarian@librarian.com",
-			"password": "librarian"
+			"fullname":"Fulgencio Serrato Segovia",
+			"role":"administrador",
+			"email":"fusese91@vrj.com",
+			"password": "fusese"
 		},
 		{
-			"fullname":"Joana Quintana Soler",
+			"fullname":"Loreta Serrano Galindo",
 			"role":"director",
-			"email":"lender@lender.com",
-			"password": "lender"
+			"email":"losega96@vrj.com",
+			"password": "losega"
+		},
+		{
+			"fullname":"Milca Vargas Briones",
+			"role":"cap de estudis",
+			"email":"mivabr17@vrj.com",
+			"password": "mivabr"
+		},
+		{
+			"fullname":"Peregrino Villanueva Argüello",
+			"role":"secretari",
+			"email":"peviar88@vrj.com",
+			"password": "peviar"
+		},
+		{
+			"fullname":"Fostine Llanos Cabanillas",
+			"role":"conserge",
+			"email":"follaca24@vrj.com",
+			"password": "follaca"
+		},
+		{
+			"fullname":"Gabriel Fernández Ramírez",
+			"role":"professor",
+			"email":"gafera90@vrj.com",
+			"password": "gafera"
+		},
+		{
+			"fullname":"Jaime Mellado González",
+			"role":"professor",
+			"email":"jamego83@vrj.com",
+			"password": "jamego"
+		},
+		{
+			"fullname":"Ana Maria Alonso Gutiérrez",
+			"role":"professor",
+			"email":"analgu29@vrj.com",
+			"password": "analgu"
+		},
+		{
+			"fullname":"Africa Jáquez Reyes",
+			"role":"professor",
+			"email":"afjare62@vrj.com",
+			"password": "afjare"
+		},
+		{
+			"fullname":"Casildo Parra Villa",
+			"role":"professor",
+			"email":"capavi78@vrj.com",
+			"password": "capavi"
 		}
 	]
 }

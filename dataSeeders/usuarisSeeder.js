@@ -12,8 +12,6 @@ async function seeder() {
 	await Usuaris.insertMany(usuarisJSON.usuarisData);
 }
 
-
-
 const mongoDB = process.env.MONGODB_URI;
 mongoose
 	.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true })
