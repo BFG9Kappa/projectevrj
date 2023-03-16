@@ -29,7 +29,6 @@
 							<tr>
 								<th class="align-middle text-center" scope="col">ID</th>
 								<th class="align-middle text-center" scope="col">Data absencia no prevista</th>
-								<th class="align-middle text-center" scope="col">Horari professor</th>
 								<th class="align-middle text-center" scope="col">Hores ausencia</th>
 								<th class="align-middle text-center" scope="col">Motiu absencia</th>
 								<th class="align-middle text-center" scope="col">Document justificatiu</th>
@@ -40,31 +39,15 @@
 							<% list.forEach( function(absnoprevista) { %>
 							<tr>
 								<td class="align-middle text-center"><%= absnoprevista.id %></td>
-								<td class="align-middle text-center">
-									<%=
-									moment(absnoprevista.data_absnoprevista).locale('es').format('L');%>
-								</td>
-								<td class="align-middle text-center">
-									<%= moment(absnoprevista.horari_profe).format('DD/MM/YYYY') %>
-								</td>
+								<td class="align-middle text-center"><%= moment(absnoprevista.data_absnoprevista).locale('es').format('L');%></td>
 								<td class="align-middle text-center"><%= absnoprevista.hores_ausencia %></td>
 								<td class="align-middle text-center"><%= absnoprevista.motiu_abs %></td>
 								<td class="align-middle text-center"><%= absnoprevista.document_justificatiu %></td>
 								<td>
-									<a
-										class="btn btn-secondary"
-										href="/absnoprevistes/update/<%=absnoprevista._id%>"
-										class="card-link"
-										>Editar</a
-									>
+									<a class="btn btn-secondary" href="/absnoprevistes/update/<%=absnoprevista._id%>" class="card-link">Editar</a>
 								</td>
 								<td>
-									<a
-										class="btn btn-danger"
-										href="/absnoprevistes/delete/<%=absnoprevista._id%>"
-										class="card-link"
-										>Esborrar</a
-									>
+									<a class="btn btn-danger" href="/absnoprevistes/delete/<%=absnoprevista._id%>" class="card-link">Esborrar</a>
 								</td>
 							</tr>
 							<% }); %>

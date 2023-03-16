@@ -3,11 +3,6 @@ const { body, validationResult } = require("express-validator");
 
 class absnoprevistesController {
 	static rules = [
-		body("horari_profe", "L'horari del professor no pot estar buit.")
-			.trim()
-			.isLength({ min: 1 })
-			.escape(),
-
 		body("hores_ausencia", "Les hores d'ausencia no pot estar buit.")
 			.trim()
 			.isLength({ min: 1 })
@@ -15,9 +10,8 @@ class absnoprevistesController {
 
 			body("motiu_abs", "El motiu de l'absència no pot estar buit.")
 			.trim()
-			.isLength({ min: 1 })
+			.isLength({ min: 1 }),
 			//.escape()
-			,
 	];
 
 	static async list(req, res, next) {
@@ -32,7 +26,6 @@ class absnoprevistesController {
 	static create_get(req, res, next) {
 		var absnoprevistes = {
 			data_absnoprevista: "",
-			horari_profe: "",
 			hores_ausencia: "",
 			motiu_abs: "",
 			document_justificatiu: "",
@@ -49,7 +42,6 @@ class absnoprevistesController {
 		if (!errors.isEmpty()) {
 			var absnoprevista = {
 				data_absnoprevista: req.body.data_absnoprevista,
-				horari_profe: req.body.horari_profe,
 				hores_ausencia: req.body.hores_ausencia,
 				motiu_abs: req.body.motiu_abs,
 				document_justificatiu: req.params.document_justificatiu,
@@ -90,7 +82,6 @@ class absnoprevistesController {
 	static update_post(req, res, next) {
 		var absnoprevista = new AbsNoPrevista({
 			data_absnoprevista: req.body.data_absnoprevista,
-			horari_profe: req.body.horari_profe,
 			hores_ausencia: req.body.hores_ausencia,
 			motiu_abs: req.body.motiu_abs,
 			document_justificatiu: req.params.document_justificatiu,
