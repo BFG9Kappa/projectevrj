@@ -3,7 +3,7 @@ const { body, validationResult } = require("express-validator");
 
 class absnoprevistesController {
 	static rules = [
-		body("hores_ausencia", "Les hores d'ausencia no pot estar buit.")
+		body("hores_ausencia", "Les hores d'ausencia no pot estar buides.")
 			.trim()
 			.isLength({ min: 1 })
 			.escape(),
