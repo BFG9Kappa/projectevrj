@@ -131,7 +131,7 @@ class sortidacurricularController {
 	static async delete_post(req, res, next) {
 		SortidaCurricular.findByIdAndRemove(req.params.id, (error) => {
 			if (error) {
-				res.redirect("/sortidescurriculars");
+				res.render("sortidescurriculars", { error: error.message });
 			} else {
 				res.redirect("/sortidescurriculars");
 			}

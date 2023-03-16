@@ -18,8 +18,8 @@ class absnoprevistesController {
 		try {
 			var list_absnoprevistes = await AbsNoPrevista.find();
 			res.render("absnoprevistes/list", { list: list_absnoprevistes });
-		} catch (e) {
-			res.send("Error!");
+		} catch (error) {
+			res.send(error);
 		}
 	}
 
@@ -54,7 +54,6 @@ class absnoprevistesController {
 		} else {
 			AbsNoPrevista.create(req.body, function (error, newAbsNoPrevista) {
 				if (error) {
-					//console.log(error)
 					res.render("absnoprevistes/new", { error: error.message });
 				} else {
 					res.redirect("/absnoprevistes");
@@ -114,7 +113,7 @@ class absnoprevistesController {
 	static async delete_post(req, res, next) {
 		AbsNoPrevista.findByIdAndRemove(req.params.id, (error) => {
 			if (error) {
-				res.redirect("/absnoprevistes");
+				res.render("absnoprevistes", { error: error.message });
 			} else {
 				res.redirect("/absnoprevistes");
 			}
