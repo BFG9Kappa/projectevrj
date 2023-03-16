@@ -35,15 +35,72 @@
 						<label for="professors">Professors</label>
 						<input type="text" name="professors" class="form-control" value="<%= sortidacurricular.professors %>">
 
-						<label for="hora_inici">Hora inici</label>
-						<input type="number" name="hora_inici" class="form-control" value="<%= sortidacurricular.hora_inici %>">
+						<label class="form-label" for="hora_inici">Hora inici</label>
+						<br>
+							<select class="form-select" id="hora_inici" name="hora_inici" value="<%= sortidacurricular.hora_inici %>">
+                            <optgroup label="Diurn">
+                                <option value="1">08:00</option>
+                                <option value="2">09:00</option>
+                                <option value="3">10:00</option>
+																<option value="4">10:00</option>
+                                <option value="5">11:00</option>
+																<option value="6">11:30</option>
+                                <option value="7">12:30</option>
+                                <option value="8">13:30</option>
 
-						<label for="hora_arribada">Hora arribada</label>
-						<input type="number" name="hora_arribada" class="form-control" value="<%= sortidacurricular.hora_arribada %>">
-					</div>
-					<button type="submit" class="btn btn-primary">Desar</button>
+                            </optgroup>
+                            <optgroup label="Nocturn">
+                                <option value="9">15:00</option>
+                                <option value="10">16:00</option>
+                                <option value="11">17:00</option>
+                                <option value="12">18:30</option>
+                                <option value="13">19:30</option>
+                                <option value="14">20:30</option>
+                            </optgroup>
+                        </select>
+												<br>
+												<br>
+
+							<label class="form-label" for="hora_arribada">Hora arribada</label>
+							<br>
+							<select class="form-select" id="hora_arribada" name="hora_arribada" value="<%= sortidacurricular.hora_inici %>">
+                            <optgroup label="Diurn">
+                                <option value="1">08:00</option>
+                                <option value="2">09:00</option>
+                                <option value="3">10:00</option>
+																<option value="4">11:00</option>
+                                <option value="5">11:30</option>
+                                <option value="6">12:30</option>
+                                <option value="7">13:30</option>
+
+                            </optgroup>
+                            <optgroup label="Nocturn">
+                                <option value="8">15:00</option>
+                                <option value="9">16:00</option>
+                                <option value="10">17:00</option>
+																<option value="11">18:00</option>
+                                <option value="12">18:30</option>
+                                <option value="13">19:30</option>
+                                <option value="14">20:30</option>
+                            </optgroup>
+                        </select>
+												<br>
+												<br>
+
+							<label class="form-label" for="estat">Estat</label>
+							<br>
+							<select class="form-select" id="estat" name="estat">
+                                <option value="1">Proposada</option>
+                                <option value="2">Refusada</option>
+                                <option value="3">Anul·lada</option>
+                                <option value="5">Aprovada</option>
+							</select>
+						</div>
+						<button type="submit" class="btn btn-primary">Desar</button>
 					<a class="btn btn-danger" href="/sortidescurriculars/delete/<%= sortidacurricular._id %>"
 						role="button">Esborrar</a>
+					</div>
+
 				</form>
 				<% if (typeof error !=="undefined" ) { %>
 					<div class="alert alert-primary mt-2" role="alert">
