@@ -70,6 +70,7 @@ class sortidacurricularController {
 		}
 	}
 
+
 	static update_get(req, res, next) {
 		SortidaCurricular.findById(
 			req.params.id,
@@ -91,7 +92,7 @@ class sortidacurricularController {
 		);
 	}
 
-	static update_post(req, res, next) {
+	static async update_post(req, res, next) {
 		var sortidacurricular = new SortidaCurricular({
 			data_sortida: req.body.data_sortida,
 			lloc: req.body.lloc,
@@ -105,23 +106,20 @@ class sortidacurricularController {
 			_id: req.params.id,
 		});
 
-		SortidaCurricular.findByIdAndUpdate(
-			req.params.id,
-			sortidacurricular,
-			{},
-			function (err, thesortidacurricular) {
-				if (err) {
-					res.render("sortidescurriculars/update", {
-						sortidacurricular: sortidacurricular,
-						error: err.message,
-					});
-				}
-				res.render("sortidescurriculars/update", {
-					sortidacurricular: sortidacurricular,
-					message: "Sortida curricular actualitzada",
-				});
-			}
-		);
+		try {
+			await SortidaCurricular.findByIdAndUpdate(req.params.id, {
+					hora_inici: req.body.horaInici,
+					hora_arribada: req.body.horaArribada,
+					estat: req.body.Estat
+			});
+			res.redirect('/sortidescurriculars');
+	} catch (err) {
+			res.render("sortidescurriculars/update", {
+					error: err.message,
+					sortidacurricular: req.body,
+			});
+	}
+
 	}
 
 	static async delete_get(req, res, next) {

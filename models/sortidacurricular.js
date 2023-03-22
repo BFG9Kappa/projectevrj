@@ -9,8 +9,12 @@ var SortidaCurricularSchema = new Schema({
 	objectius: { type: String },
 	grups: { type: String },
 	professors: { type: String },
-	hora_inici: { type: Number },
-	hora_arribada: { type: Number },
+	hora_inici: { type: String,
+		enum: ['08:00', '09:00', '10:00', '11:00', '11:30', '12:30', '13:30', '15:00', '16:00', '17:00', '18:30', '19:30', '20:30'],
+    required: false },
+	hora_arribada: { type: String,
+		enum: ['08:00', '09:00', '10:00', '11:00', '11:30', '12:30', '13:30', '15:00', '16:00', '17:00', '18:30', '19:30', '20:30'],
+    required: false },
 	estat: { type: String },
 });
 
