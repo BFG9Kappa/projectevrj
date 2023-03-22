@@ -7,7 +7,7 @@ node horarisSeeder.js
 node absprevistesSeeder.js
 
 # Absències no previstes
-#node absnoprevistesSeeder.js
+node absnoprevistesSeeder.js
 
 # Baixes mediques
 node baixesmediquesSeeder.js

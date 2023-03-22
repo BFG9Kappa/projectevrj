@@ -3,36 +3,29 @@ const { body, validationResult } = require("express-validator");
 
 class absnoprevistesController {
 	static rules = [
-		body("horari_profe", "L'horari del professor no pot estar buit.")
-			.trim()
-			.isLength({ min: 1 })
-			.escape(),
-
-		body("hores_ausencia", "Les hores d'ausencia no pot estar buit.")
+		body("hores_ausencia", "Les hores d'ausencia no pot estar buides.")
 			.trim()
 			.isLength({ min: 1 })
 			.escape(),
 
 			body("motiu_abs", "El motiu de l'absència no pot estar buit.")
 			.trim()
-			.isLength({ min: 1 })
+			.isLength({ min: 1 }),
 			//.escape()
-			,
 	];
 
 	static async list(req, res, next) {
 		try {
 			var list_absnoprevistes = await AbsNoPrevista.find();
 			res.render("absnoprevistes/list", { list: list_absnoprevistes });
-		} catch (e) {
-			res.send("Error!");
+		} catch (error) {
+			res.send(error);
 		}
 	}
 
 	static create_get(req, res, next) {
 		var absnoprevistes = {
 			data_absnoprevista: "",
-			horari_profe: "",
 			hores_ausencia: "",
 			motiu_abs: "",
 			document_justificatiu: "",
@@ -49,7 +42,6 @@ class absnoprevistesController {
 		if (!errors.isEmpty()) {
 			var absnoprevista = {
 				data_absnoprevista: req.body.data_absnoprevista,
-				horari_profe: req.body.horari_profe,
 				hores_ausencia: req.body.hores_ausencia,
 				motiu_abs: req.body.motiu_abs,
 				document_justificatiu: req.params.document_justificatiu,
@@ -62,7 +54,6 @@ class absnoprevistesController {
 		} else {
 			AbsNoPrevista.create(req.body, function (error, newAbsNoPrevista) {
 				if (error) {
-					//console.log(error)
 					res.render("absnoprevistes/new", { error: error.message });
 				} else {
 					res.redirect("/absnoprevistes");
@@ -90,7 +81,6 @@ class absnoprevistesController {
 	static update_post(req, res, next) {
 		var absnoprevista = new AbsNoPrevista({
 			data_absnoprevista: req.body.data_absnoprevista,
-			horari_profe: req.body.horari_profe,
 			hores_ausencia: req.body.hores_ausencia,
 			motiu_abs: req.body.motiu_abs,
 			document_justificatiu: req.params.document_justificatiu,
@@ -123,7 +113,7 @@ class absnoprevistesController {
 	static async delete_post(req, res, next) {
 		AbsNoPrevista.findByIdAndRemove(req.params.id, (error) => {
 			if (error) {
-				res.redirect("/absnoprevistes");
+				res.render("absnoprevistes", { error: error.message });
 			} else {
 				res.redirect("/absnoprevistes");
 			}

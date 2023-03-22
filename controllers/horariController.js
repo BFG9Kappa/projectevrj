@@ -110,7 +110,7 @@ class HorariController {
 	static async delete_post(req, res, next) {
 		Horari.findByIdAndRemove(req.params.id, function (error) {
 			if (error) {
-				res.redirect("/horaris");
+				res.render("horaris", { error: error.message });
 			} else {
 				res.redirect("/horaris");
 			}

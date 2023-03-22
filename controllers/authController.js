@@ -56,7 +56,7 @@ class authController {
 			var password = req.body.password;
 			User.findOne({ email: email }).exec(function (err, user) {
 				if (err) {
-					res.send("error");
+					res.send(err);
 				}
 				if (!user) {
 					var message = "User not found. Login not possible";
@@ -109,7 +109,7 @@ class authController {
 			});
 			User.create(user, (error, newUser) => {
 				if (error) {
-					res.render("users/register", { error: "error" });
+					res.render("users/register", { error: error.message });
 				} else {
 					res.redirect("/auth/login");
 				}
