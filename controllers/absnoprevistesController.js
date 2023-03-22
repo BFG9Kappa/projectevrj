@@ -1,6 +1,7 @@
 var AbsNoPrevista = require("../models/absnoprevista");
 const { body, validationResult } = require("express-validator");
 const fs = require("fs");
+const path = require("path");
 
 class absnoprevistesController {
 	static rules = [
@@ -63,7 +64,7 @@ class absnoprevistesController {
 					if (req.files && req.files.document_justificatiu) {
 						const file = req.files.document_justificatiu;
 						const fileName = newAbsNoPrevista._id + "_" + file.name;
-						const uploadPath = "../public/uploads/" + fileName;
+						const uploadPath = "/../public/uploads/" + fileName;
 						file.mv(uploadPath, function (error) {
 							if (error) {
 								console.log(error);
