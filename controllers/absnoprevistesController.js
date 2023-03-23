@@ -1,7 +1,5 @@
 var AbsNoPrevista = require("../models/absnoprevista");
 const { body, validationResult } = require("express-validator");
-const fs = require("fs");
-const path = require("path");
 
 class absnoprevistesController {
 	static rules = [
@@ -58,24 +56,13 @@ class absnoprevistesController {
 		} else {
 			AbsNoPrevista.create(req.body, function (error, newAbsNoPrevista) {
 				if (error) {
-					//console.log(error)
 					res.render("absnoprevistes/new", { error: error.message });
 				} else {
-					if (req.files && req.files.document_justificatiu) {
-						const file = req.files.document_justificatiu;
-						const fileName = newAbsNoPrevista._id + "_" + file.name;
-						const uploadPath = "/../public/uploads/" + fileName;
-						file.mv(uploadPath, function (error) {
-							if (error) {
-								console.log(error);
-							}
-						});
-					}
 					res.redirect("/absnoprevistes");
 				}
 			});
-			}
 		}
+	}
 
 	static update_get(req, res, next) {
 		AbsNoPrevista.findById(req.params.id, function (err, absnoprevista) {
