@@ -8,8 +8,20 @@
 		<%- include('../partials/header'); %>
 	</header>
 	<main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 		<script>
-			window.onload = function()
+				function generarPdf() {
+
+					var doc = new jsPDF();
+					doc.text(20, 20, 'Hello world!');
+					doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+					doc.addPage();
+					doc.text(20, 20, 'Do you like that?');
+
+					doc.save('Test.pdf');
+				};
+
+				window.onload = function()
 			{
 				var fecha = new Date(); //Fecha actual
 				var mes = fecha.getMonth() + 1; //obteniendo mes
@@ -21,7 +33,6 @@
 				mes = '0' + mes //agrega cero si el menor de 10
 				document.getElementById('fecha-entrada').value = dia + "/" + mes + "/" + ano;
 			}
-
 		</script>
 		<div class="card mt-2">
 			<div class="card-header">
@@ -45,6 +56,9 @@
 					</div>
 					<br>
 					<button type="submit" class="btn btn-primary">Desar</button>
+					<button onclick="generarPdf()" class="btn btn-primary">Generar PDF</button>
+
+
 			</div>
 
 			</form>
