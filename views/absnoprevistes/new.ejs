@@ -11,6 +11,7 @@
 		<script>
 			window.onload = function()
 			{
+
 				var fecha = new Date(); //Fecha actual
 				var mes = fecha.getMonth() + 1; //obteniendo mes
 				var dia = fecha.getDate(); //obteniendo dia
@@ -20,6 +21,26 @@
 				if (mes < 10)
 				mes = '0' + mes //agrega cero si el menor de 10
 				document.getElementById('fecha-entrada').value = dia + "/" + mes + "/" + ano;
+
+				var fechaVencimiento = new Date(); // Obtiene la fecha actual
+				fechaVencimiento.setDate(fechaVencimiento.getDate() + 1); // Suma 15 días a la fecha actual
+				var diaa = fechaVencimiento.getDate(); // Obtiene el día de la nueva fecha
+				var mess = fechaVencimiento.getMonth() + 1; // Obtiene el mes de la nueva fecha (se suma 1 porque los meses en JavaScript comienzan en 0)
+				var anio = fechaVencimiento.getFullYear(); // Obtiene el año de la nueva fecha
+				if (diaa < 10)
+				diaa = '0' + diaa; //agrega cero si el menor de 10
+				if (mess < 10)
+				mess = '0' + mess
+				document.getElementById('fechaVencimiento').value = diaa + "/" + mess + "/" + anio; // Retorna la fecha en formato de día/mes/año
+
+				    // Compara la fecha actual con la fecha de vencimiento y deshabilita los inputs si corresponde
+						var fechaActual = new Date();
+					if (fechaActual > fechaVencimiento) {
+							document.getElementsByName("data_absnoprevista")[0].disabled = true;
+							document.getElementsByName("hores_ausencia")[0].disabled = true;
+							document.getElementsByName("motiu_abs")[0].disabled = true;
+							document.getElementsByName("document_justificatiu")[0].disabled = true;
+					}
 			}
 
 		</script>
@@ -32,7 +53,7 @@
 				<form method="POST" action="/absnoprevistes/create">
 					<div class="form-group">
 						<label for="name">Data absència no prevista</label>
-						<input type="text" name="data_absnoprevista" id="fecha-entrada" class="form-control" disabled>
+						<input type="text" name="data_absnoprevista" id="fecha-entrada" class="form-control" value="" disabled>
 
 						<label for="name">Hores ausencia</label>
 						<input type="number" name="hores_ausencia" class="form-control">
@@ -42,11 +63,14 @@
 
 						<label for="name">Document justificatiu</label>
 						<input type="file" name="document_justificatiu" class="form-control">
+
+						<label for="name">Fecha de vencimiento</label>
+						<input type="text" name="fechaVencimiento" id="fechaVencimiento"class="form-control" value=""disabled>
+
+
 					</div>
-					<br>
 					<button type="submit" class="btn btn-primary">Desar</button>
 			</div>
-
 			</form>
 			<% if (typeof errors !== "undefined") { %>
 				<div class="alert alert-danger mt-2" role="alert">
