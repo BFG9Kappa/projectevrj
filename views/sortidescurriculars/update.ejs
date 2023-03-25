@@ -20,6 +20,9 @@
 						<label for="data_sortida">Data sortida curricular</label>
 						<input type="date" id="data_sortida" name="data_sortida" class="form-control" value="<%= sortidacurricular.data_sortida.toISOString().slice(0, 10) %>">
 
+						<label for="email">E-mail</label>
+						<input type="email" name="email" class="form-control" value="<%= sortidacurricular.email %>">
+
 						<label for="lloc">Lloc de sortida</label>
 						<input type="text" name="lloc" class="form-control" value="<%= sortidacurricular.lloc %>">
 

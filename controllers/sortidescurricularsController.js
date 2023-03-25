@@ -1,6 +1,7 @@
 var SortidaCurricular = require("../models/sortidacurricular");
 
 const { body, validationResult } = require("express-validator");
+const nodemailer = require('nodemailer');
 
 class sortidacurricularController {
 	static rules = [
@@ -22,6 +23,7 @@ class sortidacurricularController {
 	static create_get(req, res, next) {
 		var sortidacurricular = {
 			data_sortida: "",
+			email: "",
 			lloc: "",
 			ruta: "",
 			objectius: "",
@@ -44,6 +46,7 @@ class sortidacurricularController {
 		if (!errors.isEmpty()) {
 			var sortidacurricular = {
 				data_sortida: req.body.data_sortida,
+				email: req.body.email,
 				lloc: req.body.lloc,
 				ruta: req.body.ruta,
 				objectius: req.body.objectius,
@@ -60,6 +63,28 @@ class sortidacurricularController {
 			});
 		} else {
 			SortidaCurricular.create(req.body, function (error, newSortidaCurricular) {
+				const transporter = nodemailer.createTransport({
+					service: 'gmail',
+					auth: {
+					  user: 'rolo836@vidalibarraquer.net',
+					  pass: '48135836X'
+					}
+				  });
+				  
+				  const mailOptions = {
+					from: 'rolo836@vidalibarraquer.net',
+					to: req.body.email, // correo del destinatario obtenido del formulario
+					subject: 'Vidal i Barraquer Sortida Curricular',
+					text: 'Teniu una absència generada. Indiqueu per cada hora la tasca de lalumnat corresponenr'
+				  };
+				  
+				  transporter.sendMail(mailOptions, function(error, info) {
+					if (error) {
+					  console.log(error);
+					} else {
+					  console.log('Correo electrónico enviado: ' + info.response);
+					}
+				  });
 				if (error) {
 					//console.log(error)
 					res.render("sortidescurriculars/new", { error: error.message });
@@ -95,6 +120,7 @@ class sortidacurricularController {
 	static async update_post(req, res, next) {
 		var sortidacurricular = new SortidaCurricular({
 			data_sortida: req.body.data_sortida,
+			email: req.body.email,
 			lloc: req.body.lloc,
 			ruta: req.body.ruta,
 			objectius: req.body.objectius,

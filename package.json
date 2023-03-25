@@ -17,6 +17,7 @@
     "express-session": "^1.17.3",
     "express-validator": "^6.15.0",
     "moment": "^2.29.4",
-    "mongoose": "^6.6.5"
+    "mongoose": "^6.6.5",
+    "nodemailer": "^6.9.1"
   }
 }
