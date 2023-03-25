@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var SortidaCurricularSchema = new Schema({
+	data_actual: { type: Date, required: false },
 	data_sortida: { type: Date, required: true },
 	email: { type: String, required: false },
 	lloc: { type: String },

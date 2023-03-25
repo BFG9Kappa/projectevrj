@@ -1,5 +1,5 @@
 var SortidaCurricular = require("../models/sortidacurricular");
-
+const moment = require("moment");
 const { body, validationResult } = require("express-validator");
 const nodemailer = require('nodemailer');
 
@@ -9,6 +9,19 @@ class sortidacurricularController {
 			.trim()
 			.isLength({ min: 1 })
 			.escape(),
+		body("data_sortida").custom((value, { req }) => {
+			const data_actual = moment(
+				req.body.data_actual,
+				"DD-MM-YYYY"
+			);
+			const data_sortida = moment(value, "DD-MM-YYYY");
+			if (data_sortida.isBefore(data_actual)) {
+				throw new Error(
+					"La data de la sortida curricular ha de ser posterior a la data actual"
+				);
+			}
+			return true;
+		}),
 	];
 
 	static async list(req, res, next) {
@@ -22,6 +35,7 @@ class sortidacurricularController {
 
 	static create_get(req, res, next) {
 		var sortidacurricular = {
+			data_actual: "",
 			data_sortida: "",
 			email: "",
 			lloc: "",
@@ -50,6 +64,7 @@ class sortidacurricularController {
 
     try {
         const sortidacurricular = new SortidaCurricular({
+			data_actual: req.body.data_actual,
             data_sortida: req.body.data_sortida,
             lloc: req.body.lloc,
             ruta: req.body.ruta,

@@ -2,9 +2,25 @@
 <html lang="en">
 	<head>
 		<%- include('../partials/head'); %>
+		<script>
+				function setDefaultDate() {
+				const now = new Date();
+				const day = now.getDate().toString().padStart(2, '0');
+				const month = (now.getMonth() + 1).toString().padStart(2, '0');
+				const year = now.getFullYear().toString();
+				const today = `${year}-${month}-${day}`;
+				
+	 		document.getElementById('data_actual').value = today;
+			}
+
+			window.onload = function() {
+				alert('La página se ha cargado correctamente.');
+  				setDefaultDate();
+}
+		</script>
 	</head>
 
-	<body class="container">
+	<body onload="setDefaultDate()" class="container">
 		<header><%- include('../partials/header'); %></header>
 		<main>
 			<div class="card mt-4">
@@ -14,6 +30,9 @@
 				<div class="card-body">
 					<form method="POST" action="/sortidescurriculars/create">
 						<div class="form-group">
+							<label for="data_actual">Data dia actual</label>
+							<input type="date" name="data_actual" id="data_actual" class="form-control" />
+							
 							<label for="data_sortida">Data sortida curricular</label>
 							<input type="date" name="data_sortida" id="data_sortida" class="form-control"/>
 
@@ -39,7 +58,6 @@
 							<label class="form-label" for="hora_inici">Hora inici</label>
 							<br>
 							<select class="form-select" id="hora_inici" name="hora_inici">
-														<option ></option>
                             <optgroup label="Diurn">
                                 <option >08:00</option>
                                 <option >09:00</option>
@@ -66,7 +84,6 @@
 							<label class="form-label" for="hora_arribada">Hora arribada</label>
 							<br>
 							<select class="form-select" id="hora_arribada" name="hora_arribada">
-								<option ></option>
                             <optgroup label="Diurn">
 
                                 <option >08:00</option>
@@ -93,7 +110,7 @@
 							<label class="form-label" for="estat">Estat</label>
 							<br>
 							<select class="form-select" id="estat" name="estat">
-																<option ></option>
+															
                                 <option >Proposada</option>
                                 <option >Refusada</option>
                                 <option >Anul·lada</option>
