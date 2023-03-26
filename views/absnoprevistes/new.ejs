@@ -8,17 +8,27 @@
 		<%- include('../partials/header'); %>
 	</header>
 	<main>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 		<script>
-				function generarPdf() {
+				function genpdf() {
 
+					// Crear un nou objecte de document jsPDF
 					var doc = new jsPDF();
-					doc.text(20, 20, 'Hello world!');
-					doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
-					doc.addPage();
-					doc.text(20, 20, 'Do you like that?');
 
-					doc.save('Test.pdf');
+					// Obtenir els valors dels camps del formulari pel name
+					var data_absnoprevista = document.getElementsByName("data_absnoprevista")[0].value;
+					var hores_ausencia = document.getElementsByName("hores_ausencia")[0].value;
+					var motiu_abs = document.getElementsByName("motiu_abs")[0].value;
+					
+					// Agregar text al documento PDF
+					doc.text('Data absència no prevista: ' + data_absnoprevista, 10, 20);
+					doc.text('Hores ausència: ' + hores_ausencia, 10, 30);
+					doc.text('Motiu absència: ' + motiu_abs, 10, 40);
+					doc.addPage();
+					
+					// Guardar l'arxiu PDF
+					doc.save('absencia_no_prevista.pdf');
 				};
 
 				window.onload = function()
@@ -56,8 +66,7 @@
 					</div>
 					<br>
 					<button type="submit" class="btn btn-primary">Desar</button>
-					<button onclick="generarPdf()" class="btn btn-primary">Generar PDF</button>
-
+					<button onclick="genpdf()" class="btn btn-primary">Generar PDF</button>
 
 			</div>
 
