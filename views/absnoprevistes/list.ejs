@@ -39,7 +39,7 @@
 							<% list.forEach( function(absnoprevista) { %>
 							<tr>
 								<td class="align-middle text-center"><%= absnoprevista.id %></td>
-								<td class="align-middle text-center"><%= moment(absnoprevista.data_absnoprevista).locale('es').format('L');%></td>
+								<td class="align-middle text-center"><%= moment(absnoprevista.data_absnoprevista).format('DD/MM/YYYY');%></td>
 								<td class="align-middle text-center"><%= absnoprevista.hores_ausencia %>h</td>
 								<td class="align-middle text-center"><%= absnoprevista.motiu_abs %></td>
 								<td class="align-middle text-center"><%= absnoprevista.document_justificatiu %></td>

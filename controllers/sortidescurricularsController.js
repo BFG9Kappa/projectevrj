@@ -52,41 +52,61 @@ class sortidacurricularController {
 		res.render("sortidescurriculars/new", { sortidacurricular: sortidacurricular });
 	}
 
-	static async create_post(req, res) {
-    const errors = validationResult(req);
+	static create_post(req, res) {
+		const errors = validationResult(req);
+		console.log(errors.array());
+		// Tenim errors en les dades enviades
+		if (!errors.isEmpty()) {
+			var sortidacurricular = {
+				data_sortida: req.body.data_sortida,
+				email: req.body.email,
+				lloc: req.body.lloc,
+				ruta: req.body.ruta,
+				objectius: req.body.objectius,
+				grups: req.body.grups,
+				professors: req.body.professors,
+				hora_inici: req.body.hora_inici,
+				hora_arribada: req.body.hora_arribada,
+				estat: req.body.estat,
+				_id: req.params.id,
+			};
+			res.render("sortidescurriculars/new", {
+				errors: errors.array(),
+				sortidacurricular: sortidacurricular,
+			});
+		} else {
+			SortidaCurricular.create(req.body, function (error, newSortidaCurricular) {
+				const transporter = nodemailer.createTransport({
+					service: 'gmail',
+					auth: {
+					  user: 'rolo836@vidalibarraquer.net',
+					  pass: '48135836X'
+					}
+				  });
 
-    if (!errors.isEmpty()) {
-        return res.render("sortidescurriculars/new", {
-            errors: errors.array(),
-            sortidacurricular: req.body,
-        });
-    }
+				  const mailOptions = {
+					from: 'rolo836@vidalibarraquer.net',
+					to: req.body.email, // correo del destinatario obtenido del formulario
+					subject: 'Vidal i Barraquer Sortida Curricular',
+					text: 'Teniu una absència generada. Indiqueu per cada hora la tasca de lalumnat corresponenr'
+				  };
 
-    try {
-        const sortidacurricular = new SortidaCurricular({
-			data_actual: req.body.data_actual,
-            data_sortida: req.body.data_sortida,
-            lloc: req.body.lloc,
-            ruta: req.body.ruta,
-            objectius: req.body.objectius,
-            grups: req.body.grups,
-            professors: req.body.professors,
-            hora_inici: req.body.hora_inici,
-            hora_arribada: req.body.hora_arribada,
-            estat: req.body.estat,
-        });
-
-        await sortidacurricular.save();
-
-        res.redirect("/sortidescurriculars");
-    } catch (err) {
-        console.error(err);
-        res.render("sortidescurriculars/new", {
-            error: err.message,
-            sortidacurricular: req.body,
-        });
-    }
-}
+				  transporter.sendMail(mailOptions, function(error, info) {
+					if (error) {
+					  console.log(error);
+					} else {
+					  console.log('Correo electrónico enviado: ' + info.response);
+					}
+				  });
+				if (error) {
+					//console.log(error)
+					res.render("sortidescurriculars/new", { error: error.message });
+				} else {
+					res.redirect("/sortidescurriculars");
+				}
+			});
+		}
+	}
 
 
 
@@ -128,6 +148,13 @@ class sortidacurricularController {
 
 		try {
 			await SortidaCurricular.findByIdAndUpdate(req.params.id, {
+				data_sortida: req.body.data_sortida,
+				email: req.body.email,
+				lloc: req.body.lloc,
+				ruta: req.body.ruta,
+				objectius: req.body.objectius,
+				grups: req.body.grups,
+				professors: req.body.professors,
 					hora_inici: req.body.horaInici,
 					hora_arribada: req.body.horaArribada,
 					estat: req.body.Estat
