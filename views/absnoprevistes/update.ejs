@@ -25,7 +25,7 @@
 					<form method="POST" action="/absnoprevistes/update/<%= absnoprevista._id %>">
 						<div class="form-group">
 							<label for="name">Data absencia no prevista</label>
-							<input type="text" name="data_absnoprevista" class="form-control" value="<%= absnoprevista.data_absnoprevista %>" id="fecha-entrada" disabled/>
+							<input type="date" name="data_absnoprevista" class="form-control" value="<%= absnoprevista.data_absnoprevista %>"/>
 							<label for="name">Hores ausencia</label>
 							<input type="number" name="hores_ausencia" class="form-control" value="<%= absnoprevista.hores_ausencia %>"/>
 							<label for="name">Motiu absencia</label>

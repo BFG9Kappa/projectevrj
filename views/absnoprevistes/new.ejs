@@ -2,6 +2,23 @@
 <html lang="en">
 <head>
 	<%- include('../partials/head'); %>
+	<script>
+				function setDefaultDate() {
+				const now = new Date();
+				const day = now.getDate().toString().padStart(2, '0');
+				const month = (now.getMonth() + 1).toString().padStart(2, '0');
+				const year = now.getFullYear().toString();
+				const today = `${year}-${month}-${day}`;
+
+	 		document.getElementById('data_actual').value = today;
+			}
+
+			window.onload = function() {
+
+  				setDefaultDate();
+}
+	</script>
+
 </head>
 <body class="container">
 	<header>
@@ -16,8 +33,10 @@
 				<a href="/absnoprevistes" class="btn btn-primary">Tornar</a>
 				<form method="POST" action="/absnoprevistes/create">
 					<div class="form-group">
-						<label for="name">Data absència no prevista</label>
-						<input type="text" name="data_absnoprevista" id="fecha-entrada" class="form-control" value="" disabled>
+
+						<label for="name">La data de l'absència no prevista serà l'actual</label>
+				<input type="hidden" name="data_absnoprevista" class="form-control" id="data_actual">
+				<br>
 
 						<label for="name">Hores ausencia</label>
 						<input type="number" name="hores_ausencia" class="form-control">
