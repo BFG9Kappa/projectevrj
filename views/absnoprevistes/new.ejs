@@ -2,27 +2,15 @@
 <html lang="en">
 <head>
 	<%- include('../partials/head'); %>
-	<script>
-				function setDefaultDate() {
-				const now = new Date();
-				const day = now.getDate().toString().padStart(2, '0');
-				const month = (now.getMonth() + 1).toString().padStart(2, '0');
-				const year = now.getFullYear().toString();
-				const today = `${year}-${month}-${day}`;
-
-	 		document.getElementById('data_actual').value = today;
-			}
-
-			window.onload = function() {
-
-  				setDefaultDate();
-}
-	</script>
-
 </head>
 <body class="container">
 	<header>
 		<%- include('../partials/header'); %>
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+			  document.getElementById("data_absnoprevista").valueAsDate = new Date();
+			});
+		  </script>
 	</header>
 	<main>
 		<div class="card mt-2">
@@ -34,9 +22,9 @@
 				<form method="POST" action="/absnoprevistes/create">
 					<div class="form-group">
 
-						<label for="name">La data de l'absència no prevista serà l'actual</label>
-				<input type="hidden" name="data_absnoprevista" class="form-control" id="data_actual">
-				<br>
+						<label for="name">La data de l'absencia no prevista serà l'actual</label>
+						<input type="date" name="data_absnoprevista" id="data_absnoprevista" class="form-control" style="display:none">
+						<br>					
 
 						<label for="name">Hores ausencia</label>
 						<input type="number" name="hores_ausencia" class="form-control">
