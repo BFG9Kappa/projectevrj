@@ -8,7 +8,10 @@ class absnoprevistesController {
 			.isLength({ min: 1 })
 			.escape(),
 
-			body("motiu_abs", "El motiu de l'absència no pot estar buit.")
+		body("hores_ausencia", "Les hores d'ausència han de ser de 1 a 8.")
+			.isInt({ min: 1, max: 8 }),
+
+		body("motiu_abs", "El motiu de l'absència no pot estar buit.")
 			.trim()
 			.isLength({ min: 1 }),
 			//.escape()
@@ -38,7 +41,7 @@ class absnoprevistesController {
 		const errors = validationResult(req);
 		console.log(errors.array());
 		// Tenim errors en les dades enviades
-	
+
 		if (!errors.isEmpty()) {
 			var absnoprevista = {
 				data_absnoprevista: req.body.data_absnoprevista,
@@ -68,7 +71,7 @@ class absnoprevistesController {
 			});
 		}
 	}
-	
+
 
 	static update_get(req, res, next) {
 		AbsNoPrevista.findById(req.params.id, function (err, absnoprevista) {
