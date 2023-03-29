@@ -79,8 +79,8 @@ class sortidacurricularController {
 				const transporter = nodemailer.createTransport({
 					service: 'gmail',
 					auth: {
-					  user: 'USER',
-					  pass: 'PASSWORD'
+					  user: 'USER', //email que enviara el correo de la sortida
+					  pass: 'PASSWORD' //hay que poner la contraseña del gmail que quiere enviar el correo
 					}
 				  });
 
