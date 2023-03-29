@@ -4,36 +4,35 @@ const { body, validationResult } = require("express-validator");
 
 class authController {
 	static loginRules = [
-		// Validate and sanitize fields.
-		body("email").trim().notEmpty().withMessage("Email must not be empty."),
+		body("email").trim().notEmpty().withMessage("El correu electrònic no pot estar buit."),
 		body("password")
 			.trim()
 			.notEmpty()
-			.withMessage("Password must not be empty"),
+			.withMessage("La contrasenya no pot estar buida."),
 	];
 
 	static registerRules = [
-		body("fullname").not().isEmpty().withMessage("fullname is required"),
-		body("email", "email is required")
+		body("fullname").not().isEmpty().withMessage("El nom no pot estar buit."),
+		body("email", "El correu electrònic no pot estar buit.")
 			.not()
 			.isEmpty()
-			.withMessage("email is required")
+			.withMessage("El correu electrònic no pot estar buit.")
 			.isEmail()
-			.withMessage("invalid format email")
+			.withMessage("El format del correu electrònic no es correcte.")
 			.custom(async function (value, { req }) {
 				const user = await User.findOne({ email: value });
 				if (user) {
-					throw new Error("Email already in use.");
+					throw new Error("Aquest correu electrònic ja està en us.");
 				}
 				return true;
 			})
-			.withMessage("That email address is already in use."),
+			.withMessage("Aquest correu electrònic ja està en us."),
 		body("password")
 			.isLength({ min: 1 })
-			.withMessage("password is required")
+			.withMessage("La contrasenya no pot estar buida.")
 			.custom((val, { req, loc, path }) => {
 				if (val !== req.body.confirm_password) {
-					throw new Error("Passwords don't match");
+					throw new Error("Les contrasenyes no coincideixen.");
 				} else {
 					return true;
 				}
@@ -49,17 +48,17 @@ class authController {
 		const errors = validationResult(req);
 		// Si tenim errors en les dades enviades
 		if (!errors.isEmpty()) {
-			var message = "Email and password must not be empty.";
+			var message = "Els camps de correu electrònic i de contrasenya son obligatoris.";
 			res.render("users/login", { message: message });
 		} else {
 			var email = req.body.email;
 			var password = req.body.password;
 			User.findOne({ email: email }).exec(function (err, user) {
 				if (err) {
-					res.send("error");
+					res.send(err);
 				}
 				if (!user) {
-					var message = "User not found. Login not possible";
+					var message = "Algo ha sortit malament."; //Usuari no existeix
 					res.render("users/login", { message: message });
 				} else {
 					if (bcrypt.compareSync(password, user.password)) {
@@ -73,7 +72,7 @@ class authController {
 						req.session.data = userData;
 						res.redirect("/home");
 					} else {
-						var message = "password incorrect. Login not possible";
+						var message = "Algo ha sortit malament."; //Contrasenya incorrecta
 						res.render("users/login", { message: message });
 					}
 				}
@@ -109,7 +108,7 @@ class authController {
 			});
 			User.create(user, (error, newUser) => {
 				if (error) {
-					res.render("users/register", { error: "error" });
+					res.render("users/register", { error: error.message });
 				} else {
 					res.redirect("/auth/login");
 				}
@@ -123,6 +122,7 @@ class authController {
 			res.redirect("/");
 		});
 	}
+
 }
 
 module.exports = authController;

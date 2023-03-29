@@ -2,15 +2,15 @@
 	"absprevistesData": [
 		{
 			"data_absprevista": 1677402000000,
-			"motiu_abs": "test1"
+			"motiu_abs": "Trasllat de domicili"
 		},
 		{
 			"data_absprevista": 1677488400000,
-			"motiu_abs": "test2"
+			"motiu_abs": "Naixement de fill"
 		},
 		{
 			"data_absprevista": 1677574800000,
-			"motiu_abs": "test3"
+			"motiu_abs": "Naixement de fill"
 		}
 	]
 }

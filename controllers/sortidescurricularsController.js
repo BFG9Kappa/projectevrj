@@ -1,6 +1,7 @@
 var SortidaCurricular = require("../models/sortidacurricular");
-
+const moment = require("moment");
 const { body, validationResult } = require("express-validator");
+const nodemailer = require('nodemailer');
 
 class sortidacurricularController {
 	static rules = [
@@ -8,6 +9,19 @@ class sortidacurricularController {
 			.trim()
 			.isLength({ min: 1 })
 			.escape(),
+		body("data_sortida").custom((value, { req }) => {
+			const data_actual = moment(
+				req.body.data_actual,
+				"DD-MM-YYYY"
+			);
+			const data_sortida = moment(value, "DD-MM-YYYY");
+			if (data_sortida.isBefore(data_actual)) {
+				throw new Error(
+					"La data de la sortida curricular ha de ser posterior a la data actual"
+				);
+			}
+			return true;
+		}),
 	];
 
 	static async list(req, res, next) {
@@ -21,7 +35,9 @@ class sortidacurricularController {
 
 	static create_get(req, res, next) {
 		var sortidacurricular = {
+			data_actual: "",
 			data_sortida: "",
+			email: "",
 			lloc: "",
 			ruta: "",
 			objectius: "",
@@ -40,10 +56,10 @@ class sortidacurricularController {
 		const errors = validationResult(req);
 		console.log(errors.array());
 		// Tenim errors en les dades enviades
-
 		if (!errors.isEmpty()) {
 			var sortidacurricular = {
 				data_sortida: req.body.data_sortida,
+				email: req.body.email,
 				lloc: req.body.lloc,
 				ruta: req.body.ruta,
 				objectius: req.body.objectius,
@@ -60,6 +76,28 @@ class sortidacurricularController {
 			});
 		} else {
 			SortidaCurricular.create(req.body, function (error, newSortidaCurricular) {
+				const transporter = nodemailer.createTransport({
+					service: 'gmail',
+					auth: {
+					  user: 'USER',
+					  pass: 'PASSWORD'
+					}
+				  });
+
+				  const mailOptions = {
+					from: 'rolo836@vidalibarraquer.net',
+					to: req.body.email, // correo del destinatario obtenido del formulario
+					subject: 'Vidal i Barraquer Sortida Curricular',
+					text: 'Teniu una absència generada. Indiqueu per cada hora la tasca de lalumnat corresponenr'
+				  };
+
+				  transporter.sendMail(mailOptions, function(error, info) {
+					if (error) {
+					  console.log(error);
+					} else {
+					  console.log('Correo electrónico enviado: ' + info.response);
+					}
+				  });
 				if (error) {
 					//console.log(error)
 					res.render("sortidescurriculars/new", { error: error.message });
@@ -69,6 +107,8 @@ class sortidacurricularController {
 			});
 		}
 	}
+
+
 
 	static update_get(req, res, next) {
 		SortidaCurricular.findById(
@@ -91,9 +131,10 @@ class sortidacurricularController {
 		);
 	}
 
-	static update_post(req, res, next) {
+	static async update_post(req, res, next) {
 		var sortidacurricular = new SortidaCurricular({
 			data_sortida: req.body.data_sortida,
+			email: req.body.email,
 			lloc: req.body.lloc,
 			ruta: req.body.ruta,
 			objectius: req.body.objectius,
@@ -105,23 +146,27 @@ class sortidacurricularController {
 			_id: req.params.id,
 		});
 
-		SortidaCurricular.findByIdAndUpdate(
-			req.params.id,
-			sortidacurricular,
-			{},
-			function (err, thesortidacurricular) {
-				if (err) {
-					res.render("sortidescurriculars/update", {
-						sortidacurricular: sortidacurricular,
-						error: err.message,
-					});
-				}
-				res.render("sortidescurriculars/update", {
-					sortidacurricular: sortidacurricular,
-					message: "Sortida curricular actualitzada",
-				});
-			}
-		);
+		try {
+			await SortidaCurricular.findByIdAndUpdate(req.params.id, {
+				data_sortida: req.body.data_sortida,
+				email: req.body.email,
+				lloc: req.body.lloc,
+				ruta: req.body.ruta,
+				objectius: req.body.objectius,
+				grups: req.body.grups,
+				professors: req.body.professors,
+					hora_inici: req.body.horaInici,
+					hora_arribada: req.body.horaArribada,
+					estat: req.body.Estat
+			});
+			res.redirect('/sortidescurriculars');
+	} catch (err) {
+			res.render("sortidescurriculars/update", {
+					error: err.message,
+					sortidacurricular: req.body,
+			});
+	}
+
 	}
 
 	static async delete_get(req, res, next) {
@@ -131,7 +176,7 @@ class sortidacurricularController {
 	static async delete_post(req, res, next) {
 		SortidaCurricular.findByIdAndRemove(req.params.id, (error) => {
 			if (error) {
-				res.redirect("/sortidescurriculars");
+				res.render("sortidescurriculars", { error: error.message });
 			} else {
 				res.redirect("/sortidescurriculars");
 			}

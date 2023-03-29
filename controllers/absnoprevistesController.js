@@ -3,25 +3,23 @@ const { body, validationResult } = require("express-validator");
 
 class absnoprevistesController {
 	static rules = [
-
-		body("hores_ausencia", "Les hores d'ausencia no pot estar buit.")
+		body("hores_ausencia", "Les hores d'ausencia no pot estar buides.")
 			.trim()
 			.isLength({ min: 1 })
 			.escape(),
 
 			body("motiu_abs", "El motiu de l'absència no pot estar buit.")
 			.trim()
-			.isLength({ min: 1 })
+			.isLength({ min: 1 }),
 			//.escape()
-			,
 	];
 
 	static async list(req, res, next) {
 		try {
 			var list_absnoprevistes = await AbsNoPrevista.find();
 			res.render("absnoprevistes/list", { list: list_absnoprevistes });
-		} catch (e) {
-			res.send("Error!");
+		} catch (error) {
+			res.send(error);
 		}
 	}
 
@@ -40,7 +38,7 @@ class absnoprevistesController {
 		const errors = validationResult(req);
 		console.log(errors.array());
 		// Tenim errors en les dades enviades
-
+	
 		if (!errors.isEmpty()) {
 			var absnoprevista = {
 				data_absnoprevista: req.body.data_absnoprevista,
@@ -54,7 +52,14 @@ class absnoprevistesController {
 				absnoprevista: absnoprevista,
 			});
 		} else {
-			AbsNoPrevista.create(req.body, function (error, newAbsNoPrevista) {
+			req.body.data_absnoprevista = new Date(req.body.data_absnoprevista);
+			AbsNoPrevista.create({
+				data_absnoprevista: req.body.data_absnoprevista.toISOString(),
+				hores_ausencia: req.body.hores_ausencia,
+				motiu_abs: req.body.motiu_abs,
+				document_justificatiu: req.params.document_justificatiu,
+				_id: req.params.id, // Fa falta per sobreescriure el objecte.
+			}, function (error, newAbsNoPrevista) {
 				if (error) {
 					res.render("absnoprevistes/new", { error: error.message });
 				} else {
@@ -63,6 +68,7 @@ class absnoprevistesController {
 			});
 		}
 	}
+	
 
 	static update_get(req, res, next) {
 		AbsNoPrevista.findById(req.params.id, function (err, absnoprevista) {
@@ -115,7 +121,7 @@ class absnoprevistesController {
 	static async delete_post(req, res, next) {
 		AbsNoPrevista.findByIdAndRemove(req.params.id, (error) => {
 			if (error) {
-				res.redirect("/absnoprevistes");
+				res.render("absnoprevistes", { error: error.message });
 			} else {
 				res.redirect("/absnoprevistes");
 			}

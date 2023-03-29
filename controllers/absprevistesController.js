@@ -25,8 +25,8 @@ class absprevistaController {
 		try {
 			var list_absprevistes = await AbsenciaPrevista.find();
 			res.render("absprevistes/list", { list: list_absprevistes });
-		} catch (e) {
-			res.send("Error!");
+		} catch (error) {
+			res.send(error);
 		}
 	}
 
@@ -56,7 +56,6 @@ class absprevistaController {
 		} else {
 			AbsenciaPrevista.create(req.body, function (error, newAbsenciaPrevista) {
 				if (error) {
-					//console.log(error)
 					res.render("absprevistes/new", { error: error.message });
 				} else {
 					res.redirect("/absprevistes");
@@ -114,7 +113,7 @@ class absprevistaController {
 	static async delete_post(req, res, next) {
 		AbsenciaPrevista.findByIdAndRemove(req.params.id, (error) => {
 			if (error) {
-				res.redirect("/absprevistes");
+				res.render("absprevistes", { error: error.message });
 			} else {
 				res.redirect("/absprevistes");
 			}
