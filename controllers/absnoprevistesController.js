@@ -38,7 +38,7 @@ class absnoprevistesController {
 		const errors = validationResult(req);
 		console.log(errors.array());
 		// Tenim errors en les dades enviades
-
+	
 		if (!errors.isEmpty()) {
 			var absnoprevista = {
 				data_absnoprevista: req.body.data_absnoprevista,
@@ -52,7 +52,14 @@ class absnoprevistesController {
 				absnoprevista: absnoprevista,
 			});
 		} else {
-			AbsNoPrevista.create(req.body, function (error, newAbsNoPrevista) {
+			req.body.data_absnoprevista = new Date(req.body.data_absnoprevista);
+			AbsNoPrevista.create({
+				data_absnoprevista: req.body.data_absnoprevista.toISOString(),
+				hores_ausencia: req.body.hores_ausencia,
+				motiu_abs: req.body.motiu_abs,
+				document_justificatiu: req.params.document_justificatiu,
+				_id: req.params.id, // Fa falta per sobreescriure el objecte.
+			}, function (error, newAbsNoPrevista) {
 				if (error) {
 					res.render("absnoprevistes/new", { error: error.message });
 				} else {
@@ -61,6 +68,7 @@ class absnoprevistesController {
 			});
 		}
 	}
+	
 
 	static update_get(req, res, next) {
 		AbsNoPrevista.findById(req.params.id, function (err, absnoprevista) {

@@ -2,9 +2,24 @@
 <html lang="en">
 	<head>
 		<%- include('../partials/head'); %>
+		<script>
+				function setDefaultDate() {
+				const now = new Date();
+				const day = now.getDate().toString().padStart(2, '0');
+				const month = (now.getMonth() + 1).toString().padStart(2, '0');
+				const year = now.getFullYear().toString();
+				const today = `${year}-${month}-${day}`;
+
+	 		document.getElementById('data_actual').value = today;
+			}
+
+			window.onload = function() {
+  				setDefaultDate();
+}
+		</script>
 	</head>
 
-	<body class="container">
+	<body onload="setDefaultDate()" class="container">
 		<header><%- include('../partials/header'); %></header>
 		<main>
 			<div class="card mt-4">
@@ -14,8 +29,14 @@
 				<div class="card-body">
 					<form method="POST" action="/sortidescurriculars/create">
 						<div class="form-group">
+							<!-- Input para comparar la fecha de la sortida con la fecha actual para que no hayan errores de validacion-->
+							<input type="date" name="data_actual" id="data_actual" class="form-control" style="display:none"/>
+
 							<label for="data_sortida">Data sortida curricular</label>
 							<input type="date" name="data_sortida" id="data_sortida" class="form-control"/>
+
+							<label for="email">E-mail</label>
+							<input type="email" name="email" class="form-control" />
 
 							<label for="lloc">Lloc de sortida</label>
 							<input type="text" name="lloc" class="form-control" />
@@ -33,9 +54,9 @@
 							<input type="text" name="professors" class="form-control" />
 							<br>
 
-							<label class="form-label" for="horaInici">Hora inici</label>
+							<label class="form-label" for="hora_inici">Hora inici</label>
 							<br>
-							<select class="form-select" id="horaInici" name="horaInici">
+							<select class="form-select" id="hora_inici" name="hora_inici">
                             <optgroup label="Diurn">
                                 <option >08:00</option>
                                 <option >09:00</option>
@@ -59,10 +80,11 @@
 												<br>
 												<br>
 
-							<label class="form-label" for="horaArribada">Hora arribada</label>
+							<label class="form-label" for="hora_arribada">Hora arribada</label>
 							<br>
-							<select class="form-select" id="horaArribada" name="horaArribada">
+							<select class="form-select" id="hora_arribada" name="hora_arribada">
                             <optgroup label="Diurn">
+
                                 <option >08:00</option>
                                 <option >09:00</option>
                                 <option >10:00</option>
@@ -84,9 +106,10 @@
 												<br>
 												<br>
 
-							<label class="form-label" for="Estat">Estat</label>
+							<label class="form-label" for="estat">Estat</label>
 							<br>
-							<select class="form-select" id="Estat" name="Estat">
+							<select class="form-select" id="estat" name="estat">
+
                                 <option >Proposada</option>
                                 <option >Refusada</option>
                                 <option >Anul·lada</option>

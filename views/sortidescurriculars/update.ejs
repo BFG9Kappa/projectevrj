@@ -20,6 +20,9 @@
 						<label for="data_sortida">Data sortida curricular</label>
 						<input type="date" id="data_sortida" name="data_sortida" class="form-control" value="<%= sortidacurricular.data_sortida.toISOString().slice(0, 10) %>">
 
+						<label for="email">E-mail</label>
+						<input type="email" name="email" class="form-control" value="<%= sortidacurricular.email %>">
+
 						<label for="lloc">Lloc de sortida</label>
 						<input type="text" name="lloc" class="form-control" value="<%= sortidacurricular.lloc %>">
 
@@ -37,23 +40,23 @@
 
 						<label class="form-label" for="horaInici">Hora inici</label>
 						<br>
-							<select class="form-select" id="horaInici" name="horaInici" value="<%= sortidacurricular.hora_inici %>">
+							<select class="form-select" id="horaInici" name="horaInici" value="horaInici">
                             <optgroup label="Diurn">
-                                <option >08:00</option>
-                                <option >09:00</option>
-                                <option >10:00</option>
-                                <option >11:00</option>
-																<option >11:30</option>
-                                <option >12:30</option>
-                                <option >13:30</option>
-                            </optgroup>
-                            <optgroup label="Nocturn">
-                                <option >15:00</option>
-                                <option >16:00</option>
-                                <option >17:00</option>
-                                <option >18:30</option>
-                                <option >19:30</option>
-                                <option >20:30</option>
+                                <option value="08:00" <%= sortidacurricular.hora_inici === '08:00' ? 'selected' : '' %>>08:00</option>
+								<option value="09:00" <%= sortidacurricular.hora_inici === '09:00' ? 'selected' : '' %>>09:00</option>
+								<option value="10:00" <%= sortidacurricular.hora_inici === '10:00' ? 'selected' : '' %>>10:00</option>
+								<option value="11:00" <%= sortidacurricular.hora_inici === '11:00' ? 'selected' : '' %>>11:00</option>
+								<option value="11:30" <%= sortidacurricular.hora_inici === '11:30' ? 'selected' : '' %>>11:30</option>
+								<option value="12:30" <%= sortidacurricular.hora_inici === '12:30' ? 'selected' : '' %>>12:30</option>
+								<option value="13:30" <%= sortidacurricular.hora_inici === '13:30' ? 'selected' : '' %>>13:30</option>
+							</optgroup>
+							<optgroup label="Nocturn">
+								<option value="15:00" <%= sortidacurricular.hora_inici === '15:00' ? 'selected' : '' %>>15:00</option>
+								<option value="16:00" <%= sortidacurricular.hora_inici === '16:00' ? 'selected' : '' %>>16:00</option>
+								<option value="17:00" <%= sortidacurricular.hora_inici === '17:00' ? 'selected' : '' %>>17:00</option>
+								<option value="18:30" <%= sortidacurricular.hora_inici === '18:30' ? 'selected' : '' %>>18:30</option>
+								<option value="19:30" <%= sortidacurricular.hora_inici === '19:30' ? 'selected' : '' %>>19:30</option>
+								<option value="20:30" <%= sortidacurricular.hora_inici === '20:30' ? 'selected' : '' %>>20:30</option>
                             </optgroup>
                         </select>
 												<br>
@@ -61,24 +64,23 @@
 
 							<label class="form-label" for="horaArribada">Hora arribada</label>
 							<br>
-							<select class="form-select" id="horaArribada" name="horaArribada" value="<%= sortidacurricular.hora_arribada %>">
+							<select class="form-select" id="horaArribada" name="horaArribada" value="horaArribada">
                             <optgroup label="Diurn">
-                                <option >08:00</option>
-                                <option >09:00</option>
-                                <option >10:00</option>
-																<option >11:00</option>
-                                <option >11:30</option>
-                                <option >12:30</option>
-                                <option >13:30</option>
-                            </optgroup>
-                            <optgroup label="Nocturn">
-                                <option >15:00</option>
-                                <option >16:00</option>
-                                <option >17:00</option>
-																<option >18:00</option>
-                                <option >18:30</option>
-                                <option >19:30</option>
-                                <option >20:30</option>
+                                <option value="08:00" <%= sortidacurricular.hora_arribada === '08:00' ? 'selected' : '' %>>08:00</option>
+								<option value="09:00" <%= sortidacurricular.hora_arribada === '09:00' ? 'selected' : '' %>>09:00</option>
+								<option value="10:00" <%= sortidacurricular.hora_arribada === '10:00' ? 'selected' : '' %>>10:00</option>
+								<option value="11:00" <%= sortidacurricular.hora_arribada === '11:00' ? 'selected' : '' %>>11:00</option>
+								<option value="11:30" <%= sortidacurricular.hora_arribada === '11:30' ? 'selected' : '' %>>11:30</option>
+								<option value="12:30" <%= sortidacurricular.hora_arribada === '12:30' ? 'selected' : '' %>>12:30</option>
+								<option value="13:30" <%= sortidacurricular.hora_arribada === '13:30' ? 'selected' : '' %>>13:30</option>
+							</optgroup>
+							<optgroup label="Nocturn">
+								<option value="15:00" <%= sortidacurricular.hora_arribada === '15:00' ? 'selected' : '' %>>15:00</option>
+								<option value="16:00" <%= sortidacurricular.hora_arribada === '16:00' ? 'selected' : '' %>>16:00</option>
+								<option value="17:00" <%= sortidacurricular.hora_arribada === '17:00' ? 'selected' : '' %>>17:00</option>
+								<option value="18:30" <%= sortidacurricular.hora_arribada === '18:30' ? 'selected' : '' %>>18:30</option>
+								<option value="19:30" <%= sortidacurricular.hora_arribada === '19:30' ? 'selected' : '' %>>19:30</option>
+								<option value="20:30" <%= sortidacurricular.hora_arribada === '20:30' ? 'selected' : '' %>>20:30</option>
                             </optgroup>
                         </select>
 												<br>
@@ -86,11 +88,11 @@
 
 							<label class="form-label" for="Estat">Estat</label>
 							<br>
-							<select class="form-select" id="Estat" name="Estat" value="<%= sortidacurricular.estat %>">
-                                <option >Proposada</option>
-                                <option >Refusada</option>
-                                <option >Anul·lada</option>
-                                <option >Aprovada</option>
+							<select class="form-select" id="Estat" name="Estat" value="Estat">
+								<option value="Proposada" <%= sortidacurricular.hora_arribada === 'Proposada' ? 'selected' : '' %>>Proposada</option>
+								<option value="Refusada" <%= sortidacurricular.hora_arribada === 'Refusada' ? 'selected' : '' %>>Refusada</option>
+								<option value="Anul·lada" <%= sortidacurricular.hora_arribada === 'Anul·lada' ? 'selected' : '' %>>Anul·lada</option>
+								<option value="Aprovada" <%= sortidacurricular.hora_arribada === 'Aprovada' ? 'selected' : '' %>>Aprovada</option>
 							</select>
 						</div>
 						<button type="submit" class="btn btn-primary">Desar</button>

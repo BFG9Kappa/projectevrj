@@ -6,23 +6,13 @@
 <body class="container">
 	<header>
 		<%- include('../partials/header'); %>
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+			  document.getElementById("data_absnoprevista").valueAsDate = new Date();
+			});
+		  </script>
 	</header>
 	<main>
-		<script>
-			window.onload = function()
-			{
-				var fecha = new Date(); //Fecha actual
-				var mes = fecha.getMonth() + 1; //obteniendo mes
-				var dia = fecha.getDate(); //obteniendo dia
-				var ano = fecha.getFullYear(); //obteniendo año
-				if (dia < 10)
-				dia = '0' + dia; //agrega cero si el menor de 10
-				if (mes < 10)
-				mes = '0' + mes //agrega cero si el menor de 10
-				document.getElementById('fecha-entrada').value = dia + "/" + mes + "/" + ano;
-			}
-
-		</script>
 		<div class="card mt-2">
 			<div class="card-header">
 				<h5 class="card-title">Afegir absència no prevista</h5>
@@ -31,9 +21,10 @@
 				<a href="/absnoprevistes" class="btn btn-primary">Tornar</a>
 				<form method="POST" action="/absnoprevistes/create">
 					<div class="form-group">
-						<label for="name">Data absència no prevista</label>
-						<input type="text" name="data_absnoprevista" id="fecha-entrada" class="form-control" disabled>
 
+						<label for="name">Data absència no prevista</label>
+						<input type="date" name="data_absnoprevista" id="data_absnoprevista" class="form-control">
+											
 						<label for="name">Hores ausencia</label>
 						<input type="number" name="hores_ausencia" class="form-control">
 
@@ -42,6 +33,8 @@
 
 						<label for="name">Document justificatiu</label>
 						<input type="file" name="document_justificatiu" class="form-control">
+
+
 					</div>
 					<button type="submit" class="btn btn-primary">Desar</button>
 			</div>

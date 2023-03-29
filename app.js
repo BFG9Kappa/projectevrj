@@ -3,6 +3,7 @@ const path = require("path");
 const app = express();
 const dotenv = require("dotenv");
 var session = require("express-session");
+const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 
 // Rutes

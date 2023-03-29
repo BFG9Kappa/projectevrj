@@ -24,6 +24,7 @@
 					<thead>
 						<tr>
 							<th class="align-middle text-center" scope="col">Data sortida</th>
+							<th class="align-middle text-center" scope="col">E-mail</th>
 							<th class="align-middle text-center" scope="col">Lloc</th>
 							<th class="align-middle text-center" scope="col">Ruta</th>
 							<th class="align-middle text-center" scope="col">Objectius</th>
@@ -41,6 +42,9 @@
 							<tr>
 								<td class="align-middle text-center">
 									<%= moment(sortidacurricular.data_sortida).format('DD/MM/YYYY') %>
+								</td>
+								<td class="align-middle text-center">
+									<%= sortidacurricular.email %>
 								</td>
 								<td class="align-middle text-center">
 									<%= sortidacurricular.lloc %>
