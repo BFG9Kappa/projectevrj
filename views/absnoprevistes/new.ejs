@@ -13,6 +13,41 @@
 		  </script>
 	</header>
 	<main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+		<script>
+				function genpdf() {
+
+					// Crear un nou objecte de document jsPDF
+					var doc = new jsPDF();
+
+					// Obtenir els valors dels camps del formulari pel name
+					var data_absnoprevista = document.getElementsByName("data_absnoprevista")[0].value;
+					var hores_ausencia = document.getElementsByName("hores_ausencia")[0].value;
+					var motiu_abs = document.getElementsByName("motiu_abs")[0].value;
+					
+					// Agregar text al documento PDF
+					doc.text('Data absència no prevista: ' + data_absnoprevista, 10, 20);
+					doc.text('Hores ausència: ' + hores_ausencia, 10, 30);
+					doc.text('Motiu absència: ' + motiu_abs, 10, 40);
+					doc.addPage();
+					
+					// Guardar l'arxiu PDF
+					doc.save('absencia_no_prevista.pdf');
+				};
+
+				window.onload = function()
+			{
+				var fecha = new Date(); //Fecha actual
+				var mes = fecha.getMonth() + 1; //obteniendo mes
+				var dia = fecha.getDate(); //obteniendo dia
+				var ano = fecha.getFullYear(); //obteniendo año
+				if (dia < 10)
+				dia = '0' + dia; //agrega cero si el menor de 10
+				if (mes < 10)
+				mes = '0' + mes //agrega cero si el menor de 10
+				document.getElementById('fecha-entrada').value = dia + "/" + mes + "/" + ano;
+			}
+		</script>
 		<div class="card mt-2">
 			<div class="card-header">
 				<h5 class="card-title">Afegir absència no prevista</h5>
@@ -21,10 +56,9 @@
 				<a href="/absnoprevistes" class="btn btn-primary">Tornar</a>
 				<form method="POST" action="/absnoprevistes/create">
 					<div class="form-group">
-
 						<label for="name">Data absència no prevista</label>
-						<input type="date" name="data_absnoprevista" id="data_absnoprevista" class="form-control">
-											
+						<input type="text" name="data_absnoprevista" id="fecha-entrada" class="form-control" disabled>
+
 						<label for="name">Hores ausencia</label>
 						<input type="number" name="hores_ausencia" class="form-control">
 
@@ -37,6 +71,8 @@
 
 					</div>
 					<button type="submit" class="btn btn-primary">Desar</button>
+					<button onclick="genpdf()" class="btn btn-primary">Generar PDF</button>
+
 			</div>
 			</form>
 			<% if (typeof errors !== "undefined") { %>

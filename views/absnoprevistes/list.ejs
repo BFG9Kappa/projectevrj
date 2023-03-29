@@ -27,7 +27,6 @@
 						<br />
 						<thead>
 							<tr>
-								<th class="align-middle text-center" scope="col">ID</th>
 								<th class="align-middle text-center" scope="col">Data absencia no prevista</th>
 								<th class="align-middle text-center" scope="col">Hores ausencia</th>
 								<th class="align-middle text-center" scope="col">Motiu absencia</th>
@@ -38,9 +37,14 @@
 						<tbody>
 							<% list.forEach( function(absnoprevista) { %>
 							<tr>
-								<td class="align-middle text-center"><%= absnoprevista.id %></td>
-								<td class="align-middle text-center"><%= moment(absnoprevista.data_absnoprevista).format('DD/MM/YYYY');%></td>
-								<td class="align-middle text-center"><%= absnoprevista.hores_ausencia %>h</td>
+								<td class="align-middle text-center">
+									<%=
+									moment(absnoprevista.data_absnoprevista).locale('es').format('L');%>
+								</td>
+							<!--<td class="align-middle text-center">
+									<%= moment(absnoprevista.horari_profe).format('DD/MM/YYYY') %>
+								</td>-->
+								<td class="align-middle text-center"><%= absnoprevista.hores_ausencia %></td>
 								<td class="align-middle text-center"><%= absnoprevista.motiu_abs %></td>
 								<td class="align-middle text-center"><%= absnoprevista.document_justificatiu %></td>
 								<td>
