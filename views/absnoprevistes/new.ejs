@@ -35,18 +35,6 @@
 					doc.save('absencia_no_prevista.pdf');
 				};
 
-				window.onload = function()
-			{
-				var fecha = new Date(); //Fecha actual
-				var mes = fecha.getMonth() + 1; //obteniendo mes
-				var dia = fecha.getDate(); //obteniendo dia
-				var ano = fecha.getFullYear(); //obteniendo año
-				if (dia < 10)
-				dia = '0' + dia; //agrega cero si el menor de 10
-				if (mes < 10)
-				mes = '0' + mes //agrega cero si el menor de 10
-				document.getElementById('fecha-entrada').value = dia + "/" + mes + "/" + ano;
-			}
 		</script>
 		<div class="card mt-2">
 			<div class="card-header">
@@ -57,7 +45,7 @@
 				<form method="POST" action="/absnoprevistes/create">
 					<div class="form-group">
 						<label for="name">Data absència no prevista</label>
-						<input type="text" name="data_absnoprevista" id="fecha-entrada" class="form-control">
+						<input type="date" name="data_absnoprevista" id="data_absnoprevista" class="form-control">
 
 						<label for="name">Hores ausencia</label>
 						<input type="number" name="hores_ausencia" class="form-control">
