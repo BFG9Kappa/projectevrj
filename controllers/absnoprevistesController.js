@@ -1,6 +1,7 @@
 var AbsNoPrevista = require("../models/absnoprevista");
 const { body, validationResult } = require("express-validator");
 
+
 class absnoprevistesController {
 	static rules = [
 		body("hores_ausencia", "Les hores d'ausencia no pot estar buides.")
@@ -47,7 +48,7 @@ class absnoprevistesController {
 				data_absnoprevista: req.body.data_absnoprevista,
 				hores_ausencia: req.body.hores_ausencia,
 				motiu_abs: req.body.motiu_abs,
-				document_justificatiu: req.params.document_justificatiu,
+				document_justificatiu: req.body.document_justificatiu,
 				_id: req.params.id, // Fa falta per sobreescriure el objecte.
 			};
 			res.render("absnoprevistes/new", {
@@ -60,7 +61,7 @@ class absnoprevistesController {
 				data_absnoprevista: req.body.data_absnoprevista.toISOString(),
 				hores_ausencia: req.body.hores_ausencia,
 				motiu_abs: req.body.motiu_abs,
-				document_justificatiu: req.params.document_justificatiu,
+				document_justificatiu: req.body.document_justificatiu,
 				_id: req.params.id, // Fa falta per sobreescriure el objecte.
 			}, function (error, newAbsNoPrevista) {
 				if (error) {
@@ -94,7 +95,7 @@ class absnoprevistesController {
 			data_absnoprevista: req.body.data_absnoprevista,
 			hores_ausencia: req.body.hores_ausencia,
 			motiu_abs: req.body.motiu_abs,
-			document_justificatiu: req.params.document_justificatiu,
+			document_justificatiu: req.body.document_justificatiu,
 			_id: req.params.id, // Fa falta per sobreescriure el objecte.
 		});
 

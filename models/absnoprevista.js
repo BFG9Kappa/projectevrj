@@ -6,7 +6,7 @@ var AbsNoPrevistaSchema = new Schema({
 	data_absnoprevista: { type: Date, required: false },
 	hores_ausencia: { type: Number, required: true },
 	motiu_abs: { type: String, required: true },
-	document_justificatiu: { type: String, required: false },
+	document_justificatiu: { type: Buffer, required: false },
 	user: { type: Schema.ObjectId, ref: "User" },
 });
 
