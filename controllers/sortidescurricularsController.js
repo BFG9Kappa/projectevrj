@@ -132,42 +132,59 @@ class sortidacurricularController {
 	}
 
 	static async update_post(req, res, next) {
-		var sortidacurricular = new SortidaCurricular({
-			data_sortida: req.body.data_sortida,
-			email: req.body.email,
-			lloc: req.body.lloc,
-			ruta: req.body.ruta,
-			objectius: req.body.objectius,
-			grups: req.body.grups,
-			professors: req.body.professors,
-			hora_inici: req.body.hora_inici,
-			hora_arribada: req.body.hora_arribada,
-			estat: req.body.estat,
-			_id: req.params.id,
-		});
+    // Obtener la fecha actual
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-		try {
-			await SortidaCurricular.findByIdAndUpdate(req.params.id, {
-				data_sortida: req.body.data_sortida,
-				email: req.body.email,
-				lloc: req.body.lloc,
-				ruta: req.body.ruta,
-				objectius: req.body.objectius,
-				grups: req.body.grups,
-				professors: req.body.professors,
-					hora_inici: req.body.horaInici,
-					hora_arribada: req.body.horaArribada,
-					estat: req.body.Estat
-			});
-			res.redirect('/sortidescurriculars');
-	} catch (err) {
-			res.render("sortidescurriculars/update", {
-					error: err.message,
-					sortidacurricular: req.body,
-			});
-	}
+    // Obtener la fecha de salida del formulario y convertirla a objeto Date
+    const dataSortida = new Date(req.body.data_sortida);
 
-	}
+    // Comprobar si la fecha de salida es anterior a la fecha actual
+    if (dataSortida < today) {
+        // Si la fecha de salida es anterior a la fecha actual, mostrar un mensaje de error
+        return res.render("sortidescurriculars/update", {
+            error: "La data de la sortida ha de ser igual o posterior al dia actual",
+            sortidacurricular: req.body,
+        });
+    }
+
+    // Si la fecha de salida es igual o posterior a la fecha actual, continuar con el proceso de actualización
+    var sortidacurricular = new SortidaCurricular({
+        data_sortida: req.body.data_sortida,
+        email: req.body.email,
+        lloc: req.body.lloc,
+        ruta: req.body.ruta,
+        objectius: req.body.objectius,
+        grups: req.body.grups,
+        professors: req.body.professors,
+        hora_inici: req.body.hora_inici,
+        hora_arribada: req.body.hora_arribada,
+        estat: req.body.estat,
+        _id: req.params.id,
+    });
+
+    try {
+        await SortidaCurricular.findByIdAndUpdate(req.params.id, {
+            data_sortida: req.body.data_sortida,
+            email: req.body.email,
+            lloc: req.body.lloc,
+            ruta: req.body.ruta,
+            objectius: req.body.objectius,
+            grups: req.body.grups,
+            professors: req.body.professors,
+            hora_inici: req.body.horaInici,
+            hora_arribada: req.body.horaArribada,
+            estat: req.body.Estat
+        });
+        res.redirect('/sortidescurriculars');
+    } catch (err) {
+        res.render("sortidescurriculars/update", {
+            error: err.message,
+            sortidacurricular: req.body,
+        });
+    }
+}
+
 
 	static async delete_get(req, res, next) {
 		res.render("sortidescurriculars/delete", { id: req.params.id });
