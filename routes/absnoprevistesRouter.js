@@ -5,7 +5,8 @@ const absnoprevista_controller = require("../controllers/absnoprevistesControlle
 
 router.get("/", absnoprevista_controller.list);
 
-router.get('/decresp', absnoprevista_controller.genpdf_get);
+router.get("/decresp", absnoprevista_controller.genpdf_get);
+router.post("/decresp", absnoprevista_controller.genpdf_post);
 
 router.get("/create", absnoprevista_controller.create_get);
 router.post("/create", absnoprevista_controller.rules, absnoprevista_controller.create_post);
