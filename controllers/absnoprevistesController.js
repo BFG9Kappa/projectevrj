@@ -24,7 +24,11 @@ class absnoprevistesController {
 	}
 
 	static genpdf_get(req, res, next) {
-		res.render('absnoprevistes/decresp');
+		res.render("absnoprevistes/decresp");
+	}
+
+	static genpdf_post(req, res, next) {
+		res.redirect("/absnoprevistes");
 	}
 
 	static create_get(req, res, next) {
