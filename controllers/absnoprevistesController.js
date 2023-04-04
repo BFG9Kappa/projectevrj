@@ -1,23 +1,32 @@
 var AbsNoPrevista = require("../models/absnoprevista");
 const { body, validationResult } = require("express-validator");
 
+//varible per a relitzar el emmagatzematge de PDF a una carpeta
+const multer = require('multer');
+
+// Configurar Multer diskStorage per a estructura de emmagatzematge
+const storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, "public/uploads");
+	},
+	filename: function (req, file, cb) {
+		const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+		cb(null, file.fieldname + "-" + uniqueSuffix + "." + file.originalname.split('.').pop());
+	},
+});
+
+// Inicialitzar Multer upload middleware
+const upload = multer({ storage: storage });
 
 class absnoprevistesController {
+
 	static rules = [
-		body("hores_ausencia", "Les hores d'ausencia no pot estar buides.")
-			.trim()
-			.isLength({ min: 1 })
-			.escape(),
-
-		body("hores_ausencia", "Les hores d'ausència han de ser de 1 a 8.")
-			.isInt({ min: 1, max: 8 }),
-
-		body("motiu_abs", "El motiu de l'absència no pot estar buit.")
-			.trim()
-			.isLength({ min: 1 }),
-			//.escape()
+		// validar hores_ausencia, no pueden estar buides y han de ser numeros enters de 1 a 8
+		body('hores_ausencia').notEmpty().withMessage('Les hores d\'absència són obligatòries.').isInt({min:1, max:8}).withMessage('Les hores d\'absència han de ser d\'1 a 8.').escape(),
+		// validar motiu_abs, no puede estar vacío y se eliminan los espacios en blanco al inicio y al final del texto
+		body('motiu_abs').notEmpty().withMessage('El motiu de l\'absència és obligatori.').trim().isLength({min: 1}).withMessage('El motiu de l\'absència ha de tenir almenys 1 caràcter.').escape()
 	];
-
+	
 	static async list(req, res, next) {
 		try {
 			var list_absnoprevistes = await AbsNoPrevista.find();
@@ -27,52 +36,54 @@ class absnoprevistesController {
 		}
 	}
 
-	static create_get(req, res, next) {
-		var absnoprevistes = {
-			data_absnoprevista: "",
-			hores_ausencia: "",
-			motiu_abs: "",
-			document_justificatiu: "",
-			_id: "",
-		};
-		res.render("absnoprevistes/new", { absnoprevistes: absnoprevistes });
-	}
+    static create_get(req, res, next) {
+        var absnoprevista = new AbsNoPrevista({
+            data_absnoprevista: new Date(),
+            hores_ausencia: "",
+            motiu_abs: "",
+        });
+        res.render("absnoprevistes/new", { absnoprevista: absnoprevista });
+    }
 
 	static create_post(req, res) {
-		const errors = validationResult(req);
-		console.log(errors.array());
-		// Tenim errors en les dades enviades
-
-		if (!errors.isEmpty()) {
-			var absnoprevista = {
-				data_absnoprevista: req.body.data_absnoprevista,
-				hores_ausencia: req.body.hores_ausencia,
-				motiu_abs: req.body.motiu_abs,
-				document_justificatiu: req.body.document_justificatiu,
-				_id: req.params.id, // Fa falta per sobreescriure el objecte.
-			};
-			res.render("absnoprevistes/new", {
+		const uploadFile = upload.single('document_justificatiu'); // se especifica el nom del input que conté l'arxiu
+		uploadFile(req, res, (err) => {
+		  if (err) {
+			res.render('absnoprevistes/new', { error: err.message });
+		  } else {
+			// Rellenar los campos y adjuntar el archivo document_justificatiu
+			const absnoprevista = new AbsNoPrevista({
+			  data_absnoprevista: req.body.data_absnoprevista || new Date(),
+			  hores_ausencia: req.body.hores_ausencia,
+			  motiu_abs: req.body.motiu_abs,
+			});
+	  
+			if (req.file) {
+			  absnoprevista.document_justificatiu = req.file.path;
+			}
+	  
+			// Validaciones
+			const errors = validationResult(req);
+			console.log(errors.array());
+			if (errors.isEmpty()) {
+			  res.render("absnoprevistes/new", {
 				errors: errors.array(),
 				absnoprevista: absnoprevista,
-			});
-		} else {
-			req.body.data_absnoprevista = new Date(req.body.data_absnoprevista);
-			AbsNoPrevista.create({
-				data_absnoprevista: req.body.data_absnoprevista.toISOString(),
-				hores_ausencia: req.body.hores_ausencia,
-				motiu_abs: req.body.motiu_abs,
-				document_justificatiu: req.body.document_justificatiu,
-				_id: req.params.id, // Fa falta per sobreescriure el objecte.
-			}, function (error, newAbsNoPrevista) {
-				if (error) {
-					res.render("absnoprevistes/new", { error: error.message });
+			  });
+			} else {
+			  absnoprevista.save((err) => {
+				if (err) {
+				  res.render("absnoprevistes/new", { error: err.message });
 				} else {
-					res.redirect("/absnoprevistes");
+				  res.redirect("/absnoprevistes");
 				}
-			});
-		}
-	}
-
+			  });
+			}
+		  }
+		});
+	  }
+	  
+	
 
 	static update_get(req, res, next) {
 		AbsNoPrevista.findById(req.params.id, function (err, absnoprevista) {

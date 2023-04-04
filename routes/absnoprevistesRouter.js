@@ -4,7 +4,11 @@ var router = express.Router();
 const absnoprevista_controller = require("../controllers/absnoprevistesController");
 
 router.get("/create", absnoprevista_controller.create_get);
+//No funciona pero es el bueno
 router.post("/create", absnoprevista_controller.rules, absnoprevista_controller.create_post);
+//Funciona pero sin las reglas de validación
+//router.post("/create", absnoprevista_controller.create_post);
+
 
 router.get("/", absnoprevista_controller.list);
 
