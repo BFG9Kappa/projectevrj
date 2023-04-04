@@ -23,6 +23,10 @@ class absnoprevistesController {
 		}
 	}
 
+	static genpdf_get(req, res, next) {
+		res.render('absnoprevistes/decresp');
+	}
+
 	static create_get(req, res, next) {
 		var absnoprevistes = {
 			data_absnoprevista: "",
@@ -38,7 +42,7 @@ class absnoprevistesController {
 		const errors = validationResult(req);
 		console.log(errors.array());
 		// Tenim errors en les dades enviades
-	
+
 		if (!errors.isEmpty()) {
 			var absnoprevista = {
 				data_absnoprevista: req.body.data_absnoprevista,
@@ -68,7 +72,6 @@ class absnoprevistesController {
 			});
 		}
 	}
-	
 
 	static update_get(req, res, next) {
 		AbsNoPrevista.findById(req.params.id, function (err, absnoprevista) {
