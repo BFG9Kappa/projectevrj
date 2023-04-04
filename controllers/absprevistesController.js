@@ -30,6 +30,14 @@ class absprevistaController {
 		}
 	}
 
+	static genpdf_get(req, res, next) {
+		res.render("absprevistes/decresp");
+	}
+
+	static genpdf_post(req, res, next) {
+		res.redirect("/absprevistes");
+	}
+
 	static create_get(req, res, next) {
 		var AbsenciaPrevista = {
 			data_absprevista: "",

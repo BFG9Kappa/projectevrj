@@ -4,6 +4,10 @@ var router = express.Router();
 const absprevista_controller = require("../controllers/absprevistesController");
 
 router.get("/", absprevista_controller.list);
+
+router.get("/decresp", absprevista_controller.genpdf_get);
+router.post("/decresp", absprevista_controller.genpdf_post);
+
 router.get("/create", absprevista_controller.create_get);
 router.post("/create", absprevista_controller.rules, absprevista_controller.create_post);
 
