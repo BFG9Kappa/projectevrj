@@ -7,11 +7,6 @@
 <body class="container">
 	<header>
 		<%- include('../partials/header'); %>
-		<script>
-			document.addEventListener("DOMContentLoaded", function() {
-			  document.getElementById("data_absnoprevista").valueAsDate = new Date();
-			});
-		  </script>
 	</header>
 	<main>
 		<div class="card mt-2">
@@ -22,6 +17,7 @@
 				<a href="/absnoprevistes" class="btn btn-primary">Tornar</a>
 				<form method="POST" action="/absnoprevistes/create">
 					<div class="form-group">
+
 						<label for="name">Data absència no prevista</label>
 						<input type="date" name="data_absnoprevista" id="data_absnoprevista" class="form-control">
 
