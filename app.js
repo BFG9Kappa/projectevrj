@@ -3,8 +3,8 @@ const path = require("path");
 const app = express();
 const dotenv = require("dotenv");
 var session = require("express-session");
-const nodemailer = require('nodemailer');
-const bodyParser = require('body-parser');
+const nodemailer = require("nodemailer");
+const bodyParser = require("body-parser");
 
 // Rutes
 var indexRouter = require("./routes/indexRouter");
@@ -26,7 +26,7 @@ var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // Paquete para las fechas
-app.locals.moment = require('moment');
+app.locals.moment = require("moment");
 
 // Ruta de les vistes
 app.set("views", path.join(__dirname, "views"));
@@ -48,23 +48,23 @@ const server = app.listen(port, () => {
 
 // Set up session
 app.use(
-  session({
-    secret: process.env.SECRET,
-    resave: false,
-    name: "M12",
-    saveUninitialized: true,
-    cookie: { maxAge: 1000 * 60 * 60 },
-  })
+	session({
+		secret: process.env.SECRET,
+		resave: false,
+		name: "M12",
+		saveUninitialized: true,
+		cookie: { maxAge: 1000 * 60 * 60 },
+	})
 );
 
 app.use(function (req, res, next) {
-  if (req.session.data) {
-    res.locals.userId = req.session.data.userId;
-    res.locals.fullname = req.session.data.fullname;
-    res.locals.role = req.session.data.role;
+	if (req.session.data) {
+		res.locals.userId = req.session.data.userId;
+		res.locals.fullname = req.session.data.fullname;
+		res.locals.role = req.session.data.role;
 		console.log(req.session.data);
-  }
-  next();
+	}
+	next();
 });
 
 app.use("/home", indexRouter);
