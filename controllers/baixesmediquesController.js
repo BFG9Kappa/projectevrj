@@ -52,7 +52,7 @@ class baixesmediquesController {
 
 	static create_post(req, res) {
 		const errors = validationResult(req);
-		console.log(errors.array());
+		//console.log(errors.array());
 		// Tenim errors en les dades enviades
 		// El formulario es válido, se puede procesar la información
 		// ...
@@ -71,7 +71,6 @@ class baixesmediquesController {
 		} else {
 			BaixaMedica.create(req.body, function (error, newBaixamedica) {
 				if (error) {
-					//console.log(error)
 					res.render("baixesmediques/new", { error: error.message });
 				} else {
 					res.redirect("/baixesmediques");
