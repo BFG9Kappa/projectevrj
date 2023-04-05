@@ -55,7 +55,7 @@ class sortidacurricularController {
 
 	static create_post(req, res) {
 		const errors = validationResult(req);
-		console.log(errors.array());
+		//console.log(errors.array());
 		// Tenim errors en les dades enviades
 		if (!errors.isEmpty()) {
 			var sortidacurricular = {
@@ -102,7 +102,6 @@ class sortidacurricularController {
 						}
 					});
 					if (error) {
-						//console.log(error)
 						res.render("sortidescurriculars/new", { error: error.message });
 					} else {
 						res.redirect("/sortidescurriculars");
