@@ -1,17 +1,28 @@
 var AbsNoPrevista = require("../models/absnoprevista");
 const { body, validationResult } = require("express-validator");
 
+const fs = require('fs');
+const path = require('path');
+const rootDir = path.dirname(require.main.filename);
+
 class absnoprevistesController {
 	static rules = [
-		body("hores_ausencia", "Les hores d'ausencia no pot estar buides.")
-			.trim()
-			.isLength({ min: 1 })
+		// validar hores_ausencia, no pueden estar buides y han de ser numeros enters de 1 a 8
+		body("hores_ausencia")
+			.notEmpty()
+			.withMessage("Les hores d'absència són obligatòries.")
+			.isInt({min:1, max:8})
+			.withMessage("Les hores d'absència han de ser d'1 a 8.")
 			.escape(),
 
-			body("motiu_abs", "El motiu de l'absència no pot estar buit.")
+		// validar motiu_abs, no puede estar vacío y se eliminan los espacios en blanco al inicio y al final del texto
+		body("motiu_abs")
+			.notEmpty()
+			.withMessage("El motiu de l'absència és obligatori.")
 			.trim()
-			.isLength({ min: 1 }),
-			//.escape()
+			.isLength({min: 1})
+			.withMessage("El motiu de l'absència ha de tenir almenys 1 caràcter.")
+
 	];
 
 	static async list(req, res, next) {
@@ -33,7 +44,7 @@ class absnoprevistesController {
 
 	static create_get(req, res, next) {
 		var absnoprevistes = {
-			data_absnoprevista: "",
+            data_absnoprevista: new Date(),
 			hores_ausencia: "",
 			motiu_abs: "",
 			document_justificatiu: "",
@@ -49,10 +60,10 @@ class absnoprevistesController {
 
 		if (!errors.isEmpty()) {
 			var absnoprevista = {
-				data_absnoprevista: req.body.data_absnoprevista,
+				data_absnoprevista: req.body.data_absnoprevista || new Date(),
 				hores_ausencia: req.body.hores_ausencia,
 				motiu_abs: req.body.motiu_abs,
-				document_justificatiu: req.params.document_justificatiu,
+				document_justificatiu: req.body.document_justificatiu,
 				_id: req.params.id, // Fa falta per sobreescriure el objecte.
 			};
 			res.render("absnoprevistes/new", {
@@ -65,7 +76,7 @@ class absnoprevistesController {
 				data_absnoprevista: req.body.data_absnoprevista.toISOString(),
 				hores_ausencia: req.body.hores_ausencia,
 				motiu_abs: req.body.motiu_abs,
-				document_justificatiu: req.params.document_justificatiu,
+				document_justificatiu: req.body.document_justificatiu,
 				_id: req.params.id, // Fa falta per sobreescriure el objecte.
 			}, function (error, newAbsNoPrevista) {
 				if (error) {
