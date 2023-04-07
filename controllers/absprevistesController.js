@@ -48,7 +48,7 @@ class absprevistaController {
 
 	static create_post(req, res) {
 		const errors = validationResult(req);
-		console.log(errors.array());
+		//console.log(errors.array());
 		// Tenim errors en les dades enviades
 
 		if (!errors.isEmpty()) {
