@@ -59,6 +59,12 @@
 			"role":"professor",
 			"email":"capavi78@vrj.com",
 			"password": "capavi"
+		},
+		{
+			"fullname":"Roxana Valdez Ruelas",
+			"role":"professor",
+			"email":"rovaru67@vrj.com",
+			"password": "rovaru67"
 		}
 	]
 }
