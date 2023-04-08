@@ -23,3 +23,21 @@ cd dataSeeders
 chmod +x seeder.sh
 ./seeder.sh
 ```
+## Testing
+
+### Cridar test de forma individual
+```sh
+npm test test/integration/server.test.js
+```
+o
+```sh
+mocha test test/integration/server.test.js
+```
+### Cridar tots els tests
+```sh
+npm test
+```
+o
+```sh
+mocha test
+```
