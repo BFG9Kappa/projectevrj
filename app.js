@@ -42,6 +42,10 @@ app.get("/", function (req, res) {
 	res.render("home");
 });
 
+app.get("/test", (req, res) => {
+	res.send("Prova de servidor");
+});
+
 const server = app.listen(port, () => {
 	console.log(`Server running on port ${port}`);
 });
