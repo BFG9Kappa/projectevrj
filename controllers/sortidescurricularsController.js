@@ -147,7 +147,19 @@ class sortidacurricularController {
         });
     }
 
-    // Si la fecha de salida es igual o posterior a la fecha actual, continuar con el proceso de actualización
+		// Obtener la fecha de salida del formulario update
+    const dataSortidaVacia = req.body.data_sortida;
+
+    // Comprobar si la data de sortida existeix
+    if (!dataSortidaVacia) {
+        // Si la fecha de salida es anterior a la fecha actual, mostrar un mensaje de error
+        return res.render("sortidescurriculars/update", {
+            error: "La data de sortida no pot estar buida",
+            sortidacurricular: req.body,
+        });
+    }
+
+    // Si la fecha de salida es igual o posterior a la fecha actual y no esta vacia, continuar con el proceso de actualización
     var sortidacurricular = new SortidaCurricular({
         data_sortida: req.body.data_sortida,
         email: req.body.email,

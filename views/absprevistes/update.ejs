@@ -22,8 +22,8 @@
 								name="data_absprevista"
 								id="data_absprevista"
 								class="form-control"
-								value="<%= absenciaprevista.data_absprevista.toISOString().slice(0, 10) %>"
-							/>
+								value="<%= absenciaprevista.data_absprevista instanceof Date ? absenciaprevista.data_absprevista.toISOString().slice(0, 10) : '' %>">
+
 							<label for="name">Motiu</label>
 							<input
 								type="text"
@@ -41,7 +41,7 @@
 						>
 					</form>
 					<% if (typeof error !=="undefined" ) { %>
-					<div class="alert alert-primary mt-2" role="alert">
+					<div class="alert alert-danger mt-2" role="alert">
 						<p><%= error %></p>
 					</div>
 					<% } %> <% if (typeof message !=="undefined" ) { %>

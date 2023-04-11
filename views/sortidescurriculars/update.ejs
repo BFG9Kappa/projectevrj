@@ -20,7 +20,6 @@
 						<label for="data_sortida">Data sortida curricular</label>
 						<input type="date" id="data_sortida" name="data_sortida" class="form-control" value="<%= sortidacurricular.data_sortida instanceof Date ? sortidacurricular.data_sortida.toISOString().slice(0, 10) : '' %>">
 
-
 						<label for="email">E-mail</label>
 						<input type="email" name="email" class="form-control" value="<%= sortidacurricular.email %>">
 
@@ -103,7 +102,7 @@
 
 				</form>
 				<% if (typeof error !=="undefined" ) { %>
-					<div class="alert alert-primary mt-2" role="alert">
+					<div class="alert alert-danger mt-2" role="alert">
 						<p>
 							<%= error %>
 						</p>
