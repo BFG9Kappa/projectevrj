@@ -7,7 +7,7 @@ var AbsNoPrevistaSchema = new Schema({
 	hores_ausencia: { type: Number, required: true },
 	motiu_abs: { type: String, required: true },
 	document_justificatiu: { type: String, required: false },
-	user: { type: Schema.ObjectId, ref: "User" },
+	user: { type: Schema.ObjectId, ref: "User", required: false },
 });
 
 // Export model.
