@@ -18,7 +18,9 @@
 						<br />
 						<thead>
 							<tr>
+								<!--
 								<th class="align-middle text-center" scope="col">ID</th>
+								-->
 								<th class="align-middle text-center" scope="col">Data inicial baixa</th>
 								<th class="align-middle text-center" scope="col">Data prevista alta</th>
 								<th class="align-middle text-center" scope="col">Comentari</th>
@@ -28,7 +30,9 @@
 						<tbody>
 							<% list.forEach( function(baixamedica) { %>
 							<tr>
+								<!--
 								<td class="align-middle text-center"><%= baixamedica.id %></td>
+								-->
 								<td class="align-middle text-center">
 									<%=
 									moment(baixamedica.data_inicial_baixa).format('DD/MM/YYYY') %>

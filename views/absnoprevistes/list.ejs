@@ -6,16 +6,6 @@
 	<body class="container">
 		<header><%- include('../partials/header'); %></header>
 		<main>
-			<script>
-				var fecha = new Date(); //Fecha actual
-				var mes = fecha.getMonth() + 1; //obteniendo mes
-				var dia = fecha.getDate(); //obteniendo dia
-				var ano = fecha.getFullYear(); //obteniendo año
-				if (dia < 10) dia = "0" + dia; //agrega cero si el menor de 10
-				if (mes < 10) mes = "0" + mes; //agrega cero si el menor de 10
-				document.getElementById("fechaActual").value =
-					ano + "-" + mes + "-" + dia;
-			</script>
 			<div class="card mt-2">
 				<div class="card-header">
 					<h5 class="card-title">Llista absències no previstes</h5>
@@ -24,8 +14,8 @@
 					<a href="/absnoprevistes/create" class="btn btn-primary">Nova</a>
 					<a href="/absnoprevistes/decresp" class="btn btn-primary">Declaració responsable</a>
 					<table class="table table-striped">
-						<br />
-						<br />
+						<br>
+						<br>
 						<thead>
 							<tr>
 								<th class="align-middle text-center" scope="col">Data absencia no prevista</th>
@@ -42,9 +32,6 @@
 									<%=
 									moment(absnoprevista.data_absnoprevista).locale('es').format('L');%>
 								</td>
-							<!--<td class="align-middle text-center">
-									<%= moment(absnoprevista.horari_profe).format('DD/MM/YYYY') %>
-								</td>-->
 								<td class="align-middle text-center"><%= absnoprevista.hores_ausencia %></td>
 								<td class="align-middle text-center"><%= absnoprevista.motiu_abs %></td>
 								<td class="align-middle text-center"><%= absnoprevista.document_justificatiu %></td>
