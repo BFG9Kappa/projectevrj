@@ -1,13 +1,9 @@
 var AbsNoPrevista = require("../models/absnoprevista");
 const { body, validationResult } = require("express-validator");
 
-const fs = require('fs');
-const path = require('path');
-const rootDir = path.dirname(require.main.filename);
-
 class absnoprevistesController {
 	static rules = [
-		// validar hores_ausencia, no pueden estar buides y han de ser numeros enters de 1 a 8
+		// validar hores absència, no poden estar buides i han de ser números enters d'1 a 8
 		body("hores_ausencia")
 			.notEmpty()
 			.withMessage("Les hores d'absència són obligatòries.")
@@ -15,13 +11,18 @@ class absnoprevistesController {
 			.withMessage("Les hores d'absència han de ser d'1 a 8.")
 			.escape(),
 
-		// validar motiu_abs, no puede estar vacío y se eliminan los espacios en blanco al inicio y al final del texto
+		// validar motiu_abs, no pot estar buit i s'eliminen els espais en blanc a l'inici i al final del text
 		body("motiu_abs")
 			.notEmpty()
 			.withMessage("El motiu de l'absència és obligatori.")
 			.trim()
 			.isLength({min: 1})
-			.withMessage("El motiu de l'absència ha de tenir almenys 1 caràcter.")
+			.withMessage("El motiu de l'absència ha de tenir almenys 1 caràcter."),
+
+		// validar data_absnoprevista, no pot estar buida la data d'absència no prevista
+		body("data_absnoprevista")
+			.notEmpty()
+			.withMessage("La data d'absència és obligatòria."),
 
 	];
 
@@ -105,31 +106,49 @@ class absnoprevistesController {
 	}
 
 	static update_post(req, res, next) {
-		var absnoprevista = new AbsNoPrevista({
-			data_absnoprevista: req.body.data_absnoprevista,
-			hores_ausencia: req.body.hores_ausencia,
-			motiu_abs: req.body.motiu_abs,
-			document_justificatiu: req.params.document_justificatiu,
-			_id: req.params.id, // Fa falta per sobreescriure el objecte.
-		});
+		const errors = validationResult(req);
 
-		AbsNoPrevista.findByIdAndUpdate(
-			req.params.id,
-			absnoprevista,
-			{},
-			function (err, absnoprevistaFound) {
-				if (err) {
-					res.render("absnoprevistes/update", {
-						absnoprevista: absnoprevista,
-						error: err.message,
-					});
+		if (!errors.isEmpty()) {
+			AbsNoPrevista.findById(req.params.id, function (error, absnoprevista) {
+				if (error) {
+					return next(error);
+				}
+				if (absnoprevista == null) {
+					var error = new Error("Absencia no prevista not found");
+					error.status = 404;
+					return next(error);
 				}
 				res.render("absnoprevistes/update", {
+					errors: errors.array(),
 					absnoprevista: absnoprevista,
-					message: "Absencia no prevista Updated",
 				});
-			}
-		);
+			});
+		} else {
+			var absnoprevista = new AbsNoPrevista({
+				data_absnoprevista: req.body.data_absnoprevista,
+				hores_ausencia: req.body.hores_ausencia,
+				motiu_abs: req.body.motiu_abs,
+				document_justificatiu: req.body.document_justificatiu,
+				_id: req.params.id,
+			});
+			AbsNoPrevista.findByIdAndUpdate(
+				req.params.id,
+				absnoprevista,
+				{},
+				function (error, absnoprevistaFound) {
+					if (error) {
+						res.render("absnoprevistes/update", {
+							absnoprevista: absnoprevista,
+							error: error.message,
+						});
+					}
+					res.render("absnoprevistes/update", {
+						absnoprevista: absnoprevista,
+						message: "La absència no prevista ha sigut actualitzada",
+					});
+				}
+			);
+		}
 	}
 
 	static async delete_get(req, res, next) {
