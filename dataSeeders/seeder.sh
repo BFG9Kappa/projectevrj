@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Usuaris
+node usuarisSeeder.js
+
 # Horaris
 node horarisSeeder.js
 
@@ -13,7 +16,4 @@ node absnoprevistesSeeder.js
 node baixesmediquesSeeder.js
 
 # Sortides Curriculars
-node sortidescurricularsSeeder.js
-
-# Usuaris
-node usuarisSeeder.js
+# node sortidescurricularsSeeder.js
