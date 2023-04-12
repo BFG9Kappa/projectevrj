@@ -1,4 +1,6 @@
 var BaixaMedica = require("../models/baixamedica");
+var User = require("../models/user");
+
 const moment = require("moment");
 const { body, validationResult } = require("express-validator");
 
@@ -33,10 +35,27 @@ class baixesmediquesController {
 
 	static async list(req, res, next) {
 		try {
-			var list_baixesmediques = await BaixaMedica.find();
+			//let userList = await User.find({});
+			//console.log(userList);
+			const user = await User.findOne({ email: req.params.id });
+			//console.log(user);
+
+			//const list_baixesmediques = await BaixaMedica.find();
+
+			const list_baixesmediques = await BaixaMedica.find({});
+			//console.log(list_baixesmediques);
+
+			/*
+			var book = await TechnicalBook.findById(req.params.id,"title author")
+					.populate('genre')
+					.populate('publisher') ;
+			*/
+			//res.render('baixesmediques/list',{ instances:instancesList,userList:userList })
 			res.render("baixesmediques/list", { list: list_baixesmediques });
-		} catch (error) {
-			res.send(error);
+		} catch(error) {
+				var err = new Error(error);
+				err.status = 404;
+				return next(err);
 		}
 	}
 
