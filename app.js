@@ -90,4 +90,12 @@ app.use(express.urlencoded({ extended: true }));
 // Canviar per línia següent: Format enviament JSON
 app.use(express.json());
 
+//Crides API
+//app.use("/api/auth", authRouter);
+app.use("/api/horaris", horariRouter);
+app.use("/api/baixesmediques", baixesmediquesRouter);
+app.use("/api/absnoprevistes", absnoprevistesRouter);
+app.use("/api/absprevistes", absprevistesRouter);
+app.use("/api/sortidescurriculars", sortidescurricularsRouter);
+
 module.exports = app;
