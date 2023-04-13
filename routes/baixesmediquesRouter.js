@@ -16,6 +16,6 @@ router.get("/delete/:id", baixamedica_controller.delete_get);
 router.post("/delete/:id", baixamedica_controller.delete_post);
 
 router.get("/update/:id", baixamedica_controller.update_get);
-router.post("/update/:id", baixamedica_controller.update_post);
+router.post("/update/:id", baixamedica_controller.rules, baixamedica_controller.update_post);
 
 module.exports = router;
