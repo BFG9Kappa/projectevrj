@@ -35,21 +35,14 @@ class baixesmediquesController {
 
 	static async list(req, res, next) {
 		try {
-			//let userList = await User.find({});
-			//console.log(userList);
-			const user = await User.findOne({ email: req.params.id });
-			//console.log(user);
 
-			//const list_baixesmediques = await BaixaMedica.find();
-			const list_baixesmediques = await BaixaMedica.find({ user: req.session.data.userId });
-			//console.log(list_baixesmediques);
+			var list_baixesmediques;
+			if(req.session.data != undefined) {
+				list_baixesmediques = await BaixaMedica.find({ user: req.session.data.userId });
+			} else {
+				list_baixesmediques = await BaixaMedica.find();
+			}
 
-			/*
-			var book = await TechnicalBook.findById(req.params.id,"title author")
-					.populate('genre')
-					.populate('publisher') ;
-			*/
-			//res.render('baixesmediques/list',{ instances:instancesList,userList:userList })
 			res.render("baixesmediques/list", { list: list_baixesmediques });
 		} catch(error) {
 				var err = new Error(error);
