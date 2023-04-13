@@ -41,8 +41,7 @@ class baixesmediquesController {
 			//console.log(user);
 
 			//const list_baixesmediques = await BaixaMedica.find();
-
-			const list_baixesmediques = await BaixaMedica.find({});
+			const list_baixesmediques = await BaixaMedica.find({ user: req.session.data.userId });
 			//console.log(list_baixesmediques);
 
 			/*
