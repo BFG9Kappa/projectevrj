@@ -2,7 +2,7 @@ var Horari = require("../models/horari");
 
 class HorariController {
 	static list(req, res, next) {
-		Horari.find().exec(function (err, list_horari) {
+		Horari.find({ professor: req.session.data.userId }).exec(function (err, list_horari) {
 			if (err) {
 				return next(err);
 			}
