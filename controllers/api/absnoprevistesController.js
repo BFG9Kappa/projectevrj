@@ -26,88 +26,43 @@ class absnoprevistesController {
 
 	];
 
-	  // Recuperar totes les Absències no previstes
-		static async all(req, res, next) {
+	// Recuperar totes les Absències no previstes
+	static async all(req, res, next) {
 
-			try {
-				const result = await AbsNoPrevista.find();
-				res.status(200).json(result)
-			}
-			catch(error) {
-				res.status(402).json({errors: [{msg:"Hi ha hagut un problema al recuperar les absències no previstes."}]})
-			}
+		try {
+			const result = await AbsNoPrevista.find();
+			res.status(200).json(result)
 		}
-
-		// Recuperar les Absències no previstes en pàgines
-		static async list(req, res, next) {
-
-			// Configurar la paginació
-			const options = {
-				page: req.query.page || 1,  // Número pàgina
-				limit: 5,       // Número registres per pàgina
-				sort: { _id: -1 },   // Ordenats per id: el més nou el primer
-			};
-
-      try {
-        const result = await AbsNoPrevista.paginate({}, options);
-        res.status(200).json(result)
-      }
-      catch(error) {
-        res.status(402).json({errors: [{msg:"Hi ha hagut un problema al recuperar les absències no previstes."}]})
-      }
+		catch(error) {
+			res.status(402).json({errors: [{msg:"Hi ha hagut un problema al recuperar les absències no previstes."}]})
 		}
-
-	static genpdf_get(req, res, next) {
-		res.render("absnoprevistes/decresp");
 	}
 
-	static genpdf_post(req, res, next) {
-		res.redirect("/absnoprevistes");
-	}
+	// Recuperar les Absències no previstes en pàgines
 
-	static create_get(req, res, next) {
-		var absnoprevistes = {
-            data_absnoprevista: new Date(),
-			hores_ausencia: "",
-			motiu_abs: "",
-			document_justificatiu: "",
-			_id: "",
-		};
-		res.render("absnoprevistes/new", { absnoprevistes: absnoprevistes });
-	}
-
-	static create_post(req, res) {
-		const errors = validationResult(req);
-		//console.log(errors.array());
-		// Tenim errors en les dades enviades
-
+	static async create(req, res, next) {
+   
+		const errors = validationResult(req);  
+	   
+	
 		if (!errors.isEmpty()) {
-			var absnoprevista = {
+			res.status(402).json({errors:errors.array()}) 
+		}
+		else {    
+			var absNoPrevista = {
 				data_absnoprevista: req.body.data_absnoprevista || new Date(),
 				hores_ausencia: req.body.hores_ausencia,
 				motiu_abs: req.body.motiu_abs,
 				document_justificatiu: req.body.document_justificatiu,
 				_id: req.params.id, // Fa falta per sobreescriure el objecte.
 			};
-			res.render("absnoprevistes/new", {
-				errors: errors.array(),
-				absnoprevista: absnoprevista,
-			});
-		} else {
-			req.body.data_absnoprevista = new Date(req.body.data_absnoprevista);
-			AbsNoPrevista.create({
-				data_absnoprevista: req.body.data_absnoprevista.toISOString(),
-				hores_ausencia: req.body.hores_ausencia,
-				motiu_abs: req.body.motiu_abs,
-				document_justificatiu: req.body.document_justificatiu,
-				_id: req.params.id, // Fa falta per sobreescriure el objecte.
-			}, function (error, newAbsNoPrevista) {
-				if (error) {
-					res.render("absnoprevistes/new", { error: error.message });
-				} else {
-					res.redirect("/absnoprevistes");
-				}
-			});
+	
+			try {
+			  const NewAbsnoprevista = await AbsNoPrevista.create(req.body)
+			  res.status(200).json(NewAbsnoprevista)
+			} catch(error) {
+			  res.status(402).json({errors: [{msg:"Hi ha hagut un problema al recuperar les absències no previstes."}]})          
+			}        
 		}
 	}
 

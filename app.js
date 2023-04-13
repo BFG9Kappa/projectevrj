@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 var session = require("express-session");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
+const cors = require('cors');
 
 // Rutes
 var indexRouter = require("./routes/indexRouter");

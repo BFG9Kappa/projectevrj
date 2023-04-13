@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-const sortidacurricular_controller = require("../controllers/api/sortidescurricularsController");
+const sortidacurricular_controller = require("../../controllers/api/sortidescurricularsController");
 
 router.get("/", sortidacurricular_controller.list);
 
