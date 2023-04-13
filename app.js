@@ -90,12 +90,23 @@ app.use(express.urlencoded({ extended: true }));
 // Canviar per línia següent: Format enviament JSON
 app.use(express.json());
 
-//Crides API
-//app.use("/api/auth", authRouter);
-app.use("/api/horaris", horariRouter);
-app.use("/api/baixesmediques", baixesmediquesRouter);
-app.use("/api/absnoprevistes", absnoprevistesRouter);
-app.use("/api/absprevistes", absprevistesRouter);
-app.use("/api/sortidescurriculars", sortidescurricularsRouter);
+// Crides API
+
+// Rutes
+var indexRouterApi = require("./routes/api/indexRouter");
+var authRouterApi = require("./routes/api/authRouter");
+var horariRouterApi = require("./routes/api/horariRouter");
+var baixesmediquesRouterApi = require("./routes/api/baixesmediquesRouter");
+var absnoprevistesRouterApi = require("./routes/api/absnoprevistesRouter");
+var absprevistesRouterApi = require("./routes/api/absprevistesRouter");
+var sortidescurricularsRouterApi = require("./routes/api/sortidescurricularsRouter");
+
+app.use("/api/index", indexRouterApi);
+app.use("/api/auth", authRouterApi);
+app.use("/api/horaris", horariRouterApi );
+app.use("/api/baixesmediques", baixesmediquesRouterApi);
+app.use("/api/absnoprevistes", absnoprevistesRouterApi);
+app.use("/api/absprevistes", absprevistesRouterApi);
+app.use("/api/sortidescurriculars", sortidescurricularsRouterApi);
 
 module.exports = app;
