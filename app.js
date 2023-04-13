@@ -79,4 +79,14 @@ app.use("/absnoprevistes", absnoprevistesRouter);
 app.use("/absprevistes", absprevistesRouter);
 app.use("/sortidescurriculars", sortidescurricularsRouter);
 
+// Habilita crides CORS: Crides des de diferents origens permeses
+
+app.use(cors());
+
+// Comentar línia anterior: enviament dades per formulari
+app.use(express.urlencoded({ extended: true }));
+
+// Canviar per línia següent: Format enviament JSON
+app.use(express.json());
+
 module.exports = app;
