@@ -11,6 +11,19 @@
 			document.addEventListener("DOMContentLoaded", function() {
 			  document.getElementById("data_absnoprevista").valueAsDate = new Date();
 			});
+			function setDefaultDate() {
+				const now = new Date();
+				const day = now.getDate().toString().padStart(2, '0');
+				const month = (now.getMonth() + 1).toString().padStart(2, '0');
+				const year = now.getFullYear().toString();
+				const today = `${year}-${month}-${day}`;
+
+	 		document.getElementById('data_actual').value = today;
+			}
+
+			window.onload = function() {
+  				setDefaultDate();
+}
 		  </script>
 	</header>
 	<main>
@@ -22,13 +35,16 @@
 				<a href="/absnoprevistes" class="btn btn-primary">Tornar</a>
 				<form method="POST" action="/absnoprevistes/create">
 					<div class="form-group">
+						<!-- Input para comparar la fecha de la sortida con la fecha actual para que no hayan errores de validacion-->
+						<input type="date" name="data_actual" id="data_actual" class="form-control" style="display:none"/>
+						
 						<label for="name">Data absència no prevista</label>
 						<input type="date" name="data_absnoprevista" id="data_absnoprevista" class="form-control">
 
-						<label for="name">Hores ausencia</label>
+						<label for="name">Hores d'absència</label>
 						<input type="number" name="hores_ausencia" class="form-control">
 
-						<label for="name">Motiu absencia</label>
+						<label for="name">Motiu absència</label>
 						<textarea name="motiu_abs" class="form-control"></textarea>
 
 						<label for="name">Document justificatiu</label>
