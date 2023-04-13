@@ -4,12 +4,12 @@
 			"data_sortida": 1682236800000
 			,
 			"lloc": "Ordinador MareNostrum",
-			"ruta": "Ctr valencia nº 43",
+			"ruta": "Ctr valencia 43",
 			"objectius": "Veure un superordinador",
 			"grups": "SMX",
 			"professors": "gafera",
-			"hora_inici": "9",
-			"hora_arribada": "11",
+			"hora_inici": "09:00",
+			"hora_arribada": "11:00",
 			"estat": "aprovada"
 		}
 	]
