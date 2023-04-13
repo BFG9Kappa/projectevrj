@@ -16,4 +16,4 @@ node absnoprevistesSeeder.js
 node baixesmediquesSeeder.js
 
 # Sortides Curriculars
-# node sortidescurricularsSeeder.js
+node sortidescurricularsSeeder.js
