@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 var session = require("express-session");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
+const cors = require('cors');
 
 // Rutes
 var indexRouter = require("./routes/indexRouter");
@@ -78,5 +79,34 @@ app.use("/baixesmediques", baixesmediquesRouter);
 app.use("/absnoprevistes", absnoprevistesRouter);
 app.use("/absprevistes", absprevistesRouter);
 app.use("/sortidescurriculars", sortidescurricularsRouter);
+
+// Habilita crides CORS: Crides des de diferents origens permeses
+
+app.use(cors());
+
+// Comentar línia anterior: enviament dades per formulari
+app.use(express.urlencoded({ extended: true }));
+
+// Canviar per línia següent: Format enviament JSON
+app.use(express.json());
+
+// Crides API
+
+// Rutes
+var indexRouterApi = require("./routes/api/indexRouter");
+var authRouterApi = require("./routes/api/authRouter");
+var horariRouterApi = require("./routes/api/horariRouter");
+var baixesmediquesRouterApi = require("./routes/api/baixesmediquesRouter");
+var absnoprevistesRouterApi = require("./routes/api/absnoprevistesRouter");
+var absprevistesRouterApi = require("./routes/api/absprevistesRouter");
+var sortidescurricularsRouterApi = require("./routes/api/sortidescurricularsRouter");
+
+app.use("/index", indexRouterApi);
+app.use("/auth", authRouterApi);
+app.use("/horaris", horariRouterApi );
+app.use("/baixesmediques", baixesmediquesRouterApi);
+app.use("/absnoprevistes", absnoprevistesRouterApi);
+app.use("/absprevistes", absprevistesRouterApi);
+app.use("/sortidescurriculars", sortidescurricularsRouterApi);
 
 module.exports = app;
