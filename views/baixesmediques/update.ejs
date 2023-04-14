@@ -3,6 +3,22 @@
 
 <head>
 	<%- include('../partials/head'); %>
+	<script>
+		function setDefaultDate() {
+		const now = new Date();
+		const day = now.getDate().toString().padStart(2, '0');
+		const month = (now.getMonth() + 1).toString().padStart(2, '0');
+		const year = now.getFullYear().toString();
+		const today = `${year}-${month}-${day}`;
+
+	 document.getElementById('data_actual').value = today;
+	}
+
+	window.onload = function() {
+			setDefaultDate();
+}
+
+	</script>
 </head>
 
 <body class="container">
@@ -17,13 +33,16 @@
 			<div class="card-body">
 				<form method="POST" action="/baixesmediques/update/<%= baixamedica._id %>">
 					<div class="form-group">
+						<!-- Input para comparar la fecha de la sortida con la fecha actual para que no hayan errores de validacion-->
+						<input type="date" name="data_actual" id="data_actual" class="form-control" style="display:none"/>
+
 						<label for="data_inicial_baixa">Data inicial baixa</label>
 						<input type="date" name="data_inicial_baixa" id="data_inicial_baixa" class="form-control"
-							value="<%= baixamedica.data_inicial_baixa.toISOString().slice(0, 10) %>">
+						value="<%= baixamedica.data_inicial_baixa instanceof Date ? baixamedica.data_inicial_baixa.toISOString().slice(0, 10) : '' %>"/>
 
 						<label for="data_prevista_alta">Data prevista alta</label>
 						<input type="date" name="data_prevista_alta" id="data_prevista_alta" class="form-control"
-							value="<%= baixamedica.data_prevista_alta.toISOString().slice(0, 10) %>">
+						value="<%= baixamedica.data_prevista_alta instanceof Date ? baixamedica.data_prevista_alta.toISOString().slice(0, 10) : '' %>"/>
 
 						<label for="name">Comentari</label>
 						<textarea name="comentari" class="form-control"><%= baixamedica.comentari %></textarea>
@@ -35,18 +54,21 @@
 				</form>
 				<% if (typeof error !=="undefined" ) { %>
 					<div class="alert alert-primary mt-2" role="alert">
-						<p>
-							<%= error %>
-						</p>
+						<p><%= error %></p>
+					</div>
+					<% } %> <% if (typeof message !=="undefined" ) { %>
+					<div class="alert alert-primary mt-2" role="alert">
+						<p><%= message %></p>
 					</div>
 					<% } %>
-						<% if (typeof message !=="undefined" ) { %>
-							<div class="alert alert-primary mt-2" role="alert">
-								<p>
-									<%= message %>
-								</p>
-							</div>
-							<% } %>
+				</div>
+				<% if (typeof errors !== "undefined") { %>
+					<div class="alert alert-danger mt-2" role="alert">
+						<% errors.forEach(function(error) { %>
+							<p><%= error.msg %></p>
+						<% }) %>
+					</div>
+				<% } %>
 			</div>
 		</div>
 	</main>

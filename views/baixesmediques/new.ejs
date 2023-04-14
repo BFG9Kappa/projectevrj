@@ -2,6 +2,24 @@
 <html lang="en">
 <head>
 	<%- include('../partials/head'); %>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			document.getElementById("data_inicial_baixa").valueAsDate = new Date();
+		});
+		function setDefaultDate() {
+			const now = new Date();
+			const day = now.getDate().toString().padStart(2, '0');
+			const month = (now.getMonth() + 1).toString().padStart(2, '0');
+			const year = now.getFullYear().toString();
+			const today = `${year}-${month}-${day}`;
+
+		 document.getElementById('data_actual').value = today;
+		}
+
+		window.onload = function() {
+				setDefaultDate();
+}
+		</script>
 </head>
 <body class="container">
 	<header>
@@ -15,10 +33,13 @@
 			<div class="card-body">
 				<form method="POST" action="/baixesmediques/create">
 					<div class="form-group">
+						<!-- Input para comparar la fecha de la sortida con la fecha actual para que no hayan errores de validacion-->
+						<input type="date" name="data_actual" id="data_actual" class="form-control" style="display:none"/>
+
 						<label for="data_inicial_baixa">Data inical baixa mèdica</label>
 						<input type="date" name="data_inicial_baixa" id="data_inicial_baixa"class="form-control">
 
-						<label for="data_prevista_alta">Data prevista alta medica</label>
+						<label for="data_prevista_alta">Data prevista alta mèdica</label>
 						<input type="date" name="data_prevista_alta" id="data_prevista_alta"class="form-control">
 
 						<label for="name">Comentari</label>

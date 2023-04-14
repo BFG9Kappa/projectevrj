@@ -4,18 +4,25 @@ const { body, validationResult } = require("express-validator");
 
 class baixesmediquesController {
 	static rules = [
-		body("data_inicial_baixa", "La data inicial de baixa no pot estar buida.")
-			.trim()
-			.isLength({ min: 1 })
-			.escape(),
-		body("data_prevista_alta", "La data prevista d'alta no pot estar buida.")
-			.trim()
-			.isLength({ min: 1 })
-			.escape(),
-		body("comentari", "El comentari ha de tindre com a mínim 5 caràcters.")
-			.trim()
-			.isLength({ min: 5 }),
-		//.escape()
+		body("data_inicial_baixa")
+		.notEmpty()
+		.withMessage("La data inicial no pot estar buida.")
+		.custom((value, { req }) => {
+		  const data_actual = moment(req.body.data_actual, "DD-MM-YYYY");
+		  const data_inicial_baixa = moment(value, "DD-MM-YYYY");
+		  if (data_inicial_baixa.isBefore(data_actual)) {
+			throw new Error(
+			  "La data inicial de la baixa ha de ser igual o posterior a la data actual"
+			);
+		  }
+		  return true;
+		}),
+		body("data_prevista_alta")
+		.notEmpty()
+		.withMessage("La data prevista d'alta no pot estar buida."),
+		body("comentari")
+		.notEmpty()
+		.withMessage("El comentari no pot estar buit."),
 		body("data_prevista_alta").custom((value, { req }) => {
 			const data_inicial_baixa = moment(
 				req.body.data_inicial_baixa,
@@ -96,31 +103,47 @@ class baixesmediquesController {
 	}
 
 	static update_post(req, res, next) {
-		var baixamedica = new BaixaMedica({
-			data_inicial_baixa: req.body.data_inicial_baixa,
-			data_prevista_alta: req.body.data_prevista_alta,
-			comentari: req.body.comentari,
-			_id: req.params.id,
-		});
-
-		BaixaMedica.findByIdAndUpdate(
-			req.params.id,
-			baixamedica,
-			{},
-
-			function (err, baixamedicaFound) {
-				if (err) {
-					res.render("baixesmediques/update", {
-						baixamedica: baixamedica,
-						error: err.message,
-					});
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			BaixaMedica.findById(req.params.id, function (error, baixamedica) {
+				if (error) {
+					return next(error);
+				}
+				if (baixamedica == null) {
+					var error = new Error("Baixa mèdica no trobada");
+					error.status = 404;
+					return next(error);
 				}
 				res.render("baixesmediques/update", {
+					errors: errors.array(),
 					baixamedica: baixamedica,
-					message: "Baixa mèdica actualitzada",
 				});
-			}
-		);
+			});
+		} else {
+			var baixamedica = {
+				data_inicial_baixa: req.body.data_inicial_baixa,
+				data_prevista_alta: req.body.data_prevista_alta,
+				comentari: req.body.comentari,
+				_id: req.params.id,
+			};
+			BaixaMedica.findByIdAndUpdate(
+				req.params.id,
+				baixamedica,
+				{},
+				function (error, baixamedicaFound) {
+					if (error) {
+						res.render("baixesmediques/update", {
+							baixamedica: baixamedica,
+							error: error.message,
+						});
+					}
+					res.render("baixesmediques/update", {
+						baixamedica: baixamedica,
+						message: "La baixa mèdica ha estat actualitzada",
+					});
+				}
+			);
+		}
 	}
 
 	static async delete_get(req, res, next) {

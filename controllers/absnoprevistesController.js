@@ -15,13 +15,8 @@ class absnoprevistesController {
 		.escape(),
 		// validar motiu_abs, no pot estar buit i s'eliminen els espais en blanc a l'inici i al final del text
 		body("motiu_abs")
-		.bail()
 		.notEmpty()
-		.withMessage("El motiu de l'absència no pot estar buit.")
-		.bail()
-		.trim()
-		.isLength({min: 5})
-		.withMessage("El motiu de l'absència ha de tenir almenys 5 caràcters."),
+		.withMessage("El motiu de l'absència no pot estar buit."),
 		// validar data_absnoprevista, no pot estar buida la data d'absència no prevista
 		body("data_absnoprevista")
 		.notEmpty()
@@ -34,9 +29,9 @@ class absnoprevistesController {
 			  "La data de l'absencia no prevista ha de ser igual o posterior a la data actual"
 			);
 		  }
-		  return true; 
+		  return true;
 		})
-	  
+
 	];
 
 	static async list(req, res, next) {
@@ -154,9 +149,11 @@ class absnoprevistesController {
 							absnoprevista: absnoprevista,
 							error: error.message,
 						});
-					} else {
-						res.redirect("/absnoprevistes");
 					}
+					res.render("absnoprevistes/update", {
+						absnoprevista: absnoprevista,
+						message: "L'absència no prevista ha estat actualitzada",
+					});
 				}
 			);
 		}

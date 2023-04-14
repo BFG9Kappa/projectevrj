@@ -3,6 +3,9 @@
 	<head>
 		<%- include('../partials/head'); %>
 		<script>
+					document.addEventListener("DOMContentLoaded", function() {
+			document.getElementById("data_sortida").valueAsDate = new Date();
+		});
 				function setDefaultDate() {
 				const now = new Date();
 				const day = now.getDate().toString().padStart(2, '0');

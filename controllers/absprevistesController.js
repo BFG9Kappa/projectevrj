@@ -5,32 +5,22 @@ const { body, validationResult } = require("express-validator");
 class absprevistaController {
 
   static rules = [
-    body("data_absprevista", "La data de l'absència prevista no pot estar buida.")
-      .trim()
-      .isLength({ min: 1 })
-      .escape(),
-    body("data_absprevista").custom((value, { req }) => {
-      const data_actual = moment(req.body.data_actual, "DD-MM-YYYY");
-      const data_absprevista = moment(value, "DD-MM-YYYY");
-      if (data_absprevista.isBefore(data_actual)) {
-        throw new Error(
-          "La data de l'absencia prevista ha de ser posterior a la data actual"
-        );
-      }
-      return true;
-    }),
+    body("data_absprevista")
+		.notEmpty()
+		.withMessage("La data d'absència no pot estar buida.")
+		.custom((value, { req }) => {
+		  const data_actual = moment(req.body.data_actual, "DD-MM-YYYY");
+		  const data_absprevista = moment(value, "DD-MM-YYYY");
+		  if (data_absprevista.isBefore(data_actual)) {
+			throw new Error(
+			  "La data de l'absencia prevista ha de ser igual o posterior a la data actual"
+			);
+		  }
+		  return true;
+		}),
     body("motiu_abs")
-    .trim()
-    .custom((value, { req }) => {
-      if (!value) {
-        throw new Error("El motiu de l'absència no pot estar buit.");
-      }
-      if (value.length < 5) {
-        throw new Error("El motiu ha de tindre com a mínim 5 caràcters.");
-      }
-      return true;
-    })
-    .escape()
+		.notEmpty()
+		.withMessage("El motiu de l'absència no pot estar buit."),
   ];
   static async list(req, res, next) {
     try {
@@ -100,48 +90,48 @@ class absprevistaController {
   }
 
   static async update_post(req, res, next) {
-    // Obtener la fecha de salida del formulario update
-    const dataPrevista = req.body.data_absprevista;
 
-    // Comprobar si la data prevista existeix
-    if (!dataPrevista) {
-        // Si la fecha de salida es anterior a la fecha actual, mostrar un mensaje de error
-        return res.render("absprevistes/update", {
-            error: "La data prevista no pot estar buida",
-            absenciaprevista: req.body,
-        });
-    }
-    // Obtener la fecha de salida del formulario update
-    const motiu = req.body.motiu_abs;
+		const errors = validationResult(req);
 
-    // Comprobar si la data de sortida existeix
-    if (!motiu) {
-        // Comprobar si el motiu de l'absencia prevista existeix
-        return res.render("absprevistes/update", {
-            error: "El motiu no pot estar buit",
-            absenciaprevista: req.body,
-        });
-    }
-    var absenciaprevista = new AbsenciaPrevista({
-      data_absprevista: req.body.data_absprevista,
-      motiu_abs: req.body.motiu_abs,
-      _id: req.params.id,
-    });
-
-    try {
-      await AbsenciaPrevista.findByIdAndUpdate(req.params.id, {
+		if (!errors.isEmpty()) {
+			AbsenciaPrevista.findById(req.params.id, function (error, absenciaprevista) {
+				if (error) {
+					return next(error);
+				}
+				if (absenciaprevista == null) {
+					var error = new Error("Absencia prevista no trobada");
+					error.status = 404;
+					return next(error);
+				}
+				res.render("absprevistes/update", {
+					errors: errors.array(),
+					absenciaprevista: absenciaprevista,
+				});
+			});
+		} else {
+			var absenciaprevista = {
         data_absprevista: req.body.data_absprevista,
         motiu_abs: req.body.motiu_abs,
-      });
-      res.redirect('/absprevistes');
-  } catch (err) {
-      res.render("absprevistes/update", {
-          error: err.message,
-          absenciaprevista: req.body,
-      });
-  }
-
-
+        _id: req.params.id,
+      };
+			AbsenciaPrevista.findByIdAndUpdate(
+				req.params.id,
+				absenciaprevista,
+				{},
+				function (error, absenciaprevistaFound) {
+					if (error) {
+						res.render("absprevistes/update", {
+							absenciaprevista: absenciaprevista,
+							error: error.message,
+						});
+					}
+					res.render("absprevistes/update", {
+					absenciaprevista: absenciaprevista,
+					message: "L'absència prevista ha sigut actualitzada",
+					});
+				}
+			);
+		}
   }
 
   static async delete_get(req, res, next) {

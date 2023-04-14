@@ -3,6 +3,24 @@
 
 <head>
 	<%- include('../partials/head'); %>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			document.getElementById("data_absprevista").valueAsDate = new Date();
+		});
+		function setDefaultDate() {
+			const now = new Date();
+			const day = now.getDate().toString().padStart(2, '0');
+			const month = (now.getMonth() + 1).toString().padStart(2, '0');
+			const year = now.getFullYear().toString();
+			const today = `${year}-${month}-${day}`;
+
+		 document.getElementById('data_actual').value = today;
+		}
+
+		window.onload = function() {
+				setDefaultDate();
+}
+		</script>
 </head>
 
 <body class="container">
