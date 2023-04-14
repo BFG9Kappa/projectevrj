@@ -5,20 +5,19 @@ const nodemailer = require("nodemailer");
 
 class sortidacurricularController {
   static rules = [
-    body("data_sortida", "La data de sortida no pot estar buida.")
-      .trim()
-      .isLength({ min: 1 })
-      .escape(),
-    body("data_sortida").custom((value, { req }) => {
-      const data_actual = moment(req.body.data_actual, "DD-MM-YYYY");
-      const data_sortida = moment(value, "DD-MM-YYYY");
-      if (data_sortida.isBefore(data_actual)) {
-        throw new Error(
-          "La data de la sortida curricular ha de ser posterior a la data actual"
-        );
-      }
-      return true;
-    }),
+    body("data_sortida")
+		.notEmpty()
+		.withMessage("La data d'absència no pot estar buida.")
+    .custom((value, { req }) => {
+		  const data_actual = moment(req.body.data_actual, "DD-MM-YYYY");
+		  const data_sortida = moment(value, "DD-MM-YYYY");
+		  if (data_sortida.isBefore(data_actual)) {
+			throw new Error(
+			  "La data de la sortida ha de ser igual o posterior a la data actual"
+			);
+		  }
+		  return true;
+		})
   ];
 
   static async list(req, res, next) {
@@ -131,36 +130,25 @@ class sortidacurricularController {
   }
 
   static async update_post(req, res, next) {
-    // Obtener la fecha actual
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const errors = validationResult(req);
 
-    // Obtener la fecha de salida del formulario y convertirla a objeto Date
-    const dataSortida = new Date(req.body.data_sortida);
-
-    // Comprobar si la fecha de salida es anterior a la fecha actual
-    if (dataSortida < today) {
-        // Si la fecha de salida es anterior a la fecha actual, mostrar un mensaje de error
-        return res.render("sortidescurriculars/update", {
-            error: "La data de la sortida ha de ser igual o posterior al dia actual",
-            sortidacurricular: req.body,
-        });
-    }
-
-    // Obtener la fecha de salida del formulario update
-    const dataSortidaVacia = req.body.data_sortida;
-
-    // Comprobar si la data de sortida existeix
-    if (!dataSortidaVacia) {
-        // Si la fecha de salida es anterior a la fecha actual, mostrar un mensaje de error
-        return res.render("sortidescurriculars/update", {
-            error: "La data de sortida no pot estar buida",
-            sortidacurricular: req.body,
-        });
-    }
-
-    // Si la fecha de salida es igual o posterior a la fecha actual y no esta vacia, continuar con el proceso de actualización
-    var sortidacurricular = new SortidaCurricular({
+		if (!errors.isEmpty()) {
+			SortidaCurricular.findById(req.params.id, function (error, sortidacurricular) {
+				if (error) {
+					return next(error);
+				}
+				if (sortidacurricular == null) {
+					var error = new Error("Sortida curricular no trobada");
+					error.status = 404;
+					return next(error);
+				}
+				res.render("sortidescurriculars/update", {
+					errors: errors.array(),
+					sortidacurricular: sortidacurricular,
+				});
+			});
+		} else {
+			var sortidacurricular = {
         data_sortida: req.body.data_sortida,
         email: req.body.email,
         lloc: req.body.lloc,
@@ -172,28 +160,25 @@ class sortidacurricularController {
         hora_arribada: req.body.hora_arribada,
         estat: req.body.estat,
         _id: req.params.id,
-    });
-
-    try {
-        await SortidaCurricular.findByIdAndUpdate(req.params.id, {
-            data_sortida: req.body.data_sortida,
-            email: req.body.email,
-            lloc: req.body.lloc,
-            ruta: req.body.ruta,
-            objectius: req.body.objectius,
-            grups: req.body.grups,
-            professors: req.body.professors,
-            hora_inici: req.body.horaInici,
-            hora_arribada: req.body.horaArribada,
-            estat: req.body.Estat
-        });
-        res.redirect('/sortidescurriculars');
-    } catch (err) {
-        res.render("sortidescurriculars/update", {
-            error: err.message,
-            sortidacurricular: req.body,
-        });
-    }
+      };
+			SortidaCurricular.findByIdAndUpdate(
+				req.params.id,
+				sortidacurricular,
+				{},
+				function (error, sortidacurricularFound) {
+					if (error) {
+						res.render("sortidescurriculars/update", {
+							sortidacurricular: sortidacurricular,
+							error: error.message,
+						});
+					}
+					res.render("sortidescurriculars/update", {
+						sortidacurricular: sortidacurricular,
+						message: "La sortida curricular ha estat actualitzada",
+					});
+				}
+			);
+		}
 }
 
 

@@ -1,28 +1,36 @@
 var AbsNoPrevista = require("../models/absnoprevista");
+const moment = require("moment");
 const { body, validationResult } = require("express-validator");
 
 class absnoprevistesController {
 	static rules = [
 		// validar hores absència, no poden estar buides i han de ser números enters d'1 a 8
 		body("hores_ausencia")
-			.notEmpty()
-			.withMessage("Les hores d'absència són obligatòries.")
-			.isInt({min:1, max:8})
-			.withMessage("Les hores d'absència han de ser d'1 a 8.")
-			.escape(),
-
+		.bail()
+		.notEmpty()
+		.withMessage("Les hores d'absència no poden estar buides.")
+		.bail()
+		.isInt({min:1, max:8})
+		.withMessage("Les hores d'absència han de ser d'1 a 8 hores.")
+		.escape(),
 		// validar motiu_abs, no pot estar buit i s'eliminen els espais en blanc a l'inici i al final del text
 		body("motiu_abs")
-			.notEmpty()
-			.withMessage("El motiu de l'absència és obligatori.")
-			.trim()
-			.isLength({min: 1})
-			.withMessage("El motiu de l'absència ha de tenir almenys 1 caràcter."),
-
+		.notEmpty()
+		.withMessage("El motiu de l'absència no pot estar buit."),
 		// validar data_absnoprevista, no pot estar buida la data d'absència no prevista
 		body("data_absnoprevista")
-			.notEmpty()
-			.withMessage("La data d'absència és obligatòria."),
+		.notEmpty()
+		.withMessage("La data d'absència no pot estar buida.")
+		.custom((value, { req }) => {
+		  const data_actual = moment(req.body.data_actual, "DD-MM-YYYY");
+		  const data_absnoprevista = moment(value, "DD-MM-YYYY");
+		  if (data_absnoprevista.isBefore(data_actual)) {
+			throw new Error(
+			  "La data de l'absencia no prevista ha de ser igual o posterior a la data actual"
+			);
+		  }
+		  return true;
+		})
 
 	];
 
@@ -96,7 +104,7 @@ class absnoprevistesController {
 			}
 			if (absnoprevista == null) {
 				// No results.
-				var err = new Error("Absencia no prevista not found");
+				var err = new Error("Absencia no prevista no trobada");
 				err.status = 404;
 				return next(err);
 			}
@@ -114,7 +122,7 @@ class absnoprevistesController {
 					return next(error);
 				}
 				if (absnoprevista == null) {
-					var error = new Error("Absencia no prevista not found");
+					var error = new Error("Absencia no prevista no trobada");
 					error.status = 404;
 					return next(error);
 				}
@@ -144,7 +152,7 @@ class absnoprevistesController {
 					}
 					res.render("absnoprevistes/update", {
 						absnoprevista: absnoprevista,
-						message: "La absència no prevista ha sigut actualitzada",
+						message: "L'absència no prevista ha estat actualitzada",
 					});
 				}
 			);

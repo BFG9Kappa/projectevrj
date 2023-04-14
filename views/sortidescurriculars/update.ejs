@@ -3,6 +3,21 @@
 
 <head>
 	<%- include('../partials/head'); %>
+	<script>
+		function setDefaultDate() {
+		const now = new Date();
+		const day = now.getDate().toString().padStart(2, '0');
+		const month = (now.getMonth() + 1).toString().padStart(2, '0');
+		const year = now.getFullYear().toString();
+		const today = `${year}-${month}-${day}`;
+
+	 document.getElementById('data_actual').value = today;
+	}
+
+	window.onload = function() {
+			setDefaultDate();
+}
+</script>
 </head>
 
 <body class="container">
@@ -17,6 +32,9 @@
 			<div class="card-body">
 				<form method="POST" action="/sortidescurriculars/update/<%= sortidacurricular._id %>">
 					<div class="form-group">
+						<!-- Input para comparar la fecha de la sortida con la fecha actual para que no hayan errores de validacion-->
+						<input type="date" name="data_actual" id="data_actual" class="form-control" style="display:none"/>
+
 						<label for="data_sortida">Data sortida curricular</label>
 						<input type="date" id="data_sortida" name="data_sortida" class="form-control" value="<%= sortidacurricular.data_sortida instanceof Date ? sortidacurricular.data_sortida.toISOString().slice(0, 10) : '' %>">
 
@@ -102,19 +120,22 @@
 
 				</form>
 				<% if (typeof error !=="undefined" ) { %>
-					<div class="alert alert-danger mt-2" role="alert">
-						<p>
-							<%= error %>
-						</p>
+					<div class="alert alert-primary mt-2" role="alert">
+						<p><%= error %></p>
+					</div>
+					<% } %> <% if (typeof message !=="undefined" ) { %>
+					<div class="alert alert-primary mt-2" role="alert">
+						<p><%= message %></p>
 					</div>
 					<% } %>
-						<% if (typeof message !=="undefined" ) { %>
-							<div class="alert alert-primary mt-2" role="alert">
-								<p>
-									<%= message %>
-								</p>
-							</div>
-							<% } %>
+				</div>
+				<% if (typeof errors !== "undefined") { %>
+					<div class="alert alert-danger mt-2" role="alert">
+						<% errors.forEach(function(error) { %>
+							<p><%= error.msg %></p>
+						<% }) %>
+					</div>
+				<% } %>
 			</div>
 		</div>
 	</main>

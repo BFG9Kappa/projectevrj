@@ -7,6 +7,19 @@
 		<header><%- include('../partials/header'); %></header>
 		<main>
 			<script>
+				function setDefaultDate() {
+				const now = new Date();
+				const day = now.getDate().toString().padStart(2, '0');
+				const month = (now.getMonth() + 1).toString().padStart(2, '0');
+				const year = now.getFullYear().toString();
+				const today = `${year}-${month}-${day}`;
+
+	 		document.getElementById('data_actual').value = today;
+			}
+
+			window.onload = function() {
+  				setDefaultDate();
+}
 
 			</script>
 			<div class="card mt-4">
@@ -16,12 +29,18 @@
 				<div class="card-body">
 					<form method="POST" action="/absnoprevistes/update/<%= absnoprevista._id %>">
 						<div class="form-group">
+							<!-- Input para comparar la fecha de la sortida con la fecha actual para que no hayan errores de validacion-->
+						<input type="date" name="data_actual" id="data_actual" class="form-control" style="display:none"/>
+
 							<label for="name">Data absencia no prevista</label>
-							<input type="date" name="data_absnoprevista" class="form-control" value="<%= absnoprevista.data_absnoprevista %>"/>
+							<input type="date" name="data_absnoprevista" class="form-control" value="<%= absnoprevista.data_absnoprevista instanceof Date ? absnoprevista.data_absnoprevista.toISOString().slice(0, 10) : '' %>"/>
+
 							<label for="name">Hores ausencia</label>
 							<input type="number" name="hores_ausencia" class="form-control" value="<%= absnoprevista.hores_ausencia %>"/>
+
 							<label for="name">Motiu absencia</label>
 							<textarea name="motiu_abs" class="form-control"><%= absnoprevista.motiu_abs %></textarea>
+
 							<label for="name">Document justificatiu</label>
 							<input type="file" name="document_justificatiu" class="form-control" value="<%= absnoprevista.document_justificatiu %>"/>
 						</div>
