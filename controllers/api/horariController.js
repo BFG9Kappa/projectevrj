@@ -1,4 +1,4 @@
-var Horari = require("../models/horari");
+var Horari = require("../../models/horari");
 
 class HorariController {
 	static list(req, res, next) {

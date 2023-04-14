@@ -1,4 +1,4 @@
-var SortidaCurricular = require("../models/sortidacurricular");
+var SortidaCurricular = require("../../models/sortidacurricular");
 const moment = require("moment");
 const { body, validationResult } = require("express-validator");
 const nodemailer = require('nodemailer');

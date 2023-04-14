@@ -1,4 +1,4 @@
-var AbsenciaPrevista = require("../models/absprevista");
+var AbsenciaPrevista = require("../../models/absprevista");
 const { body, validationResult } = require("express-validator");
 
 class absprevistaController {

@@ -1,4 +1,4 @@
-var BaixaMedica = require("../models/baixamedica");
+var BaixaMedica = require("../../models/baixamedica");
 const moment = require("moment");
 const { body, validationResult } = require("express-validator");
 
