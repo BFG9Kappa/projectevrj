@@ -28,9 +28,11 @@
             </div>
             <div class="card-body">
                 <table class="table table-striped">
+									<% if (locals.role.includes('administrador')) { %>
                     <a href="/horaris/create" class="btn btn-primary">Nou</a>
+										<br>
                     <br>
-                    <br>
+									<% } %>
                     <thead>
                         <tr>
                             <th scope="col">Hora</th>
@@ -41,6 +43,7 @@
                             <th scope="col">Divendres</th>
                     </thead>
                     <tbody>
+											<% if (typeof user !== 'undefined') { %>
                         <% for(var i=1; i<15; i++) { %>
                             <tr>
                                 <td>
@@ -51,14 +54,15 @@
                                         <%= list[i][j].materia %>
                                         <%= list[i][j].aula %>
                                         <%= list[i][j].grup %>
+																				<% if (locals.role.includes('administrador')) { %>
                                         <a class="btn btn-secondary" href="/horaris/update/<%= list[i][j].id %>" class="card-link">Editar</a>
-                                        <!--
                                         <a class="btn btn-danger" href="/horaris/delete/<%= list[i][j].id %>" class="card-link">Esborrar</a>
-                                        -->
+																				<% } %>
                                     </td>
                                     <% } %>
                             </tr>
                             <% } %>
+													<% } %>
                     </tbody>
                 </table>
             </div>

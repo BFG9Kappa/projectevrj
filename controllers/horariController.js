@@ -1,52 +1,58 @@
 var Horari = require("../models/horari");
 
 class HorariController {
-	static list(req, res, next) {
-		Horari.find({ professor: req.session.data.userId }).exec(function (err, list_horari) {
-			if (err) {
-				return next(err);
-			}
+  static list(req, res, next) {
 
-			// Franjes de horaris
-			var taulahores = [
-				"",
-				"08:00 - 09:00",
-				"09:00 - 10:00",
-				"10:00 - 11:00",
-				"11:00 - 11:30*",
-				"11:30 - 12:30",
-				"12:30 - 13:30",
-				"13:30 - 14:30",
-				"15:00 - 16:00",
-				"16:00 - 17:00",
-				"17:00 - 18:00",
-				"18:00 - 18:30*",
-				"18:30 - 19:30",
-				"19:30 - 20:30",
-				"20:30 - 21:30",
-			];
+		// Franjes de horaris
+		var taulahores = [
+			"",
+			"08:00 - 09:00",
+			"09:00 - 10:00",
+			"10:00 - 11:00",
+			"11:00 - 11:30*",
+			"11:30 - 12:30",
+			"12:30 - 13:30",
+			"13:30 - 14:30",
+			"15:00 - 16:00",
+			"16:00 - 17:00",
+			"17:00 - 18:00",
+			"18:00 - 18:30*",
+			"18:30 - 19:30",
+			"19:30 - 20:30",
+			"20:30 - 21:30",
+		];
 
-			// Preparem el array per imprimirlo
-			var horari = new Array(15);
-			for (var i = 0; i < 15; i++) horari[i] = new Array(6);
+    if (req.session.data) {
+      Horari.find({ professor: req.session.data.userId }).exec(function (err, list_horari) {
+        if (err) {
+          return next(err);
+        }
 
-			for (var i = 0; i < 15; i++)
-				for (var j = 0; j < 6; j++) horari[i][j] = {};
+        // Preparem el array per imprimirlo
+        const horari = new Array(15);
+        for (let i = 0; i < 15; i++) {
+          horari[i] = new Array(6);
+        }
 
-			list_horari.forEach(function (h) {
-				//horari[h.hora][h.dia] = h.materia;
-				horari[h.hora][h.dia].id = h.id;
-				horari[h.hora][h.dia].materia = h.materia;
-				horari[h.hora][h.dia].aula = h.aula;
-				horari[h.hora][h.dia].grup = h.grup;
-				//horari[h.hora][h.dia].materia = h.materia;// .materia //h.materia + ' ' + h.aula + ' ' + h.grup;
-			});
-			//console.log(horari); // debug
+        for (let i = 0; i < 15; i++) {
+          for (let j = 0; j < 6; j++) {
+            horari[i][j] = {};
+          }
+        }
 
-			//res.render('horaris/list', { list: list_horari });
-			res.render("horaris/list", { list: horari, taulahores: taulahores });
-		});
-	}
+        list_horari.forEach(function (h) {
+          horari[h.hora][h.dia].id = h.id;
+          horari[h.hora][h.dia].materia = h.materia;
+          horari[h.hora][h.dia].aula = h.aula;
+          horari[h.hora][h.dia].grup = h.grup;
+        });
+
+        res.render("horaris/list", { list: horari, taulahores: taulahores, user: req.session.data });
+      });
+    } else {
+			res.render("horaris/list", { list: [], taulahores: taulahores, user: req.session.data });
+    }
+  }
 
 	static create_get(req, res, next) {
 		res.render("horaris/new");
