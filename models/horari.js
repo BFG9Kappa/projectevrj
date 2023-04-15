@@ -24,8 +24,8 @@ var HorariSchema = new Schema({
 		required: true,
 	},
 	professor: {
-		type: String,
-		required: true,
+		type: Schema.ObjectId, ref: "User",
+		required: false,
 	},
 });
 

@@ -1,4 +1,6 @@
 var BaixaMedica = require("../models/baixamedica");
+var User = require("../models/user");
+
 const moment = require("moment");
 const { body, validationResult } = require("express-validator");
 
@@ -40,10 +42,17 @@ class baixesmediquesController {
 
 	static async list(req, res, next) {
 		try {
-			var list_baixesmediques = await BaixaMedica.find();
+			var list_baixesmediques;
+			if(req.session.data != undefined) {
+				list_baixesmediques = await BaixaMedica.find({ user: req.session.data.userId });
+			} else {
+				list_baixesmediques = await BaixaMedica.find();
+			}
 			res.render("baixesmediques/list", { list: list_baixesmediques });
-		} catch (error) {
-			res.send(error);
+		} catch(error) {
+				var err = new Error(error);
+				err.status = 404;
+				return next(err);
 		}
 	}
 
@@ -52,6 +61,7 @@ class baixesmediquesController {
 			data_inicial_baixa: "",
 			data_prevista_alta: "",
 			comentari: "",
+			user: "",
 			_id: "",
 		};
 		res.render("baixesmediques/new", { baixamedica: baixamedica });
@@ -69,6 +79,7 @@ class baixesmediquesController {
 				data_inicial_baixa: req.body.data_inicial_baixa,
 				data_prevista_alta: req.body.data_prevista_alta,
 				comentari: req.body.comentari,
+				user: req.session.data.userId,
 				_id: req.params.id,
 			};
 			res.render("baixesmediques/new", {
@@ -76,6 +87,8 @@ class baixesmediquesController {
 				baixamedica: baixamedica,
 			});
 		} else {
+
+			req.body.user = req.session.data.userId
 			BaixaMedica.create(req.body, function (error, newBaixamedica) {
 				if (error) {
 					res.render("baixesmediques/new", { error: error.message });
