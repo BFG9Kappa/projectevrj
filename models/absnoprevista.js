@@ -1,4 +1,6 @@
 var mongoose = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2');
+
 
 var Schema = mongoose.Schema;
 
@@ -10,5 +12,6 @@ var AbsNoPrevistaSchema = new Schema({
 	user: { type: Schema.ObjectId, ref: "User", required: false },
 });
 
+AbsNoPrevistaSchema.plugin(mongoosePaginate);
 // Export model.
 module.exports = mongoose.model("AbsNoPrevista", AbsNoPrevistaSchema);

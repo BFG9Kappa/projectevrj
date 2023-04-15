@@ -101,12 +101,12 @@ var absnoprevistesRouterApi = require("./routes/api/absnoprevistesRouter");
 var absprevistesRouterApi = require("./routes/api/absprevistesRouter");
 var sortidescurricularsRouterApi = require("./routes/api/sortidescurricularsRouter");
 
-app.use("/index", indexRouterApi);
-app.use("/auth", authRouterApi);
-app.use("/horaris", horariRouterApi );
-app.use("/baixesmediques", baixesmediquesRouterApi);
-app.use("/absnoprevistes", absnoprevistesRouterApi);
-app.use("/absprevistes", absprevistesRouterApi);
-app.use("/sortidescurriculars", sortidescurricularsRouterApi);
+app.use("/api/index", indexRouterApi);
+app.use("/api/auth", authRouterApi);
+app.use("/api/horaris", horariRouterApi );
+app.use("/api/baixesmediques", baixesmediquesRouterApi);
+app.use("/api/absnoprevistes", absnoprevistesRouterApi);
+app.use("/api/absprevistes", absprevistesRouterApi);
+app.use("/api/sortidescurriculars", sortidescurricularsRouterApi);
 
 module.exports = app;

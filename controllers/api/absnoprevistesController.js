@@ -28,13 +28,12 @@ class absnoprevistesController {
 
   // Recuperar els les absències previstes en pàgines
 	static async list(req, res, next) {
-
-		// Configurar la paginació
-		const options = {
-			page: req.query.page || 1,  // Número pàgina
-			limit: 5,       // Número registres per pàgina
-			sort: { _id: -1 },   // Ordenats per id: el més nou el primer
-		};
+      // Configurar la paginació
+      const options = {
+        page: req.query.page || 1,  // Número pàgina
+        limit: 5,       // Número registres per pàgina
+        sort: { _id: -1 },   // Ordenats per id: el més nou el primer
+      };
 
 		try {
 			const result = await AbsNoPrevista.paginate({}, options);
