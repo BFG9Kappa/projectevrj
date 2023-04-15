@@ -2,75 +2,66 @@
 <html lang="en">
 
 <head>
-    <%- include('../partials/head'); %>
+	<%- include('../partials/head'); %>
 </head>
 
-<style>
-    /*
-    borra esto luego macho
-    */
-    table,
-    th,
-    tr,
-    td {
-        border: 1px solid black
-    }
-</style>
-
 <body class="container">
-    <header>
-        <%- include('../partials/header'); %>
-    </header>
-    <main>
-        <div class="card mt-2">
-            <div class="card-header">
-                <h5 class="card-title">Horari</h5>
-            </div>
-            <div class="card-body">
-                <table class="table table-striped">
-
-                    <a href="/horaris/create" class="btn btn-primary">Nou</a>
-										<br>
-                    <br>
-
-                    <thead>
-                        <tr>
-                            <th scope="col">Hora</th>
-                            <th scope="col">Dilluns</th>
-                            <th scope="col">Dimarts</th>
-                            <th scope="col">Dimecres</th>
-                            <th scope="col">Dijous</th>
-                            <th scope="col">Divendres</th>
-                    </thead>
-                    <tbody>
-											<% if (typeof user !== 'undefined') { %>
-                        <% for(var i=1; i<15; i++) { %>
-                            <tr>
-                                <td>
-                                    <%= taulahores[i] %>
-                                </td>
-                                <% for(var j=1; j<6; j++) {    %>
-                                    <td>
-                                        <%= list[i][j].materia %>
-                                        <%= list[i][j].aula %>
-                                        <%= list[i][j].grup %>
-																				<% if (locals.role.includes('administrador')) { %>
-                                        <a class="btn btn-secondary" href="/horaris/update/<%= list[i][j].id %>" class="card-link">Editar</a>
-                                        <a class="btn btn-danger" href="/horaris/delete/<%= list[i][j].id %>" class="card-link">Esborrar</a>
-																				<% } %>
-                                    </td>
-                                    <% } %>
-                            </tr>
-                            <% } %>
-													<% } %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <%- include('../partials/footer'); %>
-    </footer>
+	<header>
+		<%- include('../partials/header'); %>
+	</header>
+	<main>
+		<div class="card mt-2">
+			<div class="card-header">
+				<h5 class="card-title">Horari</h5>
+			</div>
+			<div class="card-body">
+				<% if (typeof user !=='undefined' ) { %>
+					<table class="table table-striped">
+						<% if (typeof user=='administrador' ) { %>
+							<a href="/horaris/create" class="btn btn-primary">Nou</a>
+							<br>
+							<br>
+							<% } %>
+								<thead>
+									<tr>
+										<th scope="col">Hora</th>
+										<th scope="col">Dilluns</th>
+										<th scope="col">Dimarts</th>
+										<th scope="col">Dimecres</th>
+										<th scope="col">Dijous</th>
+										<th scope="col">Divendres</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% for(var i=1; i<15; i++) { %>
+										<tr>
+											<td>
+												<%= taulahores[i] %>
+											</td>
+											<% for(var j=1; j<6; j++) { %>
+												<td>
+													<%= list[i][j].materia %>
+													<%= list[i][j].aula %>
+													<%= list[i][j].grup %>
+													<% if (locals.role.includes('administrador')) { %>
+													<a class="btn btn-secondary" href="/horaris/update/<%= list[i][j].id %>" class="card-link">Editar</a>
+													<a class="btn btn-danger" href="/horaris/delete/<%= list[i][j].id %>" class="card-link">Esborrar</a>
+											<% } %>
+												</td>
+									<% } %>
+										</tr>
+							<% } %>
+							</tbody>
+					</table>
+					<% } else { %>
+						<p>Accedeix al teu compte d'usuari per poder veure el teu horari.</p>
+					<% } %>
+			</div>
+		</div>
+	</main>
+	<footer>
+		<%- include('../partials/footer'); %>
+	</footer>
 </body>
 
 </html>

@@ -1,66 +1,77 @@
 {
 	"usuarisData":[
 		{
+			"_id": "643a5cc7d4b33ce396d871a5",
 			"fullname":"Fulgencio Serrato Segovia",
 			"role":"administrador",
 			"email":"fusese91@vrj.com",
 			"password": "fusese"
 		},
 		{
+			"_id": "643a66161bc757a05c9eb2eb",
 			"fullname":"Loreta Serrano Galindo",
 			"role":"director",
 			"email":"losega96@vrj.com",
 			"password": "losega"
 		},
 		{
+			"_id": "643a668f937d9b6740cd5247",
 			"fullname":"Milca Vargas Briones",
 			"role":"cap de estudis",
 			"email":"mivabr17@vrj.com",
 			"password": "mivabr"
 		},
 		{
+			"_id": "643a669a384467b5ae931c07",
 			"fullname":"Peregrino Villanueva Argüello",
 			"role":"secretari",
 			"email":"peviar88@vrj.com",
 			"password": "peviar"
 		},
 		{
+			"_id": "643a66a7e960f68ffe19af98",
 			"fullname":"Fostine Llanos Cabanillas",
 			"role":"conserge",
 			"email":"follaca24@vrj.com",
 			"password": "follaca"
 		},
 		{
+			"_id": "643a66b604e67817f790f34d",
 			"fullname":"Gabriel Fernández Ramírez",
 			"role":"professor",
 			"email":"gafera90@vrj.com",
 			"password": "gafera"
 		},
 		{
+			"_id": "643a66dbecaa5501a8ff65b2",
 			"fullname":"Jaime Mellado González",
 			"role":"professor",
 			"email":"jamego83@vrj.com",
 			"password": "jamego"
 		},
 		{
+			"_id": "643a66e9bb2a63e09b6bd3c7",
 			"fullname":"Ana Maria Alonso Gutiérrez",
 			"role":"professor",
 			"email":"analgu29@vrj.com",
 			"password": "analgu"
 		},
 		{
+			"_id": "643a66f22b0338ffd62e662a",
 			"fullname":"Africa Jáquez Reyes",
 			"role":"professor",
 			"email":"afjare62@vrj.com",
 			"password": "afjare"
 		},
 		{
+			"_id": "643a67037ede467a72ffacb3",
 			"fullname":"Casildo Parra Villa",
 			"role":"professor",
 			"email":"capavi78@vrj.com",
 			"password": "capavi"
 		},
 		{
+			"_id": "643a670bfed141cca57f3b18",
 			"fullname":"Roxana Valdez Ruelas",
 			"role":"professor",
 			"email":"rovaru67@vrj.com",
