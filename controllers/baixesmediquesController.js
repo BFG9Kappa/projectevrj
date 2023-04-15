@@ -1,5 +1,6 @@
-var BaixaMedica = require("../models/baixamedica");
-var User = require("../models/user");
+const BaixaMedica = require("../models/baixamedica");
+const User = require("../models/user");
+//const isAuth = require('../middlewares/auth');
 
 const moment = require("moment");
 const { body, validationResult } = require("express-validator");
@@ -42,6 +43,11 @@ class baixesmediquesController {
 
 	static async list(req, res, next) {
 		try {
+			/*
+			if (isAuth) {
+				return res.redirect('/auth/login');
+			}
+			*/
 			var list_baixesmediques;
 			if(req.session.data != undefined) {
 				list_baixesmediques = await BaixaMedica.find({ user: req.session.data.userId });
@@ -87,7 +93,6 @@ class baixesmediquesController {
 				baixamedica: baixamedica,
 			});
 		} else {
-
 			req.body.user = req.session.data.userId
 			BaixaMedica.create(req.body, function (error, newBaixamedica) {
 				if (error) {

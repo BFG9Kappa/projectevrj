@@ -17,7 +17,7 @@
 			<div class="card-body">
 				<% if (typeof user !=='undefined' ) { %>
 					<table class="table table-striped">
-						<% if (typeof user=='administrador' ) { %>
+						<% if (locals.role.includes('administrador')) { %>
 							<a href="/horaris/create" class="btn btn-primary">Nou</a>
 							<br>
 							<br>

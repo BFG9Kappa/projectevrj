@@ -31,16 +31,22 @@ class absnoprevistesController {
 		  }
 		  return true;
 		})
-
 	];
 
 	static async list(req, res, next) {
 		try {
-			var list_absnoprevistes = await AbsNoPrevista.find();
+			var list_absnoprevistes;
+			if(req.session.data != undefined) {
+				list_absnoprevistes = await AbsNoPrevista.find({ user: req.session.data.userId });
+			} else {
+				list_absnoprevistes = await AbsNoPrevista.find();
+			}
 			res.render("absnoprevistes/list", { list: list_absnoprevistes });
-		} catch (error) {
-			res.send(error);
-		}
+		} catch(error) {
+			var err = new Error(error);
+			err.status = 404;
+			return next(err);
+	}
 	}
 
 	static genpdf_get(req, res, next) {
@@ -53,10 +59,11 @@ class absnoprevistesController {
 
 	static create_get(req, res, next) {
 		var absnoprevistes = {
-            data_absnoprevista: new Date(),
+      data_absnoprevista: new Date(),
 			hores_ausencia: "",
 			motiu_abs: "",
 			document_justificatiu: "",
+			user: "",
 			_id: "",
 		};
 		res.render("absnoprevistes/new", { absnoprevistes: absnoprevistes });
@@ -73,6 +80,7 @@ class absnoprevistesController {
 				hores_ausencia: req.body.hores_ausencia,
 				motiu_abs: req.body.motiu_abs,
 				document_justificatiu: req.body.document_justificatiu,
+				user: req.session.data.userId,
 				_id: req.params.id, // Fa falta per sobreescriure el objecte.
 			};
 			res.render("absnoprevistes/new", {
@@ -80,14 +88,9 @@ class absnoprevistesController {
 				absnoprevista: absnoprevista,
 			});
 		} else {
+			req.body.user = req.session.data.userId
 			req.body.data_absnoprevista = new Date(req.body.data_absnoprevista);
-			AbsNoPrevista.create({
-				data_absnoprevista: req.body.data_absnoprevista.toISOString(),
-				hores_ausencia: req.body.hores_ausencia,
-				motiu_abs: req.body.motiu_abs,
-				document_justificatiu: req.body.document_justificatiu,
-				_id: req.params.id, // Fa falta per sobreescriure el objecte.
-			}, function (error, newAbsNoPrevista) {
+			AbsNoPrevista.create(req.body, function (error, newAbsenciaNoPrevista) {
 				if (error) {
 					res.render("absnoprevistes/new", { error: error.message });
 				} else {

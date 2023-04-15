@@ -29,4 +29,4 @@ exports.hasRole = function (role) {
 	};
 };
 
-// module.exports = isAuth;
+//module.exports = exports.isAuth;
