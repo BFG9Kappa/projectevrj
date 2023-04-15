@@ -44,6 +44,72 @@ class absnoprevistesController {
 		}
 	}
 
+	  static async delete(req, res, next) {
+
+		try {       
+		  const absnoprevista = await AbsNoPrevista.findByIdAndRemove(req.params.id)
+		  res.status(200).json(absnoprevista)
+		}
+		catch {
+		  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema eliminant l'absència no prevista."}]})
+		}   
+		
+	  }
+	  static async create(req, res, next) {
+		const errors = validationResult(req);  
+   
+
+		if (!errors.isEmpty()) {
+			res.status(402).json({errors:errors.array()}) 
+		}
+		else { 
+
+			try {
+				req.body.data_absnoprevista = new Date(req.body.data_absnoprevista);				
+			  const NewAbsNoPrevista = await AbsNoPrevista.create({
+				data_absnoprevista: req.body.data_absnoprevista.toISOString(),
+				hores_ausencia: req.body.hores_ausencia,
+				motiu_abs: req.body.motiu_abs,
+				document_justificatiu: req.body.document_justificatiu,
+				_id: req.params.id, // Fa falta per sobreescriure el objecte.
+			  })
+			  res.status(200).json(NewAbsNoPrevista)
+			} catch(error) {
+			  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema guardan l'absència no prevista"}]})          
+			}        
+		}
+	}
+
+	static async update(req, res, next) {
+		const errors = validationResult(req);  
+	
+		if (!errors.isEmpty()) {      
+		  res.status(402).json({errors:errors.array()})      
+		}
+		else {    
+		  
+		  var absnoprevista = {
+			data_absnoprevista: req.body.data_absnoprevista,
+			hores_ausencia: req.body.hores_ausencia,
+			motiu_abs: req.body.motiu_abs,
+			document_justificatiu: req.body.document_justificatiu,
+			_id: req.params.id,
+		  }
+	
+		  try {
+				const UpdateAbsNoprevista = await AbsNoPrevista.findByIdAndUpdate(
+					req.params.id, absnoprevista, {runValidators: true})
+				return res.status(200).json(UpdateAbsNoprevista)
+		  }
+		  catch(error) {
+			res.status(402).json({errors: [{msg:"Hi ha hagut algun problema actualitzant l'absència no prevista"}]})          
+		  }
+			 
+		}
+		  
+	  }
+
+
 }
 
 module.exports = absnoprevistesController;
