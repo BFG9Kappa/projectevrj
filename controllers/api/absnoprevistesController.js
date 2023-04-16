@@ -26,7 +26,20 @@ class absnoprevistesController {
 
 	];
 
-  // Recuperar els les absències previstes en pàgines
+	// Recuperar les absències no previstes
+	static async all(req, res, next) {
+  
+		try {
+		  const result = await AbsNoPrevista.find();
+		  res.status(200).json(result) 
+		}
+		catch(error) {
+		  res.status(402).json({errors: [{msg:"Hi ha hagut problemes en rebre les absències no previstes."}]})
+		}   
+	}
+
+
+  // Recuperar les absències no previstes en pàgines
 	static async list(req, res, next) {
       // Configurar la paginació
       const options = {
@@ -75,7 +88,7 @@ class absnoprevistesController {
 			  })
 			  res.status(200).json(NewAbsNoPrevista)
 			} catch(error) {
-			  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema guardan l'absència no prevista"}]})          
+			  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema guardant l'absència no prevista"}]})          
 			}        
 		}
 	}

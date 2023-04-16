@@ -29,113 +29,101 @@ class baixesmediquesController {
 			}
 			return true;
 		}),
-	];
+	]
 
-	static async list(req, res, next) {
+	// Recuperar les baixes
+	static async all(req, res, next) {
+  
 		try {
-			var list_baixesmediques = await BaixaMedica.find();
-			res.render("baixesmediques/list", { list: list_baixesmediques });
-		} catch (error) {
-			res.send(error);
+		  const result = await BaixaMedica.find();
+		  res.status(200).json(result) 
+		}
+		catch(error) {
+		  res.status(402).json({errors: [{msg:"Hi ha hagut problemes en rebre les baixes mèdiques."}]})
+		}   
+	}
+
+
+  // Recuperar les baixes en pàgines paginades
+	static async list(req, res, next) {
+      // Configurar la paginació
+      const options = {
+        page: req.query.page || 1,  // Número pàgina
+        limit: 5,       // Número registres per pàgina
+        sort: { _id: -1 },   // Ordenats per id: el més nou el primer
+      };
+
+		try {
+			const result = await BaixaMedica.paginate({}, options);
+			res.status(200).json(result)
+		}
+		catch(error) {
+			res.status(402).json({errors: [{msg:"Hi ha hagut problemes en rebre les baixes mèdiques."}]})
 		}
 	}
 
-	static create_get(req, res, next) {
-		var baixamedica = {
-			data_inicial_baixa: "",
-			data_prevista_alta: "",
-			comentari: "",
-			_id: "",
-		};
-		res.render("baixesmediques/new", { baixamedica: baixamedica });
-	}
+	static async delete(req, res, next) {
 
-	static create_post(req, res) {
-		const errors = validationResult(req);
-		//console.log(errors.array());
-		// Tenim errors en les dades enviades
-		// El formulario es válido, se puede procesar la información
-		// ...
+		try {       
+		  const baixamed = await BaixaMedica.findByIdAndRemove(req.params.id)
+		  res.status(200).json(baixamed)
+		}
+		catch {
+		  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema eliminant la baixa mèdica."}]})
+		}   
+	  }
 
+	  static async create(req, res, next) {
+		const errors = validationResult(req);  
+	
+	
 		if (!errors.isEmpty()) {
-			var baixamedica = {
+			res.status(402).json({errors:errors.array()}) 
+		}
+		else { 
+	
+			try {		
+			  const NewBaixaMedica = await BaixaMedica.create({
 				data_inicial_baixa: req.body.data_inicial_baixa,
 				data_prevista_alta: req.body.data_prevista_alta,
 				comentari: req.body.comentari,
+				document_justificatiu_medic: req.body.document_justificatiu_medic,				
 				_id: req.params.id,
-			};
-			res.render("baixesmediques/new", {
-				errors: errors.array(),
-				baixamedica: baixamedica,
-			});
-		} else {
-			BaixaMedica.create(req.body, function (error, newBaixamedica) {
-				if (error) {
-					res.render("baixesmediques/new", { error: error.message });
-				} else {
-					res.redirect("/baixesmediques");
-				}
-			});
+			  })
+			  res.status(200).json(NewBaixaMedica)
+			} catch(error) {
+			  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema guardant la baixa mèdica"}]})          
+			}        
 		}
 	}
 
-	static update_get(req, res, next) {
-		BaixaMedica.findById(req.params.id, function (err, baixamedica) {
-			if (err) {
-				return next(err);
-			}
-			if (baixamedica == null || baixamedica == "") {
-				// No results.
-				var err = new Error("BaixaMedica no trobada");
-				err.status = 404;
-				return next(err);
-			}
-			// Success.
-			res.render("baixesmediques/update", { baixamedica: baixamedica });
-		});
-	}
-
-	static update_post(req, res, next) {
-		var baixamedica = new BaixaMedica({
+	static async update(req, res, next) {
+		const errors = validationResult(req);  
+	
+		if (!errors.isEmpty()) {      
+		  res.status(402).json({errors:errors.array()})      
+		}
+		else {    
+		  
+		  var baixamedica = {
 			data_inicial_baixa: req.body.data_inicial_baixa,
 			data_prevista_alta: req.body.data_prevista_alta,
 			comentari: req.body.comentari,
+			document_justificatiu_medic: req.body.document_justificatiu_medic,				
 			_id: req.params.id,
-		});
-
-		BaixaMedica.findByIdAndUpdate(
-			req.params.id,
-			baixamedica,
-			{},
-
-			function (err, baixamedicaFound) {
-				if (err) {
-					res.render("baixesmediques/update", {
-						baixamedica: baixamedica,
-						error: err.message,
-					});
-				}
-				res.render("baixesmediques/update", {
-					baixamedica: baixamedica,
-					message: "Baixa mèdica actualitzada",
-				});
-			}
-		);
+		  }
+	
+		  try {
+				const UpdateBaixaMedica = await BaixaMedica.findByIdAndUpdate(
+					req.params.id, baixamedica, {runValidators: true})
+				return res.status(200).json(UpdateBaixaMedica)
+		  }
+		  catch(error) {
+			res.status(402).json({errors: [{msg:"Hi ha hagut algun problema actualitzant la baixa mèdica"}]})          
+		  }
+		}	  
 	}
 
-	static async delete_get(req, res, next) {
-		res.render("baixesmediques/delete", { id: req.params.id });
-	}
-
-	static async delete_post(req, res, next) {
-		BaixaMedica.findByIdAndRemove(req.params.id, (error) => {
-			if (error) {
-				res.render("baixesmediques", { error: error.message });
-			} else {
-				res.redirect("/baixesmediques");
-			}
-		});
-	}
 }
 
 module.exports = baixesmediquesController;

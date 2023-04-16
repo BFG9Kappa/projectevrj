@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 var Schema = mongoose.Schema;
 
@@ -20,5 +21,6 @@ var SortidaCurricularSchema = new Schema({
 	estat: { type: String },
 });
 
+SortidaCurricularSchema.plugin(mongoosePaginate);
 // Export model.
 module.exports = mongoose.model("SortidaCurricular", SortidaCurricularSchema);
