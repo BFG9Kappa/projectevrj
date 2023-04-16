@@ -1,5 +1,6 @@
-var Horari = require("../models/horari");
-const User = require('../models/user');
+const Horari = require("../models/horari");
+const User = require("../models/user");
+const isAdmin = require("../middlewares/isAdmin");
 
 class HorariController {
   static list(req, res, next) {
@@ -50,6 +51,11 @@ class HorariController {
         });
 
         res.render("horaris/list", { list: horari, taulahores: taulahores, user: req.session.data });
+				/* Cambiar esto luego xd
+				if(isAdmin) {
+					res.render("horaris/list", { list: horari, taulahores: taulahores });
+				}
+				*/
       });
     } else {
 			res.render("horaris/list", { list: [], taulahores: taulahores, user: req.session.data });

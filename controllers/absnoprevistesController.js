@@ -1,4 +1,4 @@
-var AbsNoPrevista = require("../models/absnoprevista");
+const AbsNoPrevista = require("../models/absnoprevista");
 const moment = require("moment");
 const { body, validationResult } = require("express-validator");
 
