@@ -56,8 +56,18 @@
                         <input type="text" name="aula" class="form-control">
                         <label class="form-label">Grup</label>
                         <input type="text" name="grup" class="form-control">
+												<!--
                         <label class="form-label">Professor</label>
                         <input type="text" name="professor" class="form-control">
+												-->
+												<label class="form-label">Professor</label>
+												<select name="professor" class="form-select">
+													<% for (let i = 0; i < professors.length; i++) { %>
+														<option value="<%= professors[i]._id %>"><%= professors[i].fullname %></option>
+													<% } %>
+												</select>
+
+
                     </div>
                     <button type="submit" class="btn btn-primary">Desar</button>
                 </form>

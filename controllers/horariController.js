@@ -1,4 +1,5 @@
 var Horari = require("../models/horari");
+const User = require('../models/user');
 
 class HorariController {
   static list(req, res, next) {
@@ -56,7 +57,14 @@ class HorariController {
   }
 
 	static create_get(req, res, next) {
-		res.render("horaris/new");
+		User.find({ role: 'professor' })
+    .then(professors => {
+      res.render('horaris/new', { professors });
+    })
+    .catch(err => {
+      console.error(err);
+      res.redirect('/horaris');
+    });
 	}
 
 	static create_post(req, res) {
