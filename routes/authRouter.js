@@ -1,4 +1,4 @@
-var express = require("express");
+/*var express = require("express");
 var router = express.Router();
 
 // Require user controller.
@@ -23,4 +23,4 @@ router.post(
 	authController.register_post
 );
 
-module.exports = router;
+module.exports = router;*/

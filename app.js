@@ -4,17 +4,7 @@ const app = express();
 const dotenv = require("dotenv");
 var session = require("express-session");
 const nodemailer = require("nodemailer");
-const bodyParser = require("body-parser");
 const cors = require('cors');
-
-// Rutes
-var indexRouter = require("./routes/indexRouter");
-var authRouter = require("./routes/authRouter");
-var horariRouter = require("./routes/horariRouter");
-var baixesmediquesRouter = require("./routes/baixesmediquesRouter");
-var absnoprevistesRouter = require("./routes/absnoprevistesRouter");
-var absprevistesRouter = require("./routes/absprevistesRouter");
-var sortidescurricularsRouter = require("./routes/sortidescurricularsRouter");
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -50,7 +40,7 @@ app.get("/test", (req, res) => {
 const server = app.listen(port, () => {
 	console.log(`Server running on port ${port}`);
 });
-
+/*
 // Set up session
 app.use(
 	session({
@@ -71,24 +61,36 @@ app.use(function (req, res, next) {
 	}
 	next();
 });
+*/
+
+// Rutes
+var indexRouter = require("./routes/indexRouter");
+var authRouter = require("./routes/authRouter");
+var auth = require("./routes/auth");
+var horariRouter = require("./routes/horariRouter");
+var baixesmediquesRouter = require("./routes/baixesmediquesRouter");
+var absnoprevistesRouter = require("./routes/absnoprevistesRouter");
+var absprevistesRouter = require("./routes/absprevistesRouter");
+var sortidescurricularsRouter = require("./routes/sortidescurricularsRouter");
+var users = require("./routes/users");
+
 
 app.use("/home", indexRouter);
-app.use("/auth", authRouter);
+app.use("/auth", auth);
 app.use("/horaris", horariRouter);
 app.use("/baixesmediques", baixesmediquesRouter);
 app.use("/absnoprevistes", absnoprevistesRouter);
 app.use("/absprevistes", absprevistesRouter);
 app.use("/sortidescurriculars", sortidescurricularsRouter);
+app.use("/users", users);
 
 // Habilita crides CORS: Crides des de diferents origens permeses
 
 app.use(cors());
 
-// Comentar línia anterior: enviament dades per formulari
-app.use(express.urlencoded({ extended: true }));
-
 // Canviar per línia següent: Format enviament JSON
 app.use(express.json());
+
 
 // Crides API
 
