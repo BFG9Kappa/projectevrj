@@ -42,11 +42,11 @@ class absnoprevistesController {
 				list_absnoprevistes = await AbsNoPrevista.find();
 			}
 			res.render("absnoprevistes/list", { list: list_absnoprevistes });
-		} catch(error) {
-			var err = new Error(error);
-			err.status = 404;
-			return next(err);
-	}
+			} catch(error) {
+				var err = new Error(error);
+				err.status = 404;
+				return next(err);
+		}
 	}
 
 	static genpdf_get(req, res, next) {
@@ -88,7 +88,7 @@ class absnoprevistesController {
 				absnoprevista: absnoprevista,
 			});
 		} else {
-			req.body.user = req.session.data.userId
+			req.body.user = req.session.data.userId;
 			req.body.data_absnoprevista = new Date(req.body.data_absnoprevista);
 			AbsNoPrevista.create(req.body, function (error, newAbsenciaNoPrevista) {
 				if (error) {
