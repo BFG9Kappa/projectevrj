@@ -1,11 +1,11 @@
 require("dotenv").config({ path: "../.env" });
 const mongoose = require("mongoose");
-const AbsPrevista = require("../models/absnoprevista");
-const absPrevistaJSON = require("./absnoprevistesData.json");
+const AbsNoPrevista = require("../models/absnoprevista");
+const absNoPrevistaJSON = require("./absnoprevistesData.json");
 
 async function seeder() {
-	await AbsPrevista.collection.drop();
-	await AbsPrevista.insertMany(absPrevistaJSON.absnoprevistesData);
+	await AbsNoPrevista.collection.drop();
+	await AbsNoPrevista.insertMany(absNoPrevistaJSON.absnoprevistesData);
 }
 
 const mongoDB = process.env.MONGODB_URI;

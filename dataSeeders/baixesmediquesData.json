@@ -3,17 +3,20 @@
 		{
 			"data_inicial_baixa": 1667725200000,
 			"data_prevista_alta": 1668589200000,
-			"comentari": ""
+			"comentari": "",
+			"user": "643a66dbecaa5501a8ff65b2"
 		},
 		{
 			"data_inicial_baixa": 1676246400000,
 			"data_prevista_alta": 1676851200000,
-			"comentari": "Femur fracturat"
+			"comentari": "Femur fracturat",
+			"user": "643a66e9bb2a63e09b6bd3c7"
 		},
 		{
 			"data_inicial_baixa": 1672650360000,
 			"data_prevista_alta": 1676883900000,
-			"comentari": "Baixa per accident de transit"
+			"comentari": "Baixa per accident de transit",
+			"user": "643a670bfed141cca57f3b18"
 		}
 	]
 }

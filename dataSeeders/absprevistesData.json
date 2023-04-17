@@ -2,15 +2,18 @@
 	"absprevistesData": [
 		{
 			"data_absprevista": 1677402000000,
-			"motiu_abs": "Trasllat de domicili"
+			"motiu_abs": "Trasllat de domicili",
+			"user": "643a66b604e67817f790f34d"
 		},
 		{
 			"data_absprevista": 1677488400000,
-			"motiu_abs": "Naixement de fill"
+			"motiu_abs": "Naixement de fill",
+			"user": "643a670bfed141cca57f3b18"
 		},
 		{
 			"data_absprevista": 1677574800000,
-			"motiu_abs": "Naixement de fill"
+			"motiu_abs": "Naixement de fill",
+			"user": "643a670bfed141cca57f3b18"
 		}
 	]
 }

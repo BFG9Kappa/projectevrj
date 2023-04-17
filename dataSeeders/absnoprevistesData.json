@@ -4,7 +4,8 @@
 			"data_absnoprevista": 1680595200000,
 			"hores_ausencia": 2,
 			"motiu_abs": "Malaltia",
-			"document_justificatiu": "link_a_document.pdf"
+			"document_justificatiu": "link_a_document.pdf",
+			"user": "643a67037ede467a72ffacb3"
 		}
 	]
 }
