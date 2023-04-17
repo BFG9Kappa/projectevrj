@@ -23,14 +23,12 @@ class absnoprevistesController {
 		.withMessage("La data d'absència no pot estar buida.")
 		.custom((value, { req }) => {
 			const data_actual = moment().startOf('day');
-			const data_absnoprevista = moment(value, "DD-MM-YYYY").startOf('day');
-			if (!data_actual.isSame(data_absnoprevista)) {
-				throw new Error(
-					"La data de l'absencia no prevista ha de ser igual a la data actual"
-				);
+			const data_absnoprevista = moment(req.body.data_absnoprevista);
+			if (!data_absnoprevista.isSame(data_actual, 'day')) {
+					throw new Error("La data d'absència no prevista ha de ser la mateixa que la data actual.");
 			}
 			return true;
-		})
+	})
 
 	];
 
@@ -53,7 +51,7 @@ class absnoprevistesController {
 
 	static create_get(req, res, next) {
 		var absnoprevistes = {
-            data_absnoprevista: new Date(),
+      data_absnoprevista: new Date(),
 			hores_ausencia: "",
 			motiu_abs: "",
 			document_justificatiu: "",
@@ -63,39 +61,32 @@ class absnoprevistesController {
 	}
 
 	static create_post(req, res) {
-		const errors = validationResult(req);
-		//console.log(errors.array());
-		// Tenim errors en les dades enviades
+    const errors = validationResult(req);
+    //console.log(errors.array());
+    // Tenim errors en les dades enviades
 
-		if (!errors.isEmpty()) {
-			var absnoprevista = {
-				data_absnoprevista: req.body.data_absnoprevista || new Date(),
-				hores_ausencia: req.body.hores_ausencia,
-				motiu_abs: req.body.motiu_abs,
-				document_justificatiu: req.body.document_justificatiu,
-				_id: req.params.id, // Fa falta per sobreescriure el objecte.
+    if (!errors.isEmpty()) {
+      var absnoprevistes = {
+				data_absnoprevista: new Date(),
+				hores_ausencia: "",
+				motiu_abs: "",
+				document_justificatiu: "",
+				_id: "",
 			};
-			res.render("absnoprevistes/new", {
-				errors: errors.array(),
-				absnoprevista: absnoprevista,
-			});
-		} else {
-			req.body.data_absnoprevista = new Date(req.body.data_absnoprevista);
-			AbsNoPrevista.create({
-				data_absnoprevista: req.body.data_absnoprevista.toISOString(),
-				hores_ausencia: req.body.hores_ausencia,
-				motiu_abs: req.body.motiu_abs,
-				document_justificatiu: req.body.document_justificatiu,
-				_id: req.params.id, // Fa falta per sobreescriure el objecte.
-			}, function (error, newAbsNoPrevista) {
-				if (error) {
-					res.render("absnoprevistes/new", { error: error.message });
-				} else {
-					res.redirect("/absnoprevistes");
-				}
-			});
-		}
-	}
+      res.render("absnoprevistes/new", {
+        errors: errors.array(),
+        absnoprevistes: absnoprevistes,
+      });
+    } else {
+      AbsNoPrevista.create(req.body, function (error, newAbsNoPrevista) {
+        if (error) {
+          res.render("absnoprevistes/new", { error: error.message });
+        } else {
+          res.redirect("/absnoprevistes");
+        }
+      });
+    }
+  }
 
 	static update_get(req, res, next) {
 		AbsNoPrevista.findById(req.params.id, function (err, absnoprevista) {
