@@ -15,9 +15,21 @@ class sortidacurricularController {
 			throw new Error(
 			  "La data de la sortida ha de ser igual o posterior a la data actual"
 			);
-		  }
+		}
 		  return true;
-		})
+		}),
+			// Validación de hora_inici
+			body("hora_inici").notEmpty().withMessage("La hora d'inici no pot estar buida."),
+			// Validación de hora_arribada
+			body("hora_arribada").notEmpty().withMessage("La hora d'arribada no pot estar buida.")
+			.custom((value, { req }) => {
+				const hora_inici = moment(req.body.hora_inici, "HH:mm");
+				const hora_arribada = moment(value, "HH:mm");
+				if (hora_arribada.isSameOrBefore(hora_inici)) {
+					throw new Error("La hora d'arribada ha de ser posterior a la hora d'inici.");
+				}
+				return true;
+			})
   ];
 
   static async list(req, res, next) {
