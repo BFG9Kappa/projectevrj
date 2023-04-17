@@ -22,14 +22,14 @@ class absnoprevistesController {
 		.notEmpty()
 		.withMessage("La data d'absència no pot estar buida.")
 		.custom((value, { req }) => {
-		  const data_actual = moment(req.body.data_actual, "DD-MM-YYYY");
-		  const data_absnoprevista = moment(value, "DD-MM-YYYY");
-		  if (data_absnoprevista.isBefore(data_actual)) {
-			throw new Error(
-			  "La data de l'absencia no prevista ha de ser igual o posterior a la data actual"
-			);
-		  }
-		  return true;
+			const data_actual = moment().startOf('day');
+			const data_absnoprevista = moment(value, "DD-MM-YYYY").startOf('day');
+			if (!data_actual.isSame(data_absnoprevista)) {
+				throw new Error(
+					"La data de l'absencia no prevista ha de ser igual a la data actual"
+				);
+			}
+			return true;
 		})
 
 	];
