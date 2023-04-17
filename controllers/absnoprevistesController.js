@@ -55,6 +55,7 @@ class absnoprevistesController {
 			hores_ausencia: "",
 			motiu_abs: "",
 			document_justificatiu: "",
+			created_at: Date.now(),
 			_id: "",
 		};
 		res.render("absnoprevistes/new", { absnoprevistes: absnoprevistes });
@@ -71,6 +72,7 @@ class absnoprevistesController {
 				hores_ausencia: "",
 				motiu_abs: "",
 				document_justificatiu: "",
+				created_at: Date.now(),
 				_id: "",
 			};
       res.render("absnoprevistes/new", {
@@ -128,6 +130,7 @@ class absnoprevistesController {
 				hores_ausencia: req.body.hores_ausencia,
 				motiu_abs: req.body.motiu_abs,
 				document_justificatiu: req.body.document_justificatiu,
+				created_at: req.body.created_at,
 				_id: req.params.id,
 			});
 			AbsNoPrevista.findByIdAndUpdate(

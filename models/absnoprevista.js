@@ -9,6 +9,10 @@ var AbsNoPrevistaSchema = new Schema({
 	hores_ausencia: { type: Number, required: true },
 	motiu_abs: { type: String, required: true },
 	document_justificatiu: { type: String, required: false },
+	created_at: {
+    type: Date,
+    default: Date.now // Se asigna la fecha actual por defecto.
+  },
 	user: { type: Schema.ObjectId, ref: "User", required: false },
 });
 
