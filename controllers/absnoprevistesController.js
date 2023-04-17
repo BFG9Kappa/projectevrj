@@ -146,7 +146,7 @@ class absnoprevistesController {
 					}
 					res.render("absnoprevistes/update", {
 						absnoprevista: absnoprevista,
-						message: "L'absència no prevista ha estat actualitzada",
+						message: "L'absència no prevista ha estat actualitzada. Tindrà 15 dies per modificar aquesta absència.",
 					});
 				}
 			);

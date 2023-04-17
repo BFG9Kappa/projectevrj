@@ -34,14 +34,14 @@
 							<!-- Input para comparar la fecha de la sortida con la fecha actual para que no hayan errores de validacion-->
 						<input type="date" name="data_actual" id="data_actual" class="form-control" style="display:none"/>
 
-							<label for="name">La data de l'absència no prevista no és editable</label><br>
+							<label for="name">La data de l'absència no prevista NO és editable</label><br>
 							<input type="date" name="data_absnoprevista" class="form-control" style="display:none" value="<%= absnoprevista.data_absnoprevista instanceof Date ? absnoprevista.data_absnoprevista.toISOString().slice(0, 10) : '' %>"/>
 
 							<label for="name">Hores ausencia</label>
 							<input type="number" name="hores_ausencia" class="form-control" value="<%= absnoprevista.hores_ausencia %>"<%= diffDays >= 1? 'readonly' : '' %> required>
 							<% if (diffDays >= 1) { %>
 							<small class="form-text text-muted">Només es pot editar les hores d'una absència no prevista fins a les 24h des de la seva creació.</small>
-							<% } %>/>
+							<% } %>
 
 							<label for="name">Motiu absencia</label>
 							<textarea name="motiu_abs" class="form-control"><%= absnoprevista.motiu_abs %></textarea>
