@@ -24,40 +24,57 @@ class sortidacurricularController {
 		}),
 	];
 
-	static async list(req, res, next) {
+	// Recuperar sortides curriculars
+	static async all(req, res, next) {
+  
 		try {
-			var list_sortidescurriculars = await SortidaCurricular.find();
-			res.render("sortidescurriculars/list", { list: list_sortidescurriculars });
-		} catch (e) {
-			res.send("Error!");
+		  const result = await SortidaCurricular.find();
+		  res.status(200).json(result) 
+		}
+		catch(error) {
+		  res.status(402).json({errors: [{msg:"Hi ha hagut problemes en rebre les sortides curriculars."}]})
+		}   
+	}
+
+
+  // Recuperar les sortides curriculars paginades
+	static async list(req, res, next) {
+      // Configurar la paginació
+      const options = {
+        page: req.query.page || 1,  // Número pàgina
+        limit: 5,       // Número registres per pàgina
+        sort: { _id: -1 },   // Ordenats per id: el més nou el primer
+      };
+
+		try {
+			const result = await SortidaCurricular.paginate({}, options);
+			res.status(200).json(result)
+		}
+		catch(error) {
+			res.status(402).json({errors: [{msg:"Hi ha hagut problemes en rebre les sortides curriculars."}]})
 		}
 	}
 
-	static create_get(req, res, next) {
-		var sortidacurricular = {
-			data_actual: "",
-			data_sortida: "",
-			email: "",
-			lloc: "",
-			ruta: "",
-			objectius: "",
-			grups: "",
-			professors: "",
-			hora_inici: "",
-			hora_arribada: "",
-			comentari: "",
-			estat:"",
-			_id: "",
-		};
-		res.render("sortidescurriculars/new", { sortidacurricular: sortidacurricular });
-	}
+	static async delete(req, res, next) {
 
-	static create_post(req, res) {
-		const errors = validationResult(req);
-		console.log(errors.array());
-		// Tenim errors en les dades enviades
+		try {       
+		  const sortidaCurr = await SortidaCurricular.findByIdAndRemove(req.params.id)
+		  res.status(200).json(sortidaCurr)
+		}
+		catch {
+		  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema eliminant la sortida curricular."}]})
+		}   
+	  }
+
+	  static async create(req, res, next) {
+		const errors = validationResult(req);  
+	
 		if (!errors.isEmpty()) {
-			var sortidacurricular = {
+			res.status(402).json({errors:errors.array()}) 
+		}
+		else { 
+			try {		
+			  const NewSortidaCurricular = await SortidaCurricular.create({
 				data_sortida: req.body.data_sortida,
 				email: req.body.email,
 				lloc: req.body.lloc,
@@ -69,136 +86,48 @@ class sortidacurricularController {
 				hora_arribada: req.body.hora_arribada,
 				estat: req.body.estat,
 				_id: req.params.id,
-			};
-			res.render("sortidescurriculars/new", {
-				errors: errors.array(),
-				sortidacurricular: sortidacurricular,
-			});
-		} else {
-			SortidaCurricular.create(req.body, function (error, newSortidaCurricular) {
-				const transporter = nodemailer.createTransport({
-					service: 'gmail',
-					auth: {
-					  user: 'USER', //email que enviara el correo de la sortida
-					  pass: 'PASSWORD' //hay que poner la contraseña del gmail que quiere enviar el correo
-					}
-				  });
-
-				  const mailOptions = {
-					from: 'rolo836@vidalibarraquer.net',
-					to: req.body.email, // correo del destinatario obtenido del formulario
-					subject: 'Vidal i Barraquer Sortida Curricular',
-					text: 'Teniu una absència generada. Indiqueu per cada hora la tasca de lalumnat corresponenr'
-				  };
-
-				  transporter.sendMail(mailOptions, function(error, info) {
-					if (error) {
-					  console.log(error);
-					} else {
-					  console.log('Correo electrónico enviado: ' + info.response);
-					}
-				  });
-				if (error) {
-					//console.log(error)
-					res.render("sortidescurriculars/new", { error: error.message });
-				} else {
-					res.redirect("/sortidescurriculars");
-				}
-			});
+			  })
+			  res.status(200).json(NewSortidaCurricular)
+			} catch(error) {
+			  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema guardant la sortida curricular"}]})          
+			}        
 		}
+	}	  
+
+	static async update(req, res, next) {
+		const errors = validationResult(req);  
+	
+		if (!errors.isEmpty()) {      
+		  res.status(402).json({errors:errors.array()})      
+		}
+		else {    
+		  
+		  var sortidacurricular = {
+			data_sortida: req.body.data_sortida,
+			email: req.body.email,
+			lloc: req.body.lloc,
+			ruta: req.body.ruta,
+			objectius: req.body.objectius,
+			grups: req.body.grups,
+			professors: req.body.professors,
+			hora_inici: req.body.hora_inici,
+			hora_arribada: req.body.hora_arribada,
+			estat: req.body.estat,
+			_id: req.params.id,
+		  }
+	
+		  try {
+				const UpdateSortidaCurricular = await SortidaCurricular.findByIdAndUpdate(
+					req.params.id, sortidacurricular, {runValidators: true})
+				return res.status(200).json(UpdateSortidaCurricular)
+		  }
+		  catch(error) {
+			res.status(402).json({errors: [{msg:"Hi ha hagut algun problema actualitzant la sortida curricular"}]})          
+		  }
+		}	  
 	}
 
 
-
-	static update_get(req, res, next) {
-		SortidaCurricular.findById(
-			req.params.id,
-			function (err, sortidacurricular) {
-				if (err) {
-					return next(err);
-				}
-				if (sortidacurricular == null) {
-					// No results.
-					var err = new Error("Sortida curricular no trobada");
-					err.status = 404;
-					return next(err);
-				}
-				// Success.
-				res.render("sortidescurriculars/update", {
-					sortidacurricular: sortidacurricular,
-				});
-			}
-		);
-	}
-
-	static async update_post(req, res, next) {
-    // Obtener la fecha actual
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    // Obtener la fecha de salida del formulario y convertirla a objeto Date
-    const dataSortida = new Date(req.body.data_sortida);
-
-    // Comprobar si la fecha de salida es anterior a la fecha actual
-    if (dataSortida < today) {
-        // Si la fecha de salida es anterior a la fecha actual, mostrar un mensaje de error
-        return res.render("sortidescurriculars/update", {
-            error: "La data de la sortida ha de ser igual o posterior al dia actual",
-            sortidacurricular: req.body,
-        });
-    }
-
-    // Si la fecha de salida es igual o posterior a la fecha actual, continuar con el proceso de actualización
-    var sortidacurricular = new SortidaCurricular({
-        data_sortida: req.body.data_sortida,
-        email: req.body.email,
-        lloc: req.body.lloc,
-        ruta: req.body.ruta,
-        objectius: req.body.objectius,
-        grups: req.body.grups,
-        professors: req.body.professors,
-        hora_inici: req.body.hora_inici,
-        hora_arribada: req.body.hora_arribada,
-        estat: req.body.estat,
-        _id: req.params.id,
-    });
-
-    try {
-        await SortidaCurricular.findByIdAndUpdate(req.params.id, {
-            data_sortida: req.body.data_sortida,
-            email: req.body.email,
-            lloc: req.body.lloc,
-            ruta: req.body.ruta,
-            objectius: req.body.objectius,
-            grups: req.body.grups,
-            professors: req.body.professors,
-            hora_inici: req.body.horaInici,
-            hora_arribada: req.body.horaArribada,
-            estat: req.body.Estat
-        });
-        res.redirect('/sortidescurriculars');
-    } catch (err) {
-        res.render("sortidescurriculars/update", {
-            error: err.message,
-            sortidacurricular: req.body,
-        });
-    }
-}
-
-
-	static async delete_get(req, res, next) {
-		res.render("sortidescurriculars/delete", { id: req.params.id });
-	}
-
-	static async delete_post(req, res, next) {
-		SortidaCurricular.findByIdAndRemove(req.params.id, (error) => {
-			if (error) {
-				res.render("sortidescurriculars", { error: error.message });
-			} else {
-				res.redirect("/sortidescurriculars");
-			}
-		});
-	}
 }
 
 module.exports = sortidacurricularController;

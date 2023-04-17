@@ -21,112 +21,101 @@ class absprevistaController {
       //.escape()
 			,
 	];
-	static async list(req, res, next) {
+
+	// Recuperar les absències previstes
+	static async all(req, res, next) {
+  
 		try {
-			var list_absprevistes = await AbsenciaPrevista.find();
-			res.render("absprevistes/list", { list: list_absprevistes });
-		} catch (error) {
-			res.send(error);
+		  const result = await AbsenciaPrevista.find();
+		  res.status(200).json(result) 
 		}
+		catch(error) {
+		  res.status(402).json({errors: [{msg:"Hi ha hagut problemes en rebre les absències previstes."}]})
+		}   
 	}
 
-	static genpdf_get(req, res, next) {
-		res.render("absprevistes/decresp");
+
+  // Recuperar les absències previstes en pàgines
+  static async list(req, res, next) {
+	// Configurar la paginació
+	const options = {
+	  page: req.query.page || 1,  // Número pàgina
+	  limit: 5,       // Número registres per pàgina
+	  sort: { _id: -1 },   // Ordenats per id: el més nou el primer
+	};
+
+	  try {
+		  const result = await AbsenciaPrevista.paginate({}, options);
+		  res.status(200).json(result)
+	  }
+	  catch(error) {
+		  res.status(402).json({errors: [{msg:"Hi ha hagut problemes en rebre les absències previstes."}]})
+	  }
+  }
+
+  static async create(req, res, next) {
+	const errors = validationResult(req);  
+
+
+	if (!errors.isEmpty()) {
+		res.status(402).json({errors:errors.array()}) 
 	}
+	else { 
 
-	static genpdf_post(req, res, next) {
-		res.redirect("/absprevistes");
-	}
-
-	static create_get(req, res, next) {
-		var AbsenciaPrevista = {
-			data_absprevista: "",
-			motiu_abs: "",
-		};
-		res.render("absprevistes/new", { AbsenciaPrevista: AbsenciaPrevista });
-	}
-
-	static create_post(req, res) {
-		const errors = validationResult(req);
-		//console.log(errors.array());
-		// Tenim errors en les dades enviades
-
-		if (!errors.isEmpty()) {
-			var absenciaprevista = {
-				data_absprevista: req.body.data_absprevista,
-				motiu_abs: req.body.motiu_abs,
-				_id: req.params.id,
-			};
-			res.render("absprevistes/new", {
-				errors: errors.array(),
-				absenciaprevista: absenciaprevista,
-			});
-		} else {
-			AbsenciaPrevista.create(req.body, function (error, newAbsenciaPrevista) {
-				if (error) {
-					res.render("absprevistes/new", { error: error.message });
-				} else {
-					res.redirect("/absprevistes");
-				}
-			});
-		}
-	}
-
-	static update_get(req, res, next) {
-		AbsenciaPrevista.findById(req.params.id, function (err, absenciaprevista) {
-			if (err) {
-				return next(err);
-			}
-			if (absenciaprevista == null) {
-				// No results.
-				var err = new Error("Absència prevista no trobada");
-				err.status = 404;
-				return next(err);
-			}
-			// Success.
-			res.render("absprevistes/update", { absenciaprevista: absenciaprevista });
-		});
-	}
-
-	static update_post(req, res, next) {
-		var absenciaprevista = new AbsenciaPrevista({
+		try {		
+		  const NewAbsPrevista = await AbsenciaPrevista.create({
 			data_absprevista: req.body.data_absprevista,
 			motiu_abs: req.body.motiu_abs,
 			_id: req.params.id,
-		});
-
-		AbsenciaPrevista.findByIdAndUpdate(
-			req.params.id,
-			absenciaprevista,
-			{ runValidators: true },
-			function (err, theAbsenciaPrevista) {
-				if (err) {
-					res.render("absprevistes/update", {
-						absenciaprevista: absenciaprevista,
-						error: err.message,
-					});
-				}
-				res.render("absprevistes/update", {
-					absenciaprevista: absenciaprevista,
-					message: "Absència prevista actualitzada",
-				});
-			}
-		);
+		  })
+		  res.status(200).json(NewAbsPrevista)
+		} catch(error) {
+		  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema guardan l'absència prevista"}]})          
+		}        
 	}
+}
 
-	static async delete_get(req, res, next) {
-		res.render("absprevistes/delete", { id: req.params.id });
-	}
+static async delete(req, res, next) {
 
-	static async delete_post(req, res, next) {
-		AbsenciaPrevista.findByIdAndRemove(req.params.id, (error) => {
-			if (error) {
-				res.render("absprevistes", { error: error.message });
-			} else {
-				res.redirect("/absprevistes");
-			}
-		});
+	try {       
+	  const absprevista = await AbsenciaPrevista.findByIdAndRemove(req.params.id)
+	  res.status(200).json(absprevista)
 	}
+	catch {
+	  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema eliminant l'absència prevista."}]})
+	}   
+	
+  }
+
+  static async update(req, res, next) {
+	const errors = validationResult(req);  
+
+	if (!errors.isEmpty()) {      
+	  res.status(402).json({errors:errors.array()})      
+	}
+	else {    
+	  
+	  var absprevista = {
+		data_absprevista: req.body.data_absprevista,
+		motiu_abs: req.body.motiu_abs,
+		_id: req.params.id,
+	  }
+
+	  try {
+			const UpdateAbsNoprevista = await AbsenciaPrevista.findByIdAndUpdate(
+				req.params.id, absprevista, {runValidators: true})
+			return res.status(200).json(UpdateAbsNoprevista)
+	  }
+	  catch(error) {
+		res.status(402).json({errors: [{msg:"Hi ha hagut algun problema actualitzant l'absència prevista"}]})          
+	  }
+		 
+	}
+	  
+  }
+
+
+
 }
 
 module.exports = absprevistaController;
