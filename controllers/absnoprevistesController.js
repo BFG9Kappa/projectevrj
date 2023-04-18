@@ -107,6 +107,17 @@ class absnoprevistesController {
 	}
 
 	static update_post(req, res, next) {
+		// Definir validaciones
+		const validations = [
+			body('hores_ausencia').bail().notEmpty().withMessage('Les hores d\'absència no poden estar buides.').bail().isInt({min:1, max:8})
+			.withMessage("Les hores d'absència han de ser d'1 a 8 hores.")
+			.escape(),
+			body('motiu_abs').notEmpty().withMessage('El motiu de l\'absència no pot estar buit.'),
+		];
+
+		// Validar
+		Promise.all(validations.map(validation => validation.run(req)))
+			.then(() => {
 		const errors = validationResult(req);
 
 		if (!errors.isEmpty()) {
@@ -151,6 +162,8 @@ class absnoprevistesController {
 				}
 			);
 		}
+	})
+	.catch(next);
 	}
 
 	static async delete_get(req, res, next) {
