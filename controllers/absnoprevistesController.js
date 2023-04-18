@@ -101,8 +101,12 @@ class absnoprevistesController {
 				err.status = 404;
 				return next(err);
 			}
+			 // Calcula la diferencia de tiempo entre la fecha actual y la fecha del campo oculto
+			 const formDate = new Date(req.body.created_at);
+			 const elapsedTime = (new Date() - formDate) / (1000 * 60);
+			 const disabled = elapsedTime >= 2;
 			// Success.
-			res.render("absnoprevistes/update", { absnoprevista: absnoprevista });
+			res.render("absnoprevistes/update", { absnoprevista: absnoprevista, disabled: disabled});
 		});
 	}
 
