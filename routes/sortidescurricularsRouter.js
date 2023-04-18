@@ -14,4 +14,7 @@ router.post("/delete/:id", sortidacurricular_controller.delete_post);
 router.get("/update/:id", sortidacurricular_controller.update_get);
 router.post("/update/:id", sortidacurricular_controller.rules, sortidacurricular_controller.update_post);
 
+router.get("/duplicar/:id", sortidacurricular_controller.duplicar_get);
+router.post("/duplicar/:id", sortidacurricular_controller.duplicar_post);
+
 module.exports = router;
