@@ -1,6 +1,7 @@
 const AbsNoPrevista = require("../models/absnoprevista");
 const moment = require("moment");
 const { body, validationResult } = require("express-validator");
+const user = require("../models/user");
 
 class absnoprevistesController {
 	static rules = [
@@ -35,11 +36,9 @@ class absnoprevistesController {
 
 	static async list(req, res, next) {
 		try {
-			var list_absnoprevistes;
+			const list_absnoprevistes = await AbsNoPrevista.find();
 			if(req.session.data != undefined) {
-				list_absnoprevistes = await AbsNoPrevista.find({ user: req.session.data.userId });
-			} else {
-				list_absnoprevistes = await AbsNoPrevista.find();
+				console.log("ey")
 			}
 			res.render("absnoprevistes/list", { list: list_absnoprevistes });
 			} catch(error) {
