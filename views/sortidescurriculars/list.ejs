@@ -12,7 +12,6 @@
 	</header>
 	<main>
 		<div class="card mt-2">
-
 			<div class="card-header">
 				<h5 class="card-title">Llista sortides curriculars</h5>
 			</div>
@@ -59,7 +58,7 @@
 									<%= sortidacurricular.grups %>
 								</td>
 								<td class="align-middle text-center">
-									<%= sortidacurricular.professors %>
+									<%= sortidacurricular.professor %>
 								</td>
 								<td class="align-middle text-center">
 									<%= sortidacurricular.hora_inici %>
@@ -71,13 +70,10 @@
 									<%= sortidacurricular.estat %>
 								</td>
 								<td>
-									<a class="btn btn-secondary"
-										href="/sortidescurriculars/update/<%=sortidacurricular._id%>"
-										class="card-link">Editar</a>
+									<a class="btn btn-secondary" href="/sortidescurriculars/update/<%=sortidacurricular._id%>" class="card-link">Editar</a>
 								</td>
 								<td>
-									<a class="btn btn-danger" href="/sortidescurriculars/delete/<%=sortidacurricular._id%>"
-										class="card-link">Esborrar</a>
+									<a class="btn btn-danger" href="/sortidescurriculars/delete/<%=sortidacurricular._id%>" class="card-link">Esborrar</a>
 								</td>
 							</tr>
 							<% }); %>

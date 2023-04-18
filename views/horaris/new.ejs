@@ -22,6 +22,7 @@
                 <form method="POST" action="/horaris/create">
                     <div class="form-group">
                         <label for="dia" class="form-label">Dia</label>
+												<br>
                         <select class="form-select" id="dia" name="dia">
                             <option value="1">Dilluns</option>
                             <option value="2">Dimarts</option>
@@ -31,6 +32,7 @@
                         </select>
                         <br>
                         <label class="form-label">Hora</label>
+												<br>
                         <select class="form-select" id="hora" name="hora">
                             <optgroup label="Diurn">
                                 <option value="1">08:00 - 09:00</option>
@@ -61,6 +63,7 @@
                         <input type="text" name="professor" class="form-control">
 												-->
 												<label class="form-label">Professor</label>
+												<br>
 												<select name="professor" class="form-select">
 													<% for (let i = 0; i < professors.length; i++) { %>
 														<option value="<%= professors[i]._id %>"><%= professors[i].fullname %></option>

@@ -1,4 +1,5 @@
-var SortidaCurricular = require("../models/sortidacurricular");
+const SortidaCurricular = require("../models/sortidacurricular");
+const User = require("../models/user");
 const moment = require("moment");
 const { body, validationResult } = require("express-validator");
 const nodemailer = require("nodemailer");
@@ -32,23 +33,31 @@ class sortidacurricularController {
   }
 
   static create_get(req, res, next) {
-    var sortidacurricular = {
-      data_actual: "",
-      data_sortida: "",
-      email: "",
-      lloc: "",
-      ruta: "",
-      objectius: "",
-      grups: "",
-      professors: "",
-      hora_inici: "",
-      hora_arribada: "",
-      comentari: "",
-      estat: "",
-      _id: "",
-    };
-    res.render("sortidescurriculars/new", {
-      sortidacurricular: sortidacurricular,
+		User.find({ role: 'professor' })
+		.then(professors => {
+			var sortidacurricular = {
+				data_actual: "",
+				data_sortida: "",
+				email: "",
+				lloc: "",
+				ruta: "",
+				objectius: "",
+				grups: "",
+				professor: "",
+				hora_inici: "",
+				hora_arribada: "",
+				comentari: "",
+				estat: "",
+				_id: "",
+			};
+			res.render("sortidescurriculars/new", {
+				sortidacurricular: sortidacurricular,professors
+			});
+
+    })
+		.catch(err => {
+      console.error(err);
+      res.redirect('/horaris');
     });
   }
 
@@ -64,7 +73,7 @@ class sortidacurricularController {
         ruta: req.body.ruta,
         objectius: req.body.objectius,
         grups: req.body.grups,
-        professors: req.body.professors,
+        professor: req.body.professor,
         hora_inici: req.body.hora_inici,
         hora_arribada: req.body.hora_arribada,
         estat: req.body.estat,
