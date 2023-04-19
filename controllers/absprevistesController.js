@@ -24,13 +24,15 @@ class absprevistaController {
   static async list(req, res, next) {
     try {
 			var list_absprevistes;
-			if(req.session.data != undefined) {
-				list_absprevistes = await AbsenciaPrevista.find({ user: req.session.data.userId });
-			} else {
+			if (req.session.data != undefined && req.session.data.role.includes("administrador")) {
 				list_absprevistes = await AbsenciaPrevista.find();
+				res.render("absprevistes/list", { list: list_absprevistes });
+			} else if (req.session.data != undefined) {
+				list_absprevistes = await AbsenciaPrevista.find({ user: req.session.data.userId });
+				res.render("absprevistes/list", { list: list_absprevistes });
+			} else {
+				res.redirect("/auth/login");
 			}
-      //var list_absprevistes = await AbsenciaPrevista.find();
-      res.render("absprevistes/list", { list: list_absprevistes });
     } catch (error) {
       res.send(error);
     }

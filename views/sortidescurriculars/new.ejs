@@ -3,22 +3,21 @@
 	<head>
 		<%- include('../partials/head'); %>
 		<script>
-					document.addEventListener("DOMContentLoaded", function() {
-			document.getElementById("data_sortida").valueAsDate = new Date();
-		});
-				function setDefaultDate() {
+			document.addEventListener("DOMContentLoaded", function () {
+				document.getElementById("data_sortida").valueAsDate = new Date();
+			});
+			function setDefaultDate() {
 				const now = new Date();
-				const day = now.getDate().toString().padStart(2, '0');
-				const month = (now.getMonth() + 1).toString().padStart(2, '0');
+				const day = now.getDate().toString().padStart(2, "0");
+				const month = (now.getMonth() + 1).toString().padStart(2, "0");
 				const year = now.getFullYear().toString();
 				const today = `${year}-${month}-${day}`;
-
-	 		document.getElementById('data_actual').value = today;
+				document.getElementById("data_actual").value = today;
 			}
+			window.onload = function () {
+				setDefaultDate();
+			};
 
-			window.onload = function() {
-  				setDefaultDate();
-}
 		</script>
 	</head>
 
@@ -33,100 +32,96 @@
 					<form method="POST" action="/sortidescurriculars/create">
 						<div class="form-group">
 							<!-- Input para comparar la fecha de la sortida con la fecha actual para que no hayan errores de validacion-->
-							<input type="date" name="data_actual" id="data_actual" class="form-control" style="display:none"/>
-
+							<input type="date" name="data_actual" id="data_actual" class="form-control" style="display: none"/>
 							<label for="data_sortida">Data sortida curricular</label>
 							<input type="date" name="data_sortida" id="data_sortida" class="form-control"/>
-
 							<label for="email">E-mail</label>
-							<input type="email" name="email" class="form-control" />
-
+							<input type="email" name="email" class="form-control">
 							<label for="lloc">Lloc de sortida</label>
-							<input type="text" name="lloc" class="form-control" />
-
+							<input type="text" name="lloc" class="form-control">
 							<label for="ruta">Ruta</label>
-							<input type="text" name="ruta" class="form-control" />
-
+							<input type="text" name="ruta" class="form-control">
 							<label for="objectius">Objectius</label>
-							<input type="text" name="objectius" class="form-control" />
-
+							<input type="text" name="objectius" class="form-control">
 							<label for="grups">Grups</label>
-							<input type="text" name="grups" class="form-control" />
+							<input type="text" name="grups" class="form-control">
 
-							<label for="professors">Professors</label>
-							<input type="text" name="professors" class="form-control" />
+							<label for="professor">Professor</label>
 							<br>
+							<select name="professor" class="form-select">
+								<% for (let i = 0; i < professors.length; i++) { %>
+									<option value="<%= professors[i]._id %>"><%= professors[i].fullname %></option>
+								<% } %>
+							</select>
 
+
+							<br />
 							<label class="form-label" for="hora_inici">Hora inici</label>
-							<br>
+							<br />
 							<select class="form-select" id="hora_inici" name="hora_inici">
-                            <optgroup label="Diurn">
-                                <option >08:00</option>
-                                <option >09:00</option>
-                                <option >10:00</option>
-																<option >10:00</option>
-                                <option >11:00</option>
-																<option >11:30</option>
-                                <option >12:30</option>
-                                <option >13:30</option>
-																<option >14:30</option>
-                            </optgroup>
-                            <optgroup label="Nocturn">
-                                <option >15:00</option>
-                                <option >16:00</option>
-                                <option >17:00</option>
-                                <option >18:30</option>
-                                <option >19:30</option>
-                                <option >20:30</option>
-                            </optgroup>
-                        </select>
-												<br>
-												<br>
-
+								<optgroup label="Diurn">
+									<option>08:00</option>
+									<option>09:00</option>
+									<option>10:00</option>
+									<option>10:00</option>
+									<option>11:00</option>
+									<option>11:30</option>
+									<option>12:30</option>
+									<option>13:30</option>
+									<option>14:30</option>
+								</optgroup>
+								<optgroup label="Nocturn">
+									<option>15:00</option>
+									<option>16:00</option>
+									<option>17:00</option>
+									<option>18:30</option>
+									<option>19:30</option>
+									<option>20:30</option>
+								</optgroup>
+							</select>
+							<br />
+							<br />
 							<label class="form-label" for="hora_arribada">Hora arribada</label>
-							<br>
+							<br />
 							<select class="form-select" id="hora_arribada" name="hora_arribada">
-                            <optgroup label="Diurn">
-
-                                <option >08:00</option>
-                                <option >09:00</option>
-                                <option >10:00</option>
-																<option >11:00</option>
-                                <option >11:30</option>
-                                <option >12:30</option>
-                                <option >13:30</option>
-                            </optgroup>
-                            <optgroup label="Nocturn">
-                                <option >15:00</option>
-                                <option >16:00</option>
-                                <option >17:00</option>
-																<option >18:00</option>
-                                <option >18:30</option>
-                                <option >19:30</option>
-                                <option >20:30</option>
-                            </optgroup>
-                        </select>
-												<br>
-												<br>
-
+								<optgroup label="Diurn">
+									<option>08:00</option>
+									<option>09:00</option>
+									<option>10:00</option>
+									<option>11:00</option>
+									<option>11:30</option>
+									<option>12:30</option>
+									<option>13:30</option>
+								</optgroup>
+								<optgroup label="Nocturn">
+									<option>15:00</option>
+									<option>16:00</option>
+									<option>17:00</option>
+									<option>18:00</option>
+									<option>18:30</option>
+									<option>19:30</option>
+									<option>20:30</option>
+								</optgroup>
+							</select>
+							<br />
+							<br />
 							<label class="form-label" for="estat">Estat</label>
-							<br>
+							<br />
 							<select class="form-select" id="estat" name="estat">
-
-                                <option >Proposada</option>
-                                <option >Refusada</option>
-                                <option >Anul·lada</option>
-                                <option >Aprovada</option>
+								<option>Proposada</option>
+								<option>Refusada</option>
+								<option>Anul·lada</option>
+								<option>Aprovada</option>
 							</select>
 						</div>
 						<button type="submit" class="btn btn-primary">Desar</button>
 					</form>
 					<% if (typeof errors !== "undefined") { %>
-						<div class="alert alert-danger mt-2" role="alert">
-							<% errors.forEach(function(error) { %>
-								<p><%= error.msg %></p>
-							<% }) %>
-						</div>
+					<div class="alert alert-danger mt-2" role="alert">
+						<% errors.forEach(function(error) { %>
+						<p><%= error.msg %></p>
+						<% }) %>
+					</div>
 					<% } %>
 				</div>
 			</div>

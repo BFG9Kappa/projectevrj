@@ -7,44 +7,49 @@ class absnoprevistesController {
 	static rules = [
 		// validar hores absència, no poden estar buides i han de ser números enters d'1 a 8
 		body("hores_ausencia")
-		.bail()
-		.notEmpty()
-		.withMessage("Les hores d'absència no poden estar buides.")
-		.bail()
-		.isInt({min:1, max:8})
-		.withMessage("Les hores d'absència han de ser d'1 a 8 hores.")
-		.escape(),
+			.bail()
+			.notEmpty()
+			.withMessage("Les hores d'absència no poden estar buides.")
+			.bail()
+			.isInt({ min: 1, max: 8 })
+			.withMessage("Les hores d'absència han de ser d'1 a 8 hores.")
+			.escape(),
 		// validar motiu_abs, no pot estar buit i s'eliminen els espais en blanc a l'inici i al final del text
 		body("motiu_abs")
-		.notEmpty()
-		.withMessage("El motiu de l'absència no pot estar buit."),
+			.notEmpty()
+			.withMessage("El motiu de l'absència no pot estar buit."),
 		// validar data_absnoprevista, no pot estar buida la data d'absència no prevista
 		body("data_absnoprevista")
-		.notEmpty()
-		.withMessage("La data d'absència no pot estar buida.")
-		.custom((value, { req }) => {
-		  const data_actual = moment(req.body.data_actual, "DD-MM-YYYY");
-		  const data_absnoprevista = moment(value, "DD-MM-YYYY");
-		  if (data_absnoprevista.isBefore(data_actual)) {
-			throw new Error(
-			  "La data de l'absencia no prevista ha de ser igual o posterior a la data actual"
-			);
-		  }
-		  return true;
-		})
+			.notEmpty()
+			.withMessage("La data d'absència no pot estar buida.")
+			.custom((value, { req }) => {
+				const data_actual = moment(req.body.data_actual, "DD-MM-YYYY");
+				const data_absnoprevista = moment(value, "DD-MM-YYYY");
+				if (data_absnoprevista.isBefore(data_actual)) {
+					throw new Error(
+						"La data de l'absencia no prevista ha de ser igual o posterior a la data actual"
+					);
+				}
+				return true;
+			}),
 	];
 
 	static async list(req, res, next) {
 		try {
-			const list_absnoprevistes = await AbsNoPrevista.find();
-			if(req.session.data != undefined) {
-				console.log("ey")
+			var list_absnoprevistes;
+			if (req.session.data != undefined && req.session.data.role.includes("administrador")) {
+				list_absnoprevistes = await AbsNoPrevista.find();
+				res.render("absnoprevistes/list", { list: list_absnoprevistes });
+			} else if (req.session.data != undefined) {
+				list_absnoprevistes = await AbsNoPrevista.find({ user: req.session.data.userId });
+				res.render("absnoprevistes/list", { list: list_absnoprevistes });
+			} else {
+				res.redirect("/auth/login");
 			}
-			res.render("absnoprevistes/list", { list: list_absnoprevistes });
-			} catch(error) {
-				var err = new Error(error);
-				err.status = 404;
-				return next(err);
+		} catch (error) {
+			var err = new Error(error);
+			err.status = 404;
+			return next(err);
 		}
 	}
 
@@ -58,7 +63,7 @@ class absnoprevistesController {
 
 	static create_get(req, res, next) {
 		var absnoprevistes = {
-      data_absnoprevista: new Date(),
+			data_absnoprevista: new Date(),
 			hores_ausencia: "",
 			motiu_abs: "",
 			document_justificatiu: "",
