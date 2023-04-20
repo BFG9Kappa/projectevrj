@@ -32,13 +32,58 @@
 							<!-- Input para comparar la fecha de la sortida con la fecha actual para que no hayan errores de validacion-->
 						<input type="date" name="data_actual" id="data_actual" class="form-control" style="display:none"/>
 
-							<label for="name">Data absencia no prevista</label>
-							<input type="date" name="data_absnoprevista" class="form-control" value="<%= absnoprevista.data_absnoprevista instanceof Date ? absnoprevista.data_absnoprevista.toISOString().slice(0, 10) : '' %>"/>
+							<label for="name">La data de l'absència no prevista NO és editable</label><br>
+							<input type="date" name="data_absnoprevista" class="form-control" style="display:none" value="<%= absnoprevista.data_absnoprevista instanceof Date ? absnoprevista.data_absnoprevista.toISOString().slice(0, 10) : '' %>"/>
 
-							<label for="name">Hores ausencia</label>
-							<input type="number" name="hores_ausencia" class="form-control" value="<%= absnoprevista.hores_ausencia %>"/>
+							<label class="form-label" for="hora_inici_absnoprevista">Hora inici</label>
+							<br>
+								<select class="form-select" id="hora_inici_absnoprevista" name="hora_inici_absnoprevista" value="hora_inici_absnoprevista">
+							<optgroup label="Diurn">
+									<option value="08:00" <%= absnoprevista.hora_inici_absnoprevista === '08:00' ? 'selected' : '' %>>08:00</option>
+									<option value="09:00" <%= absnoprevista.hora_inici_absnoprevista === '09:00' ? 'selected' : '' %>>09:00</option>
+									<option value="10:00" <%= absnoprevista.hora_inici_absnoprevista === '10:00' ? 'selected' : '' %>>10:00</option>
+									<option value="11:00" <%= absnoprevista.hora_inici_absnoprevista === '11:00' ? 'selected' : '' %>>11:00</option>
+									<option value="11:30" <%= absnoprevista.hora_inici_absnoprevista === '11:30' ? 'selected' : '' %>>11:30</option>
+									<option value="12:30" <%= absnoprevista.hora_inici_absnoprevista === '12:30' ? 'selected' : '' %>>12:30</option>
+									<option value="13:30" <%= absnoprevista.hora_inici_absnoprevista === '13:30' ? 'selected' : '' %>>13:30</option>
+								</optgroup>
+								<optgroup label="Nocturn">
+									<option value="15:00" <%= absnoprevista.hora_inici_absnoprevista === '15:00' ? 'selected' : '' %>>15:00</option>
+									<option value="16:00" <%= absnoprevista.hora_inici_absnoprevista === '16:00' ? 'selected' : '' %>>16:00</option>
+									<option value="17:00" <%= absnoprevista.hora_inici_absnoprevista === '17:00' ? 'selected' : '' %>>17:00</option>
+									<option value="18:30" <%= absnoprevista.hora_inici_absnoprevista === '18:30' ? 'selected' : '' %>>18:30</option>
+									<option value="19:30" <%= absnoprevista.hora_inici_absnoprevista === '19:30' ? 'selected' : '' %>>19:30</option>
+									<option value="20:30" <%= absnoprevista.hora_inici_absnoprevista === '20:30' ? 'selected' : '' %>>20:30</option>
+									</optgroup>
+							</select>
+							<br>
+							<br>
 
-							<label for="name">Motiu absencia</label>
+								<label class="form-label" for="hora_final_absnoprevista">Hora arribada</label>
+								<br>
+								<select class="form-select" id="hora_final_absnoprevista" name="hora_final_absnoprevista" value="hora_final_absnoprevista">
+							<optgroup label="Diurn">
+									<option value="08:00" <%= absnoprevista.hora_final_absnoprevista === '08:00' ? 'selected' : '' %>>08:00</option>
+									<option value="09:00" <%= absnoprevista.hora_final_absnoprevista === '09:00' ? 'selected' : '' %>>09:00</option>
+									<option value="10:00" <%= absnoprevista.hora_final_absnoprevista === '10:00' ? 'selected' : '' %>>10:00</option>
+									<option value="11:00" <%= absnoprevista.hora_final_absnoprevista === '11:00' ? 'selected' : '' %>>11:00</option>
+									<option value="11:30" <%= absnoprevista.hora_final_absnoprevista === '11:30' ? 'selected' : '' %>>11:30</option>
+									<option value="12:30" <%= absnoprevista.hora_final_absnoprevista === '12:30' ? 'selected' : '' %>>12:30</option>
+									<option value="13:30" <%= absnoprevista.hora_final_absnoprevista === '13:30' ? 'selected' : '' %>>13:30</option>
+									<option value="14:30" <%= absnoprevista.hora_final_absnoprevista === '14:30' ? 'selected' : '' %>>14:30</option>
+								</optgroup>
+								<optgroup label="Nocturn">
+									<option value="15:00" <%= absnoprevista.hora_final_absnoprevista === '15:00' ? 'selected' : '' %>>15:00</option>
+									<option value="16:00" <%= absnoprevista.hora_final_absnoprevista === '16:00' ? 'selected' : '' %>>16:00</option>
+									<option value="17:00" <%= absnoprevista.hora_final_absnoprevista === '17:00' ? 'selected' : '' %>>17:00</option>
+									<option value="18:30" <%= absnoprevista.hora_final_absnoprevista === '18:30' ? 'selected' : '' %>>18:30</option>
+									<option value="19:30" <%= absnoprevista.hora_final_absnoprevista === '19:30' ? 'selected' : '' %>>19:30</option>
+									<option value="20:30" <%= absnoprevista.hora_final_absnoprevista === '20:30' ? 'selected' : '' %>>20:30</option>
+								</optgroup>
+						</select>
+						<br>
+						<br>
+							<label for="name">Motiu absència</label>
 							<textarea name="motiu_abs" class="form-control"><%= absnoprevista.motiu_abs %></textarea>
 
 							<label for="name">Document justificatiu</label>

@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+/*var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 //var crypto = require('crypto');
 
@@ -16,4 +16,4 @@ var UserSchema = new Schema({
 });
 
 // Export model
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);*/

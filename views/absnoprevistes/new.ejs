@@ -7,6 +7,7 @@
 <body class="container">
 	<header>
 		<%- include('../partials/header'); %>
+
 		<script>
 			document.addEventListener("DOMContentLoaded", function() {
 			  document.getElementById("data_absnoprevista").valueAsDate = new Date();
@@ -20,10 +21,10 @@
 
 	 		document.getElementById('data_actual').value = today;
 			}
+			$(document).ready(function() {
+			setDefaultDate();
+	});
 
-			window.onload = function() {
-  				setDefaultDate();
-}
 		  </script>
 	</header>
 	<main>
@@ -37,12 +38,60 @@
 					<div class="form-group">
 						<!-- Input para comparar la fecha de la sortida con la fecha actual para que no hayan errores de validacion-->
 						<input type="date" name="data_actual" id="data_actual" class="form-control" style="display:none"/>
-						
+
 						<label for="name">Data absència no prevista</label>
 						<input type="date" name="data_absnoprevista" id="data_absnoprevista" class="form-control">
 
-						<label for="name">Hores d'absència</label>
-						<input type="number" name="hores_ausencia" class="form-control">
+						<br>
+
+						<label class="form-label" for="hora_inici_absnoprevista">Hora inici absència no prevista</label>
+						<select class="form-select" id="hora_inici_absnoprevista" name="hora_inici_absnoprevista">
+													<optgroup label="Diurn">
+															<option >08:00</option>
+															<option >09:00</option>
+															<option >10:00</option>
+															<option >10:00</option>
+															<option >11:00</option>
+															<option >11:30</option>
+															<option >12:30</option>
+															<option >13:30</option>
+															<option >14:30</option>
+													</optgroup>
+													<optgroup label="Nocturn">
+															<option >15:00</option>
+															<option >16:00</option>
+															<option >17:00</option>
+															<option >18:30</option>
+															<option >19:30</option>
+															<option >20:30</option>
+													</optgroup>
+											</select>
+
+						<label class="form-label" for="hora_final_absnoprevista"> fins a:</label>
+						<select class="form-select" id="hora_final_absnoprevista" name="hora_final_absnoprevista">
+													<optgroup label="Diurn">
+
+															<option >08:00</option>
+															<option >09:00</option>
+															<option >10:00</option>
+															<option >11:00</option>
+															<option >11:30</option>
+															<option >12:30</option>
+															<option >13:30</option>
+															<option >14:30</option>
+													</optgroup>
+													<optgroup label="Nocturn">
+															<option >15:00</option>
+															<option >16:00</option>
+															<option >17:00</option>
+															<option >18:00</option>
+															<option >18:30</option>
+															<option >19:30</option>
+															<option >20:30</option>
+													</optgroup>
+											</select>
+											<br>
+											<br>
 
 						<label for="name">Motiu absència</label>
 						<textarea name="motiu_abs" class="form-control"></textarea>
