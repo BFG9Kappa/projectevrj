@@ -1,13 +1,14 @@
-var AbsNoPrevista = require("../models/absnoprevista");
+const AbsNoPrevista = require("../models/absnoprevista");
 const moment = require("moment");
 const { body, validationResult } = require("express-validator");
+const user = require("../models/user");
 
 class absnoprevistesController {
 	static rules = [
 		// validar motiu_abs, no pot estar buit i s'eliminen els espais en blanc a l'inici i al final del text
 		body("motiu_abs")
-		.notEmpty()
-		.withMessage("El motiu de l'absència no pot estar buit."),
+			.notEmpty()
+			.withMessage("El motiu de l'absència no pot estar buit."),
 		// validar data_absnoprevista, no pot estar buida la data d'absència no prevista
 		body("data_absnoprevista")
 		.notEmpty()
@@ -32,15 +33,24 @@ class absnoprevistesController {
 		}
 		return true;
 	})
-
 	];
 
 	static async list(req, res, next) {
 		try {
-			var list_absnoprevistes = await AbsNoPrevista.find();
-			res.render("absnoprevistes/list", { list: list_absnoprevistes });
+			var list_absnoprevistes;
+			if (req.session.data != undefined && req.session.data.role.includes("administrador")) {
+				list_absnoprevistes = await AbsNoPrevista.find();
+				res.render("absnoprevistes/list", { list: list_absnoprevistes });
+			} else if (req.session.data != undefined) {
+				list_absnoprevistes = await AbsNoPrevista.find({ user: req.session.data.userId });
+				res.render("absnoprevistes/list", { list: list_absnoprevistes });
+			} else {
+				res.redirect("/auth/login");
+			}
 		} catch (error) {
-			res.send(error);
+			var err = new Error(error);
+			err.status = 404;
+			return next(err);
 		}
 	}
 
@@ -59,6 +69,7 @@ class absnoprevistesController {
       hora_final_absnoprevista: "",
 			motiu_abs: "",
 			document_justificatiu: "",
+      user: "",
 			created_at: Date.now(),
 			_id: "",
 		};
@@ -77,6 +88,7 @@ class absnoprevistesController {
     	  hora_final_absnoprevista: "",
 				motiu_abs: "",
 				document_justificatiu: "",
+        user: req.session.data.userId,
 				created_at: Date.now(),
 				_id: "",
 			};
@@ -85,6 +97,8 @@ class absnoprevistesController {
         absnoprevistes: absnoprevistes,
       });
     } else {
+    req.body.user = req.session.data.userId;
+    req.body.data_absnoprevista = new Date(req.body.data_absnoprevista); 
       AbsNoPrevista.create(req.body, function (error, newAbsNoPrevista) {
         if (error) {
           res.render("absnoprevistes/new", { error: error.message });

@@ -1,4 +1,4 @@
-/*exports.isAuth = function (req, res, next) {
+exports.isAuth = function (req, res, next) {
 	if (!req.session.data) {
 		res.redirect("/auth/login");
 	} else {
@@ -29,4 +29,4 @@ exports.hasRole = function (role) {
 	};
 };
 
-// module.exports = isAuth;*/
+//module.exports = exports.isAuth;

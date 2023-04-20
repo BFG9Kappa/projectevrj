@@ -1,5 +1,6 @@
-var BaixaMedica = require("../models/baixamedica");
-var User = require("../models/user");
+const BaixaMedica = require("../models/baixamedica");
+const User = require("../models/user");
+const isAuth = require('../middlewares/authenticate');
 
 const moment = require("moment");
 const { body, validationResult } = require("express-validator");
@@ -43,16 +44,19 @@ class baixesmediquesController {
 	static async list(req, res, next) {
 		try {
 			var list_baixesmediques;
-			if(req.session.data != undefined) {
-				list_baixesmediques = await BaixaMedica.find({ user: req.session.data.userId });
-			} else {
+			if (req.session.data != undefined && req.session.data.role.includes("administrador")) {
 				list_baixesmediques = await BaixaMedica.find();
+				res.render("baixesmediques/list", { list: list_baixesmediques });
+			} else if (req.session.data != undefined) {
+				list_baixesmediques = await BaixaMedica.find({ user: req.session.data.userId });
+				res.render("baixesmediques/list", { list: list_baixesmediques });
+			} else {
+				res.redirect("/auth/login");
 			}
-			res.render("baixesmediques/list", { list: list_baixesmediques });
 		} catch(error) {
-				var err = new Error(error);
-				err.status = 404;
-				return next(err);
+			var err = new Error(error);
+			err.status = 404;
+			return next(err);
 		}
 	}
 
@@ -87,7 +91,6 @@ class baixesmediquesController {
 				baixamedica: baixamedica,
 			});
 		} else {
-
 			req.body.user = req.session.data.userId
 			BaixaMedica.create(req.body, function (error, newBaixamedica) {
 				if (error) {

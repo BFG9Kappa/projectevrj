@@ -14,13 +14,10 @@
 				<div class="card-body">
 					<table class="table table-striped">
 						<a href="/baixesmediques/create" class="btn btn-primary">Nova</a>
-						<br />
-						<br />
+						<br>
+						<br>
 						<thead>
 							<tr>
-								<!--
-								<th class="align-middle text-center" scope="col">ID</th>
-								-->
 								<th class="align-middle text-center" scope="col">Data inicial baixa</th>
 								<th class="align-middle text-center" scope="col">Data prevista alta</th>
 								<th class="align-middle text-center" scope="col">Comentari</th>
@@ -30,33 +27,20 @@
 						<tbody>
 							<% list.forEach( function(baixamedica) { %>
 							<tr>
-								<!--
-								<td class="align-middle text-center"><%= baixamedica.id %></td>
-								-->
 								<td class="align-middle text-center">
-									<%=
-									moment(baixamedica.data_inicial_baixa).format('DD/MM/YYYY') %>
+									<%=moment(baixamedica.data_inicial_baixa).format('DD/MM/YYYY') %>
 								</td>
 								<td class="align-middle text-center">
-									<%=
-									moment(baixamedica.data_prevista_alta).format('DD/MM/YYYY') %>
+									<%=moment(baixamedica.data_prevista_alta).format('DD/MM/YYYY') %>
 								</td>
-								<td class="align-middle text-center"><%= baixamedica.comentari %></td>
 								<td class="align-middle text-center">
-									<a
-										class="btn btn-secondary"
-										href="/baixesmediques/update/<%=baixamedica._id%>"
-										class="card-link"
-										>Editar</a
-									>
+									<%= baixamedica.comentari %>
+								</td>
+								<td class="align-middle text-center">
+									<a class="btn btn-secondary" href="/baixesmediques/update/<%=baixamedica._id%>" class="card-link">Editar</a>
 								</td>
 								<td>
-									<a
-										class="btn btn-danger"
-										href="/baixesmediques/delete/<%=baixamedica._id%>"
-										class="card-link"
-										>Esborrar</a
-									>
+									<a class="btn btn-danger" href="/baixesmediques/delete/<%=baixamedica._id%>" class="card-link">Esborrar</a>
 								</td>
 							</tr>
 							<% }); %>
@@ -65,6 +49,8 @@
 				</div>
 			</div>
 		</main>
-		<footer><%- include('../partials/footer'); %></footer>
+		<footer>
+			<%- include('../partials/footer'); %>
+		</footer>
 	</body>
 </html>

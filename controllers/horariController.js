@@ -1,4 +1,6 @@
-var Horari = require("../models/horari");
+const Horari = require("../models/horari");
+const User = require("../models/user");
+const isAdmin = require("../middlewares/isAdmin");
 
 class HorariController {
   static list(req, res, next) {
@@ -45,9 +47,15 @@ class HorariController {
           horari[h.hora][h.dia].materia = h.materia;
           horari[h.hora][h.dia].aula = h.aula;
           horari[h.hora][h.dia].grup = h.grup;
+					horari[h.hora][h.dia].professor = h.professor;
         });
 
         res.render("horaris/list", { list: horari, taulahores: taulahores, user: req.session.data });
+				/* Cambiar esto luego xd
+				if(isAdmin) {
+					res.render("horaris/list", { list: horari, taulahores: taulahores });
+				}
+				*/
       });
     } else {
 			res.render("horaris/list", { list: [], taulahores: taulahores, user: req.session.data });
@@ -55,7 +63,14 @@ class HorariController {
   }
 
 	static create_get(req, res, next) {
-		res.render("horaris/new");
+		User.find({ role: 'professor' })
+    .then(professors => {
+      res.render('horaris/new', { professors });
+    })
+    .catch(err => {
+      console.error(err);
+      res.redirect('/horaris');
+    });
 	}
 
 	static create_post(req, res) {

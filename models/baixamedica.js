@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 var Schema = mongoose.Schema;
 
@@ -10,5 +11,6 @@ var BaixaMedicaSchema = new Schema({
 	user: { type: Schema.ObjectId, ref: "User", required: false },
 });
 
+BaixaMedicaSchema.plugin(mongoosePaginate);
 // Export model.
 module.exports = mongoose.model("BaixaMedica", BaixaMedicaSchema);

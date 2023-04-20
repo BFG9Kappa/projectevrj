@@ -3,7 +3,6 @@ const moment = require("moment");
 const { body, validationResult } = require("express-validator");
 
 class absprevistaController {
-
   static rules = [
     body("data_absprevista")
 		.notEmpty()
@@ -24,8 +23,16 @@ class absprevistaController {
   ];
   static async list(req, res, next) {
     try {
-      var list_absprevistes = await AbsenciaPrevista.find();
-      res.render("absprevistes/list", { list: list_absprevistes });
+			var list_absprevistes;
+			if (req.session.data != undefined && req.session.data.role.includes("administrador")) {
+				list_absprevistes = await AbsenciaPrevista.find();
+				res.render("absprevistes/list", { list: list_absprevistes });
+			} else if (req.session.data != undefined) {
+				list_absprevistes = await AbsenciaPrevista.find({ user: req.session.data.userId });
+				res.render("absprevistes/list", { list: list_absprevistes });
+			} else {
+				res.redirect("/auth/login");
+			}
     } catch (error) {
       res.send(error);
     }
@@ -43,6 +50,7 @@ class absprevistaController {
     var absenciaprevista = {
       data_absprevista: "",
       motiu_abs: "",
+			user: "",
     };
     res.render("absprevistes/new", { absenciaprevista: absenciaprevista });
   }
@@ -56,6 +64,7 @@ class absprevistaController {
       var absenciaprevista = {
         data_absprevista: req.body.data_absprevista,
         motiu_abs: req.body.motiu_abs,
+				user: "",
         _id: req.params.id,
       };
       res.render("absprevistes/new", {
@@ -63,6 +72,7 @@ class absprevistaController {
         absenciaprevista: absenciaprevista,
       });
     } else {
+			req.body.user = req.session.data.userId;
       AbsenciaPrevista.create(req.body, function (error, newAbsenciaPrevista) {
         if (error) {
           res.render("absprevistes/new", { error: error.message });
