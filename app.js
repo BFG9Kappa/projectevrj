@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer");
 const cors = require('cors');
 
 dotenv.config();
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 5000;
 
 // Conexio a base de dades
 const mongoose = require("mongoose");
