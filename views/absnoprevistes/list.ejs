@@ -18,9 +18,9 @@
 						<br>
 						<thead>
 							<tr>
-								<th class="align-middle text-center" scope="col">Data absencia no prevista</th>
-								<th class="align-middle text-center" scope="col">Hores ausencia</th>
-								<th class="align-middle text-center" scope="col">Motiu absencia</th>
+								<th class="align-middle text-center" scope="col">Data absència no prevista</th>
+								<th class="align-middle text-center" scope="col">Hora inici absència</th>
+								<th class="align-middle text-center" scope="col">Hora final absència</th>
 								<th class="align-middle text-center" scope="col">Document justificatiu</th>
 								<th class="align-middle text-center" scope="col" colspan="2">Operacions</th>
 							</tr>
@@ -32,7 +32,12 @@
 									<%=
 									moment(absnoprevista.data_absnoprevista).locale('es').format('L');%>
 								</td>
-								<td class="align-middle text-center"><%= absnoprevista.hores_ausencia %></td>
+								<td class="align-middle text-center">
+									<%= absnoprevista.hora_inici_absnoprevista %>
+								</td>
+								<td class="align-middle text-center">
+									<%= absnoprevista.hora_final_absnoprevista %>
+								</td>
 								<td class="align-middle text-center"><%= absnoprevista.motiu_abs %></td>
 								<td class="align-middle text-center"><%= absnoprevista.document_justificatiu %></td>
 								<td>
