@@ -18,7 +18,6 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // Paquete para las fechas
 app.locals.moment = require("moment");
-
 // Ruta de les vistes
 app.set("views", path.join(__dirname, "views"));
 // Selecciona motor de plantilles EJS
@@ -40,7 +39,7 @@ app.get("/test", (req, res) => {
 const server = app.listen(port, () => {
 	console.log(`Server running on port ${port}`);
 });
-/*
+
 // Set up session
 app.use(
 	session({
@@ -61,7 +60,6 @@ app.use(function (req, res, next) {
 	}
 	next();
 });
-*/
 
 // Rutes
 var indexRouter = require("./routes/indexRouter");
@@ -74,9 +72,9 @@ var absprevistesRouter = require("./routes/absprevistesRouter");
 var sortidescurricularsRouter = require("./routes/sortidescurricularsRouter");
 var users = require("./routes/users");
 
-
 app.use("/home", indexRouter);
 app.use("/auth", auth);
+app.use("/authRouter", authRouter);
 app.use("/horaris", horariRouter);
 app.use("/baixesmediques", baixesmediquesRouter);
 app.use("/absnoprevistes", absnoprevistesRouter);
