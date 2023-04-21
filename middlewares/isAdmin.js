@@ -1,3 +1,4 @@
+// Esto no es funcional aun xd
 function isAdmin(req, res, next) {
   if (req.session.data && req.session.data.role.includes('administrador')) {
     next();

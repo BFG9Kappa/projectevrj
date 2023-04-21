@@ -1,4 +1,4 @@
-/*var User = require("../models/user");
+var User = require("../models/user");
 var bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 
@@ -125,4 +125,4 @@ class authController {
 
 }
 
-module.exports = authController;*/
+module.exports = authController;

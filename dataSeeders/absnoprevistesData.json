@@ -2,8 +2,9 @@
 	"absnoprevistesData": [
 		{
 			"data_absnoprevista": 1680595200000,
-			"hores_ausencia": 2,
 			"motiu_abs": "Malaltia",
+			"hora_inici_absnoprevista": "08:00",
+      "hora_final_absnoprevista": "10:00",
 			"document_justificatiu": "link_a_document.pdf",
 			"user": "643a67037ede467a72ffacb3"
 		}

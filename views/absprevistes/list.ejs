@@ -18,7 +18,6 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th class="align-middle text-center" scope="col">ID</th>
 								<th class="align-middle text-center" scope="col">Data prevista</th>
 								<th class="align-middle text-center" scope="col">Motiu</th>
 								<th class="align-middle text-center" scope="col" colspan="2">Operacions</th>
@@ -27,7 +26,6 @@
 						<tbody>
 							<% list.forEach( function(absprevista) { %>
 							<tr>
-								<td class="align-middle text-center"><%= absprevista.id %></td>
 								<td class="align-middle text-center">
 									<%= moment(absprevista.data_absprevista).format('DD/MM/YYYY')
 									%>
