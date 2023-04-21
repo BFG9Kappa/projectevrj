@@ -20,6 +20,9 @@
 							<tr>
 								<th class="align-middle text-center" scope="col">Data prevista</th>
 								<th class="align-middle text-center" scope="col">Motiu</th>
+								<% if (locals.role.includes('administrador')) { %>
+									<th class="align-middle text-center" scope="col">Professor</th>
+								<% } %>
 								<th class="align-middle text-center" scope="col" colspan="2">Operacions</th>
 							</tr>
 						</thead>
@@ -31,6 +34,11 @@
 									%>
 								</td>
 								<td class="align-middle text-center"><%= absprevista.motiu_abs %></td>
+								<% if (locals.role.includes('administrador')) { %>
+									<td class="align-middle text-center">
+										<%= absprevista.id %>
+									</td>
+								<% } %>
 								<td class="align-middle text-center">
 									<a
 										class="btn btn-secondary"
