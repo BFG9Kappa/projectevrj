@@ -33,11 +33,11 @@
 						<input type="date" name="data_actual" id="data_actual" class="form-control" style="display:none"/>
 
 							<label for="name">La data de l'absència no prevista NO és editable</label><br>
-							<input type="date" name="data_absnoprevista" class="form-control" style="display:none" value="<%= absnoprevista.data_absnoprevista instanceof Date ? absnoprevista.data_absnoprevista.toISOString().slice(0, 10) : '' %>"/>
+							<input type="date" name="data_absnoprevista" class="form-control" style="display:none" value="<%= absnoprevista.data_absnoprevista instanceof Date ? absnoprevista.data_absnoprevista.toISOString().slice(0, 10) : '' %>" <%= disabled ? 'disabled' : '' %>/>
 
 							<label class="form-label" for="hora_inici_absnoprevista">Hora inici</label>
 							<br>
-								<select class="form-select" id="hora_inici_absnoprevista" name="hora_inici_absnoprevista" value="hora_inici_absnoprevista">
+								<select class="form-select" id="hora_inici_absnoprevista" name="hora_inici_absnoprevista" value="hora_inici_absnoprevista" <%= disabled ? 'disabled' : '' %>>
 							<optgroup label="Diurn">
 									<option value="08:00" <%= absnoprevista.hora_inici_absnoprevista === '08:00' ? 'selected' : '' %>>08:00</option>
 									<option value="09:00" <%= absnoprevista.hora_inici_absnoprevista === '09:00' ? 'selected' : '' %>>09:00</option>
@@ -61,7 +61,7 @@
 
 								<label class="form-label" for="hora_final_absnoprevista">Hora arribada</label>
 								<br>
-								<select class="form-select" id="hora_final_absnoprevista" name="hora_final_absnoprevista" value="hora_final_absnoprevista">
+								<select class="form-select" id="hora_final_absnoprevista" name="hora_final_absnoprevista" value="hora_final_absnoprevista" <%= disabled ? 'disabled' : '' %>>
 							<optgroup label="Diurn">
 									<option value="08:00" <%= absnoprevista.hora_final_absnoprevista === '08:00' ? 'selected' : '' %>>08:00</option>
 									<option value="09:00" <%= absnoprevista.hora_final_absnoprevista === '09:00' ? 'selected' : '' %>>09:00</option>
@@ -84,10 +84,10 @@
 						<br>
 						<br>
 							<label for="name">Motiu absència</label>
-							<textarea name="motiu_abs" class="form-control"><%= absnoprevista.motiu_abs %></textarea>
+							<textarea name="motiu_abs" class="form-control" <%= disabled ? 'disabled' : '' %>><%= absnoprevista.motiu_abs %></textarea>
 
 							<label for="name">Document justificatiu</label>
-							<input type="file" name="document_justificatiu" class="form-control" value="<%= absnoprevista.document_justificatiu %>"/>
+							<input type="file" name="document_justificatiu" class="form-control" value="<%= absnoprevista.document_justificatiu %>" <%= disabled ? 'disabled' : '' %>/>
 						</div>
 						<button type="submit" class="btn btn-primary">Desar</button>
 						<a class="btn btn-danger" href="/absnoprevistes/delete/<%= absnoprevista._id %>" role="button">Esborrar</a>

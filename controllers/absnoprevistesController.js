@@ -83,51 +83,56 @@ class absnoprevistesController {
 
     if (!errors.isEmpty()) {
       var absnoprevistes = {
-				data_absnoprevista: new Date(),
-				hora_inici_absnoprevista: "",
-    	  hora_final_absnoprevista: "",
-				motiu_abs: "",
-				document_justificatiu: "",
+        data_absnoprevista: new Date(),
+        hora_inici_absnoprevista: "",
+        hora_final_absnoprevista: "",
+        motiu_abs: "",
+        document_justificatiu: "",
         user: req.session.data.userId,
-				created_at: Date.now(),
-				_id: "",
-			};
+        created_at: Date.now(),
+        _id: "",
+      };
+      req.session.newFormTime = new Date(); // Almacenamos el tiempo actual en la variable de sesión
       res.render("absnoprevistes/new", {
         errors: errors.array(),
         absnoprevistes: absnoprevistes,
       });
     } else {
-    req.body.user = req.session.data.userId;
-    req.body.data_absnoprevista = new Date(req.body.data_absnoprevista); 
+      req.body.user = req.session.data.userId;
+      req.body.data_absnoprevista = new Date(req.body.data_absnoprevista);
       AbsNoPrevista.create(req.body, function (error, newAbsNoPrevista) {
         if (error) {
           res.render("absnoprevistes/new", { error: error.message });
         } else {
+          req.session.newFormTime = new Date(); // Almacenamos el tiempo actual en la variable de sesión
           res.redirect("/absnoprevistes");
         }
       });
     }
   }
 
+
 	static update_get(req, res, next) {
-		AbsNoPrevista.findById(req.params.id, function (err, absnoprevista) {
-			if (err) {
-				return next(err);
-			}
-			if (absnoprevista == null) {
-				// No results.
-				var err = new Error("Absencia no prevista no trobada");
-				err.status = 404;
-				return next(err);
-			}
-			 // Calcula la diferencia de tiempo entre la fecha actual y la fecha del campo oculto
-			 const formDate = new Date(req.body.created_at);
-			 const elapsedTime = (new Date() - formDate) / (1000 * 60);
-			 const disabled = elapsedTime >= 2;
-			// Success.
-			res.render("absnoprevistes/update", { absnoprevista: absnoprevista});
-		});
-	}
+    AbsNoPrevista.findById(req.params.id, function (err, absnoprevista) {
+      if (err) {
+        return next(err);
+      }
+      if (absnoprevista == null) {
+        // No results.
+        var err = new Error("Absencia no prevista no trobada");
+        err.status = 404;
+        return next(err);
+      }
+      const formTime = req.session.newFormTime; // Obtenemos el tiempo almacenado en la variable de sesión
+      const elapsedTime = (new Date() - formTime) / (1000 * 60);
+      const disabled = elapsedTime >= 2; // Desactivar los inputs si ha pasado más de dos minutos
+      res.render("absnoprevistes/update", {
+        absnoprevista: absnoprevista,
+        disabled: disabled // Pasamos la variable disabled a la vista para poder desactivar los inputs si ha pasado más de dos minutos
+      });
+    });
+  }
+
 
 	static update_post(req, res, next) {
 		// Definir validaciones
