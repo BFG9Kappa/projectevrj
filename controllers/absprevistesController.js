@@ -1,4 +1,5 @@
 var AbsenciaPrevista = require("../models/absprevista");
+var User = require("../models/user");
 const moment = require("moment");
 const { body, validationResult } = require("express-validator");
 
