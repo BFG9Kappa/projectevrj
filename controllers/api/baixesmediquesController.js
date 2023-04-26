@@ -4,18 +4,25 @@ const { body, validationResult } = require("express-validator");
 
 class baixesmediquesController {
 	static rules = [
-		body("data_inicial_baixa", "La data inicial de baixa no pot estar buida.")
-			.trim()
-			.isLength({ min: 1 })
-			.escape(),
-		body("data_prevista_alta", "La data prevista d'alta no pot estar buida.")
-			.trim()
-			.isLength({ min: 1 })
-			.escape(),
-		body("comentari", "El comentari ha de tindre com a mínim 5 caràcters.")
-			.trim()
-			.isLength({ min: 5 }),
-		//.escape()
+		body("data_inicial_baixa")
+		.notEmpty()
+		.withMessage("La data inicial no pot estar buida.")
+		.custom((value, { req }) => {
+		  const data_actual = moment(req.body.data_actual, "DD-MM-YYYY");
+		  const data_inicial_baixa = moment(value, "DD-MM-YYYY");
+		  if (data_inicial_baixa.isBefore(data_actual)) {
+			throw new Error(
+			  "La data inicial de la baixa ha de ser igual o posterior a la data actual"
+			);
+		  }
+		  return true;
+		}),
+		body("data_prevista_alta")
+		.notEmpty()
+		.withMessage("La data prevista d'alta no pot estar buida."),
+		body("comentari")
+		.notEmpty()
+		.withMessage("El comentari no pot estar buit."),
 		body("data_prevista_alta").custom((value, { req }) => {
 			const data_inicial_baixa = moment(
 				req.body.data_inicial_baixa,
@@ -29,18 +36,18 @@ class baixesmediquesController {
 			}
 			return true;
 		}),
-	]
+	];
 
 	// Recuperar les baixes
 	static async all(req, res, next) {
-  
+
 		try {
 		  const result = await BaixaMedica.find();
-		  res.status(200).json(result) 
+		  res.status(200).json(result)
 		}
 		catch(error) {
 		  res.status(402).json({errors: [{msg:"Hi ha hagut problemes en rebre les baixes mèdiques."}]})
-		}   
+		}
 	}
 
 
@@ -64,64 +71,64 @@ class baixesmediquesController {
 
 	static async delete(req, res, next) {
 
-		try {       
+		try {
 		  const baixamed = await BaixaMedica.findByIdAndRemove(req.params.id)
 		  res.status(200).json(baixamed)
 		}
 		catch {
 		  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema eliminant la baixa mèdica."}]})
-		}   
+		}
 	  }
 
 	  static async create(req, res, next) {
-		const errors = validationResult(req);  
-	
-	
+		const errors = validationResult(req);
+
+
 		if (!errors.isEmpty()) {
-			res.status(402).json({errors:errors.array()}) 
+			res.status(402).json({errors:errors.array()})
 		}
-		else { 
-	
-			try {		
+		else {
+
+			try {
 			  const NewBaixaMedica = await BaixaMedica.create({
 				data_inicial_baixa: req.body.data_inicial_baixa,
 				data_prevista_alta: req.body.data_prevista_alta,
 				comentari: req.body.comentari,
-				document_justificatiu_medic: req.body.document_justificatiu_medic,				
+				document_justificatiu_medic: req.body.document_justificatiu_medic,
 				_id: req.params.id,
 			  })
 			  res.status(200).json(NewBaixaMedica)
 			} catch(error) {
-			  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema guardant la baixa mèdica"}]})          
-			}        
+			  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema guardant la baixa mèdica"}]})
+			}
 		}
 	}
 
 	static async update(req, res, next) {
-		const errors = validationResult(req);  
-	
-		if (!errors.isEmpty()) {      
-		  res.status(402).json({errors:errors.array()})      
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) {
+		  res.status(402).json({errors:errors.array()})
 		}
-		else {    
-		  
+		else {
+
 		  var baixamedica = {
 			data_inicial_baixa: req.body.data_inicial_baixa,
 			data_prevista_alta: req.body.data_prevista_alta,
 			comentari: req.body.comentari,
-			document_justificatiu_medic: req.body.document_justificatiu_medic,				
+			document_justificatiu_medic: req.body.document_justificatiu_medic,
 			_id: req.params.id,
 		  }
-	
+
 		  try {
 				const UpdateBaixaMedica = await BaixaMedica.findByIdAndUpdate(
 					req.params.id, baixamedica, {runValidators: true})
 				return res.status(200).json(UpdateBaixaMedica)
 		  }
 		  catch(error) {
-			res.status(402).json({errors: [{msg:"Hi ha hagut algun problema actualitzant la baixa mèdica"}]})          
+			res.status(402).json({errors: [{msg:"Hi ha hagut algun problema actualitzant la baixa mèdica"}]})
 		  }
-		}	  
+		}
 	}
 
 }
