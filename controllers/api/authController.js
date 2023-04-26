@@ -60,14 +60,22 @@ class authController {
 			sort: { _id: -1 },   // Ordenats per id: el més nou el primer
 		};
 
-	try {
-		const result = await User.paginate({}, options).select("-password");
-		res.status(200).json(result)
-	}
-	catch(error) {
-		res.status(402).json({errors: [{msg:"Hi ha hagut problemes en rebre els usuaris."}]})
-	}
-}
+		try {
+			const result = await User.paginate({}, options);
+			const users = result.docs.map(user => {
+			  const { _id, fullname, role, email } = user;
+			  return { _id, fullname, role, email };
+			});
+			const newResult = { ...result, docs: users };
+			res.status(200).json(newResult);
+		  } catch (error) {
+			res
+			  .status(402)
+			  .json({
+				errors: [{ msg: "Ha habido problemas al recibir los usuarios." }],
+			  });
+		  }
+		}
 
 static async delete(req, res, next) {
 
