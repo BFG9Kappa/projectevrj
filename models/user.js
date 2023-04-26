@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
+
 var Schema = mongoose.Schema;
+
 //var crypto = require('crypto');
 
 var UserSchema = new Schema({
@@ -15,5 +18,6 @@ var UserSchema = new Schema({
   password: { type: String, required: true },
 });
 
+UserSchema.plugin(mongoosePaginate);
 // Export model
 module.exports = mongoose.model('User', UserSchema);
