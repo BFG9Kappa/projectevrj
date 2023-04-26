@@ -4,36 +4,43 @@ const { body, validationResult } = require("express-validator");
 const nodemailer = require('nodemailer');
 
 class sortidacurricularController {
-	static rules = [
-		body("data_sortida", "La data de sortida no pot estar buida.")
-			.trim()
-			.isLength({ min: 1 })
-			.escape(),
-		body("data_sortida").custom((value, { req }) => {
-			const data_actual = moment(
-				req.body.data_actual,
-				"DD-MM-YYYY"
-			);
-			const data_sortida = moment(value, "DD-MM-YYYY");
-			if (data_sortida.isBefore(data_actual)) {
+		static rules = [
+			body("data_sortida")
+			.notEmpty()
+			.withMessage("La data de la sortida no pot estar buida.")
+			.custom((value, { req }) => {
+				const data_actual = moment(req.body.data_actual, "DD-MM-YYYY");
+				const data_sortida = moment(value, "DD-MM-YYYY");
+				if (data_sortida.isBefore(data_actual)) {
 				throw new Error(
-					"La data de la sortida curricular ha de ser posterior a la data actual"
+					"La data de la sortida ha de ser igual o posterior a la data actual"
 				);
 			}
-			return true;
-		}),
-	];
-
+				return true;
+			}),
+				// Validación de hora_inici
+				body("hora_inici").notEmpty().withMessage("La hora d'inici no pot estar buida."),
+				// Validación de hora_arribada
+				body("hora_arribada").notEmpty().withMessage("La hora d'arribada no pot estar buida.")
+				.custom((value, { req }) => {
+					const hora_inici = moment(req.body.hora_inici, "HH:mm");
+					const hora_arribada = moment(value, "HH:mm");
+					if (hora_arribada.isSameOrBefore(hora_inici)) {
+						throw new Error("La hora d'arribada ha de ser posterior a la hora d'inici.");
+					}
+					return true;
+				})
+		];
 	// Recuperar sortides curriculars
 	static async all(req, res, next) {
-  
+
 		try {
 		  const result = await SortidaCurricular.find();
-		  res.status(200).json(result) 
+		  res.status(200).json(result)
 		}
 		catch(error) {
 		  res.status(402).json({errors: [{msg:"Hi ha hagut problemes en rebre les sortides curriculars."}]})
-		}   
+		}
 	}
 
 
@@ -57,23 +64,23 @@ class sortidacurricularController {
 
 	static async delete(req, res, next) {
 
-		try {       
+		try {
 		  const sortidaCurr = await SortidaCurricular.findByIdAndRemove(req.params.id)
 		  res.status(200).json(sortidaCurr)
 		}
 		catch {
 		  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema eliminant la sortida curricular."}]})
-		}   
+		}
 	  }
 
 	  static async create(req, res, next) {
-		const errors = validationResult(req);  
-	
+		const errors = validationResult(req);
+
 		if (!errors.isEmpty()) {
-			res.status(402).json({errors:errors.array()}) 
+			res.status(402).json({errors:errors.array()})
 		}
-		else { 
-			try {		
+		else {
+			try {
 			  const NewSortidaCurricular = await SortidaCurricular.create({
 				data_sortida: req.body.data_sortida,
 				email: req.body.email,
@@ -89,19 +96,19 @@ class sortidacurricularController {
 			  })
 			  res.status(200).json(NewSortidaCurricular)
 			} catch(error) {
-			  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema guardant la sortida curricular"}]})          
-			}        
+			  res.status(402).json({errors: [{msg:"Hi ha hagut algun problema guardant la sortida curricular"}]})
+			}
 		}
-	}	  
+	}
 
 	static async update(req, res, next) {
-		const errors = validationResult(req);  
-	
-		if (!errors.isEmpty()) {      
-		  res.status(402).json({errors:errors.array()})      
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) {
+		  res.status(402).json({errors:errors.array()})
 		}
-		else {    
-		  
+		else {
+
 		  var sortidacurricular = {
 			data_sortida: req.body.data_sortida,
 			email: req.body.email,
@@ -115,16 +122,16 @@ class sortidacurricularController {
 			estat: req.body.estat,
 			_id: req.params.id,
 		  }
-	
+
 		  try {
 				const UpdateSortidaCurricular = await SortidaCurricular.findByIdAndUpdate(
 					req.params.id, sortidacurricular, {runValidators: true})
 				return res.status(200).json(UpdateSortidaCurricular)
 		  }
 		  catch(error) {
-			res.status(402).json({errors: [{msg:"Hi ha hagut algun problema actualitzant la sortida curricular"}]})          
+			res.status(402).json({errors: [{msg:"Hi ha hagut algun problema actualitzant la sortida curricular"}]})
 		  }
-		}	  
+		}
 	}
 
 
