@@ -1,9 +1,9 @@
-/*var User = require("../../models/user");
+var User = require("../../models/user");
 var bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 
 class authController {
-	static loginRules = [
+	static rules = [
 		body("email").trim().notEmpty().withMessage("El correu electrònic no pot estar buit."),
 		body("password")
 			.trim()
@@ -11,7 +11,7 @@ class authController {
 			.withMessage("La contrasenya no pot estar buida."),
 	];
 
-	static registerRules = [
+	static rules = [
 		body("fullname").not().isEmpty().withMessage("El nom no pot estar buit."),
 		body("email", "El correu electrònic no pot estar buit.")
 			.not()
@@ -39,90 +39,56 @@ class authController {
 			}),
 	];
 
-	static login_get(req, res, next) {
-		res.render("users/login");
-	}
+	// Recuperar els usuaris
+	static async all(req, res, next) {
 
-	static login_post(req, res, next) {
-		// Recuperem els errors possibles de validació
-		const errors = validationResult(req);
-		// Si tenim errors en les dades enviades
-		if (!errors.isEmpty()) {
-			var message = "Els camps de correu electrònic i de contrasenya son obligatoris.";
-			res.render("users/login", { message: message });
-		} else {
-			var email = req.body.email;
-			var password = req.body.password;
-			User.findOne({ email: email }).exec(function (err, user) {
-				if (err) {
-					res.send(err);
-				}
-				if (!user) {
-					var message = "Algo ha sortit malament."; //Usuari no existeix
-					res.render("users/login", { message: message });
-				} else {
-					if (bcrypt.compareSync(password, user.password)) {
-						var userData = {
-							userId: user.id,
-							username: user.username,
-							fullname: user.fullname,
-							email: user.email,
-							role: user.role,
-						};
-						req.session.data = userData;
-						res.redirect("/home");
-					} else {
-						var message = "Algo ha sortit malament."; //Contrasenya incorrecta
-						res.render("users/login", { message: message });
-					}
-				}
-			});
+		try {
+			const result = await User.find().select("-password");
+		  res.status(200).json(result)
+		}
+		catch(error) {
+		  res.status(402).json({errors: [{msg:"Hi ha hagut problemes en rebre el usuaris."}]})
 		}
 	}
 
-	static register_get(req, res, next) {
-		var user = {
-			fullname: "",
-			email: "",
+  // Recuperar els usuaris en pàgines
+	static async list(req, res, next) {
+		// Configurar la paginació
+		const options = {
+			page: req.query.page || 1,  // Número pàgina
+			limit: 5,       // Número registres per pàgina
+			sort: { _id: -1 },   // Ordenats per id: el més nou el primer
 		};
-		res.render("users/register", { user: user });
-	}
 
-	static async register_post(req, res, next) {
-		// Recuperem els errors possibles de validació
-		const errors = validationResult(req);
-		// Si tenim errors en les dades enviades
-		if (!errors.isEmpty()) {
-			var user = {
-				fullname: req.body.fullname,
-				email: req.body.email,
-			};
-			res.render("users/register", { errors: errors.array(), user: user });
-		} else {
-			const hashpwd = await bcrypt.hash(req.body.password, 12);
-			var user = new User({
-				fullname: req.body.fullname,
-				email: req.body.email,
-				password: hashpwd,
-				role: ["professor"],
+		try {
+			const result = await User.paginate({}, options);
+			const users = result.docs.map(user => {
+			  const { _id, fullname, role, email } = user;
+			  return { _id, fullname, role, email };
 			});
-			User.create(user, (error, newUser) => {
-				if (error) {
-					res.render("users/register", { error: error.message });
-				} else {
-					res.redirect("/auth/login");
-				}
-			});
+			const newResult = { ...result, docs: users };
+			res.status(200).json(newResult);
+		  } catch (error) {
+			res
+			  .status(402)
+			  .json({
+				errors: [{ msg: "Ha habido problemas al recibir los usuarios." }],
+			  });
+		  }
 		}
+
+static async delete(req, res, next) {
+
+	try {
+		const usuari = await User.findByIdAndRemove(req.params.id)
+		res.status(200).json(usuari)
+	}
+	catch {
+		res.status(402).json({errors: [{msg:"Hi ha hagut algun problema eliminant el ususari."}]})
+	}
 	}
 
-	static logout_get(req, res, next) {
-		req.session.destroy(function () {
-			res.clearCookie("M12");
-			res.redirect("/");
-		});
-	}
 
 }
 
-module.exports = authController;*/
+module.exports = authController;
