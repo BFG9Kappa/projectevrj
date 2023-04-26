@@ -24,12 +24,6 @@ class absprevistaController {
   ];
   static async list(req, res, next) {
     try {
-			// tamo testing
-			var users = await User.find();
-      for (let index = 0; index < users.length; index++) {
-
-      }
-			//
 			var list_absprevistes;
 			if (req.session.data != undefined && req.session.data.role.includes("administrador")) {
 				list_absprevistes = await AbsenciaPrevista.find();
