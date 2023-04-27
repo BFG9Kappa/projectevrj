@@ -16,7 +16,7 @@ var AbsNoPrevistaSchema = new Schema({
 	document_justificatiu: { type: String, required: false },
 	created_at: {type: Date, default: Date.now, // Se asigna la fecha actual por defecto.
   },
-	user: { type: Schema.ObjectId, ref: "User", required: false },
+	user: { type: Schema.ObjectId, ref: "User", required: true },
 });
 
 AbsNoPrevistaSchema.plugin(mongoosePaginate);
