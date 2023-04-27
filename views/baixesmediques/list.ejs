@@ -21,6 +21,9 @@
 								<th class="align-middle text-center" scope="col">Data inicial baixa</th>
 								<th class="align-middle text-center" scope="col">Data prevista alta</th>
 								<th class="align-middle text-center" scope="col">Comentari</th>
+								<% if (locals.role.includes('administrador')) { %>
+									<th class="align-middle text-center" scope="col">Professor</th>
+								<% } %>
 								<th class="align-middle text-center" scope="col" colspan="2">Operacions</th>
 							</tr>
 						</thead>
@@ -36,6 +39,11 @@
 								<td class="align-middle text-center">
 									<%= baixamedica.comentari %>
 								</td>
+								<% if (locals.role.includes('administrador')) { %>
+									<td class="align-middle text-center">
+										<%= baixamedica.user.fullname %>
+									</td>
+								<% } %>
 								<td class="align-middle text-center">
 									<a class="btn btn-secondary" href="/baixesmediques/update/<%=baixamedica._id%>" class="card-link">Editar</a>
 								</td>
