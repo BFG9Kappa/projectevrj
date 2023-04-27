@@ -15,7 +15,7 @@
 			<div class="card-header">
 				<h5 class="card-title">Llista sortides curriculars</h5>
 			</div>
-			<div class="card-body">
+			<div class="card-body" style="overflow: scroll;">
 				<table class="table table-striped">
 					<a href="/sortidescurriculars/create" class="btn btn-primary">Nova</a>
 					<br>
@@ -23,7 +23,9 @@
 					<thead>
 						<tr>
 							<th class="align-middle text-center" scope="col">Data sortida</th>
+							<!--
 							<th class="align-middle text-center" scope="col">E-mail</th>
+							-->
 							<th class="align-middle text-center" scope="col">Lloc</th>
 							<th class="align-middle text-center" scope="col">Ruta</th>
 							<th class="align-middle text-center" scope="col">Objectius</th>
@@ -42,9 +44,11 @@
 								<td class="align-middle text-center">
 									<%= moment(sortidacurricular.data_sortida).format('DD/MM/YYYY') %>
 								</td>
+								<!--
 								<td class="align-middle text-center">
 									<%= sortidacurricular.email %>
 								</td>
+								-->
 								<td class="align-middle text-center">
 									<%= sortidacurricular.lloc %>
 								</td>
@@ -58,7 +62,7 @@
 									<%= sortidacurricular.grups %>
 								</td>
 								<td class="align-middle text-center">
-									<%= sortidacurricular.professors %>
+									<%= sortidacurricular.professors.fullname %>
 								</td>
 								<td class="align-middle text-center">
 									<%= sortidacurricular.hora_inici %>
