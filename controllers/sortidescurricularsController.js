@@ -35,7 +35,7 @@ class sortidacurricularController {
 
   static async list(req, res, next) {
     try {
-      var list_sortidescurriculars = await SortidaCurricular.find();
+      var list_sortidescurriculars = await SortidaCurricular.find().populate("professors");
       res.render("sortidescurriculars/list", {
         list: list_sortidescurriculars,
       });
