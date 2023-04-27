@@ -35,7 +35,7 @@ class sortidacurricularController {
 	static async all(req, res, next) {
 
 		try {
-		  const result = await SortidaCurricular.find();
+		  const result = await SortidaCurricular.find().populate("professors");
 		  res.status(200).json(result)
 		}
 		catch(error) {
