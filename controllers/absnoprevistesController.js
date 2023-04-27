@@ -39,7 +39,7 @@ class absnoprevistesController {
 		try {
 			var list_absnoprevistes;
 			if (req.session.data != undefined && req.session.data.role.includes("administrador")) {
-				list_absnoprevistes = await AbsNoPrevista.find();
+				list_absnoprevistes = await AbsNoPrevista.find().populate("user");
 				res.render("absnoprevistes/list", { list: list_absnoprevistes });
 			} else if (req.session.data != undefined) {
 				list_absnoprevistes = await AbsNoPrevista.find({ user: req.session.data.userId });

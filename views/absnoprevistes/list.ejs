@@ -23,6 +23,9 @@
 								<th class="align-middle text-center" scope="col">Hora final absència</th>
 								<th class="align-middle text-center" scope="col">Motiu</th>
 								<th class="align-middle text-center" scope="col">Document justificatiu</th>
+								<% if (locals.role.includes('administrador')) { %>
+									<th class="align-middle text-center" scope="col">Professor</th>
+								<% } %>
 								<th class="align-middle text-center" scope="col" colspan="2">Operacions</th>
 							</tr>
 						</thead>
@@ -41,6 +44,11 @@
 								</td>
 								<td class="align-middle text-center"><%= absnoprevista.motiu_abs %></td>
 								<td class="align-middle text-center"><%= absnoprevista.document_justificatiu %></td>
+								<% if (locals.role.includes('administrador')) { %>
+									<td class="align-middle text-center">
+										<%= absnoprevista.user.fullname %>
+									</td>
+								<% } %>
 								<td>
 									<a class="btn btn-secondary" href="/absnoprevistes/update/<%=absnoprevista._id%>" class="card-link">Editar</a>
 								</td>
