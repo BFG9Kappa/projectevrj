@@ -27,7 +27,7 @@ class absprevistaController {
 	static async all(req, res, next) {
 
 		try {
-		  const result = await AbsenciaPrevista.find();
+		  const result = await AbsenciaPrevista.find().populate("user");
 		  res.status(200).json(result)
 		}
 		catch(error) {
