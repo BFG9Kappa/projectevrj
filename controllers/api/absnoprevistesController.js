@@ -38,7 +38,8 @@ class absnoprevistesController {
 	static async all(req, res, next) {
 
 		try {
-		  const result = await AbsNoPrevista.find().populate("user");
+		  //const result = await AbsNoPrevista.find().populate("user");
+		  const result = await AbsNoPrevista.find();
 		  res.status(200).json(result)
 		}
 		catch(error) {
