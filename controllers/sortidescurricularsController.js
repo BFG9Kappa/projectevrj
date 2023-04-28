@@ -92,7 +92,7 @@ class sortidacurricularController {
 			})
 			.catch((err) => {
 				console.error(err);
-				res.redirect("/horaris");
+				res.redirect("/sortidescurriculars");
 			});
 	}
 
