@@ -42,7 +42,8 @@ class baixesmediquesController {
 	static async all(req, res, next) {
 
 		try {
-		  const result = await BaixaMedica.find().populate("user");
+		  //const result = await BaixaMedica.find().populate("user");
+		  const result = await BaixaMedica.find();
 		  res.status(200).json(result)
 		}
 		catch(error) {
