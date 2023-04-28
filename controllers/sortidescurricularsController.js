@@ -35,10 +35,16 @@ class sortidacurricularController {
 
   static async list(req, res, next) {
     try {
-      var list_sortidescurriculars = await SortidaCurricular.find().populate("professors");
-      res.render("sortidescurriculars/list", {
-        list: list_sortidescurriculars,
-      });
+			var list_sortidescurriculars;
+			if (req.session.data != undefined && req.session.data.role.includes("administrador")) {
+				list_sortidescurriculars = await SortidaCurricular.find().populate("professors");
+				res.render("sortidescurriculars/list", { list: list_sortidescurriculars });
+			} else if (req.session.data != undefined) {
+				list_sortidescurriculars = await SortidaCurricular.find({ profesors: req.session.data.userId }).populate("professors");
+				res.render("sortidescurriculars/list", { list: list_sortidescurriculars });
+			} else {
+				res.redirect("/auth/login");
+			}
     } catch (error) {
       res.send(error);
     }
