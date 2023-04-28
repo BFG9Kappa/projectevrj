@@ -26,7 +26,7 @@ class absprevistaController {
     try {
 			var list_absprevistes;
 			if (req.session.data != undefined && req.session.data.role.includes("administrador")) {
-				list_absprevistes = await AbsenciaPrevista.find();
+				list_absprevistes = await AbsenciaPrevista.find().populate("user");
 				res.render("absprevistes/list", { list: list_absprevistes });
 			} else if (req.session.data != undefined) {
 				list_absprevistes = await AbsenciaPrevista.find({ user: req.session.data.userId });

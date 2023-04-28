@@ -36,7 +36,7 @@
 								<td class="align-middle text-center"><%= absprevista.motiu_abs %></td>
 								<% if (locals.role.includes('administrador')) { %>
 									<td class="align-middle text-center">
-										<%= absprevista.id %>
+										<%= absprevista.user.fullname %>
 									</td>
 								<% } %>
 								<td class="align-middle text-center">

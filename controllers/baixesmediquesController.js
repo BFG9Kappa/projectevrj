@@ -45,7 +45,7 @@ class baixesmediquesController {
 		try {
 			var list_baixesmediques;
 			if (req.session.data != undefined && req.session.data.role.includes("administrador")) {
-				list_baixesmediques = await BaixaMedica.find();
+				list_baixesmediques = await BaixaMedica.find().populate("user");
 				res.render("baixesmediques/list", { list: list_baixesmediques });
 			} else if (req.session.data != undefined) {
 				list_baixesmediques = await BaixaMedica.find({ user: req.session.data.userId });

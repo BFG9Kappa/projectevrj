@@ -46,14 +46,13 @@
 							<label for="grups">Grups</label>
 							<input type="text" name="grups" class="form-control">
 
-							<label for="professor">Professor</label>
+							<label for="professors">Professor</label>
 							<br>
-							<select name="professor" class="form-select">
+							<select name="professors" class="form-select">
 								<% for (let i = 0; i < professors.length; i++) { %>
 									<option value="<%= professors[i]._id %>"><%= professors[i].fullname %></option>
 								<% } %>
 							</select>
-
 
 							<br />
 							<label class="form-label" for="hora_inici">Hora inici</label>
