@@ -6,7 +6,7 @@ const checkRoleAuth = require('../middlewares/roleAuth');
 const { getItems, getItem, createItem, deleteItem, updateItem } = require('../controllers/users');
 const { validateCreate } = require('../validators/users');
 
-router.get('/', checkAuth, getItems);
+router.get('/', checkAuth, checkRoleAuth(['professor','administrador']), getItems);
 
 router.get('/:id', checkOrigin, getItem);
 

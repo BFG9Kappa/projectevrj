@@ -6,6 +6,19 @@ var session = require("express-session");
 const nodemailer = require("nodemailer");
 const cors = require('cors');
 
+// Habilita crides CORS: Crides des de diferents origens permeses
+
+var corsOptions = {
+    origin: 'http://127.0.0.1:3000',
+    optionsSuccessStatus: 200 // For legacy browser support
+}
+
+app.use(cors(corsOptions));
+
+// Canviar per línia següent: Format enviament JSON
+app.use(express.json());
+
+
 dotenv.config();
 const port = process.env.PORT || 5000;
 
@@ -63,8 +76,8 @@ app.use(function (req, res, next) {
 
 // Rutes
 var indexRouter = require("./routes/indexRouter");
-var authRouter = require("./routes/authRouter");
-//var auth = require("./routes/auth");
+//var authRouter = require("./routes/authRouter");
+var auth = require("./routes/auth");
 var horariRouter = require("./routes/horariRouter");
 var baixesmediquesRouter = require("./routes/baixesmediquesRouter");
 var absnoprevistesRouter = require("./routes/absnoprevistesRouter");
@@ -73,8 +86,8 @@ var sortidescurricularsRouter = require("./routes/sortidescurricularsRouter");
 var users = require("./routes/users");
 
 app.use("/home", indexRouter);
-//app.use("/auth", auth);
-app.use("/auth", authRouter);
+app.use("/auth", auth);
+//app.use("/auth", authRouter);
 app.use("/horaris", horariRouter);
 app.use("/baixesmediques", baixesmediquesRouter);
 app.use("/absnoprevistes", absnoprevistesRouter);
