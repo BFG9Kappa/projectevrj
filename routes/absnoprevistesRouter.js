@@ -3,6 +3,7 @@ var router = express.Router();
 
 const absnoprevista_controller = require("../controllers/absnoprevistesController");
 
+
 router.get("/", absnoprevista_controller.list);
 
 router.get("/decresp", absnoprevista_controller.genpdf_get);

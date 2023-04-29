@@ -10,10 +10,27 @@ const loginCtrl = async (req, res) => {
 
         const user = await userModel.findOne({ email: email });
 
+        if (!user|| user.email === null) {
+            res.status(404);
+            res.send({ error: "L'usuari es obligatori " });
+            return;
+        }
+
         if (!user) {
             res.status(404);
-            res.send({ error: 'User not found' });
+            res.send({ error: 'Usuari no trobat' });
+            return;
         }
+
+        if (!password || user.password === null) {
+            res.status(409)
+            res.send({
+                error: 'La contrasenya es obligatoria'
+            })
+            return;
+        }
+
+
 
         const checkPassword = await compare(password, user.password); //TODO: Contraseña!
 
@@ -31,7 +48,7 @@ const loginCtrl = async (req, res) => {
         if (!checkPassword) {
             res.status(409)
             res.send({
-                error: 'Invalid password'
+                error: 'Contrasenya incorrecta'
             })
             return;
         }

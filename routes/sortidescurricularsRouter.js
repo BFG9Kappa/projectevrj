@@ -5,6 +5,8 @@ const sortidacurricular_controller = require("../controllers/sortidescurriculars
 
 router.get("/", sortidacurricular_controller.list);
 
+//router.get("/", sortidacurricular_controller.list);
+
 router.get("/create", sortidacurricular_controller.create_get);
 router.post("/create", sortidacurricular_controller.rules, sortidacurricular_controller.create_post);
 

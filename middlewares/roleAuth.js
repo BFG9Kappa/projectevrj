@@ -7,8 +7,17 @@ const checkRoleAuth = (roles) => async (req, res, next) => {
 		const tokenData = await verifyToken(token);
 		const userData = await userModel.findById(tokenData._id); //TODO: 696966
 
-		//TODO ['user'].includes('user')
-		if ([].concat(roles).includes(userData.role)) {
+		var validar = false;
+
+		for (const rol of roles) 
+		{
+			if(rol == userData.role)
+			{
+				validar = true;
+			}
+		}
+
+		if (validar) {
 			//TODO:
 			next();
 		} else {
