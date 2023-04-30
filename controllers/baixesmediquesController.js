@@ -22,23 +22,20 @@ class baixesmediquesController {
 		}),
 		body("data_prevista_alta")
 		.notEmpty()
-		.withMessage("La data prevista d'alta no pot estar buida."),
+		.withMessage("La data prevista d'alta no pot estar buida.")
+		.custom((value, { req }) => {
+		  const data_inicial_baixa = moment(req.body.data_inicial_baixa);
+		  const data_prevista_alta = moment(value);
+		  if (data_prevista_alta.isBefore(data_inicial_baixa, "day")) {
+			throw new Error("La data prevista d'alta ha de ser posterior o igual al dia i mes de la data inicial de la baixa.");
+		  } else if (!data_prevista_alta.isSameOrAfter(data_inicial_baixa, "month")) {
+			throw new Error("La data prevista d'alta ha de ser posterior o igual al mes de la data inicial de la baixa.");
+		  }
+		  return true;
+		}),
 		body("comentari")
 		.notEmpty()
 		.withMessage("El comentari no pot estar buit."),
-		body("data_prevista_alta").custom((value, { req }) => {
-			const data_inicial_baixa = moment(
-				req.body.data_inicial_baixa,
-				"DD-MM-YYYY"
-			);
-			const data_prevista_alta = moment(value, "DD-MM-YYYY");
-			if (data_prevista_alta.isBefore(data_inicial_baixa)) {
-				throw new Error(
-					"La data prevista alta ha de ser posterior a la data inicial de la baixa"
-				);
-			}
-			return true;
-		}),
 	];
 
 	static async list(req, res, next) {
