@@ -53,9 +53,9 @@ class sortidacurricularController {
 					list: list_sortidescurriculars,
 				});
 			} else if (req.session.data != undefined) {
-				list_sortidescurriculars = await SortidaCurricular.find({
-					profesors: req.session.data.userId,
-				}).populate("professors");
+				list_sortidescurriculars = await SortidaCurricular.find().populate(
+					"professors"
+				);
 				res.render("sortidescurriculars/list", {
 					list: list_sortidescurriculars,
 				});
@@ -157,79 +157,40 @@ class sortidacurricularController {
 		}
 	}
 
-	static update_get(req, res, next) {
-		SortidaCurricular.findById(
-			req.params.id,
-			function (err, sortidacurricular) {
-				if (err) {
-					return next(err);
-				}
-				if (sortidacurricular == null) {
-					// No results.
-					var err = new Error("Sortida curricular no trobada");
-					err.status = 404;
-					return next(err);
-				}
-				// Success.
-				res.render("sortidescurriculars/update", {
-					sortidacurricular: sortidacurricular,
-				});
-			}
-		);
+	// tamos testing
+	static async update_get(req, res, next) {
+		try {
+			const sortidacurricular = await SortidaCurricular.findById(
+				req.params.id
+			).populate("professors");
+			const professors = await User.find({ role: "professor" });
+			res.render("sortidescurriculars/update", {
+				sortidacurricular,
+				professors,
+			});
+		} catch (error) {
+			next(error);
+		}
 	}
 
 	static async update_post(req, res, next) {
 		const errors = validationResult(req);
-
 		if (!errors.isEmpty()) {
-			SortidaCurricular.findById(
-				req.params.id,
-				function (error, sortidacurricular) {
-					if (error) {
-						return next(error);
-					}
-					if (sortidacurricular == null) {
-						var error = new Error("Sortida curricular no trobada");
-						error.status = 404;
-						return next(error);
-					}
-					res.render("sortidescurriculars/update", {
-						errors: errors.array(),
-						sortidacurricular: sortidacurricular,
-					});
-				}
-			);
-		} else {
-			var sortidacurricular = {
-				data_sortida: req.body.data_sortida,
-				email: req.body.email,
-				lloc: req.body.lloc,
-				ruta: req.body.ruta,
-				objectius: req.body.objectius,
-				grups: req.body.grups,
-				professors: req.body.professors,
-				hora_inici: req.body.hora_inici,
-				hora_arribada: req.body.hora_arribada,
-				estat: req.body.estat,
-				_id: req.params.id,
-			};
-			SortidaCurricular.findByIdAndUpdate(
-				req.params.id,
+			const sortidacurricular = await SortidaCurricular.findById(
+				req.params.id
+			).populate("professors");
+			const professors = await User.find({ role: "professor" });
+			return res.render("sortidescurriculars/update", {
 				sortidacurricular,
-				{},
-				function (error, sortidacurricularFound) {
-					if (error) {
-						res.render("sortidescurriculars/update", {
-							sortidacurricular: sortidacurricular,
-							error: error.message,
-						});
-					}
-					res.render("sortidescurriculars/update", {
-						sortidacurricular: sortidacurricular,
-						message: "La sortida curricular ha estat actualitzada",
-					});
-				}
-			);
+				professors,
+				errors: errors.array(),
+			});
+		}
+		try {
+			await SortidaCurricular.findByIdAndUpdate(req.params.id, req.body);
+			res.redirect("/sortidescurriculars");
+		} catch (error) {
+			next(error);
 		}
 	}
 
