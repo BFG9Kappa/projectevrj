@@ -193,30 +193,6 @@ class sortidacurricularController {
 		}
 	}
 
-	/* Original
-	static async duplicar_get(req, res, next) {
-		SortidaCurricular.findById(
-			req.params.id,
-			function (err, sortidacurricular) {
-				if (err) {
-					return next(err);
-				}
-				if (sortidacurricular == null) {
-					// No results.
-					var err = new Error("Sortida curricular no trobada");
-					err.status = 404;
-					return next(err);
-				}
-				// Success.
-				res.render("sortidescurriculars/duplicar", {
-					sortidacurricular: sortidacurricular,
-				});
-			}
-		);
-	}
-	*/
-
-	// El dupli fix
 	static async duplicar_get(req, res, next) {
 		try {
 			const sortidacurricular = await SortidaCurricular.findById(
@@ -232,7 +208,6 @@ class sortidacurricularController {
 		}
 	}
 
-	// el tamo testing
 	static async duplicar_post(req, res, next) {
 		const errors = validationResult(req);
 		const professors = await User.find({ role: "professor" });
@@ -297,70 +272,6 @@ class sortidacurricularController {
 			);
 		}
 	}
-
-	/* Original
-	static async duplicar_post(req, res, next) {
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
-			// Si hay errores de validación, mostrar el formulario de nuevo con los errores
-			SortidaCurricular.findById(
-				req.params.id,
-				function (error, sortidacurricular) {
-					if (error) {
-						return next(error);
-					}
-					if (sortidacurricular == null) {
-						var error = new Error("Sortida curricular no trobada");
-						error.status = 404;
-						return next(error);
-					}
-					res.render("sortidescurriculars/duplicar", {
-						errors: errors.array(),
-						sortidacurricular: sortidacurricular,
-					});
-				}
-			);
-		} else {
-			// Obtener la información de la SortidaCurricular que deseamos duplicar
-			SortidaCurricular.findById(
-				req.params.id,
-				function (error, sortidacurricular) {
-					if (error) {
-						return next(error);
-					}
-					if (sortidacurricular == null) {
-						var error = new Error("Sortida curricular no trobada");
-						error.status = 404;
-						return next(error);
-					}
-					// Crear una nueva salida curricular con los datos de la anterior
-					var nuevaSortidaCurricular = new SortidaCurricular({
-						data_sortida: sortidacurricular.data_sortida,
-						email: sortidacurricular.email,
-						lloc: sortidacurricular.lloc,
-						ruta: sortidacurricular.ruta,
-						objectius: sortidacurricular.objectius,
-						grups: sortidacurricular.grups,
-						professors: sortidacurricular.professors,
-						hora_inici: sortidacurricular.hora_inici,
-						hora_arribada: sortidacurricular.hora_arribada,
-						estat: sortidacurricular.estat,
-					});
-					// Guardar la nueva salida curricular en la base de datos
-					nuevaSortidaCurricular.save(function (error) {
-						if (error) {
-							return next(error);
-						}
-						res.render("sortidescurriculars/duplicar", {
-							sortidacurricular: sortidacurricular,
-							message: "La sortida curricular ha estat duplicada",
-						});
-					});
-				}
-			);
-		}
-	}
-	*/
 
 	static async delete_get(req, res, next) {
 		res.render("sortidescurriculars/delete", { id: req.params.id });
