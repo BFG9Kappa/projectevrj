@@ -244,18 +244,20 @@ class sortidacurricularController {
 						error.status = 404;
 						return next(error);
 					}
-					// Crear una nueva salida curricular con los datos de la anterior
+					// Crear una nueva salida curricular con los datos de la anterior o los del form.
 					var nuevaSortidaCurricular = new SortidaCurricular({
-						data_sortida: sortidacurricular.data_sortida,
-						email: sortidacurricular.email,
-						lloc: sortidacurricular.lloc,
-						ruta: sortidacurricular.ruta,
-						objectius: sortidacurricular.objectius,
-						grups: sortidacurricular.grups,
-						professors: sortidacurricular.professors,
-						hora_inici: sortidacurricular.hora_inici,
-						hora_arribada: sortidacurricular.hora_arribada,
-						estat: sortidacurricular.estat,
+						data_sortida:
+							req.body.data_sortida || sortidacurricular.data_sortida,
+						email: req.body.email || sortidacurricular.email,
+						lloc: req.body.lloc || sortidacurricular.lloc,
+						ruta: req.body.ruta || sortidacurricular.ruta,
+						objectius: req.body.objectius || sortidacurricular.objectius,
+						grups: req.body.grups || sortidacurricular.grups,
+						professors: req.body.professors || sortidacurricular.professors,
+						hora_inici: req.body.hora_inici || sortidacurricular.hora_inici,
+						hora_arribada:
+							req.body.hora_arribada || sortidacurricular.hora_arribada,
+						estat: req.body.estat || sortidacurricular.estat,
 					});
 					// Guardar la nueva salida curricular en la base de datos
 					nuevaSortidaCurricular.save(function (error) {
