@@ -73,6 +73,7 @@ class absprevistaController {
 					data_absprevista: req.body.data_absprevista,
 					motiu_abs: req.body.motiu_abs,
 					document_justificatiu: req.body.document_justificatiu,
+					user: req.body.user,
 					_id: req.params.id,
 				});
 				res.status(200).json(NewAbsPrevista);
@@ -117,6 +118,7 @@ class absprevistaController {
 				data_absprevista: req.body.data_absprevista,
 				motiu_abs: req.body.motiu_abs,
 				document_justificatiu: req.body.document_justificatiu,
+				user: req.body.user,
 				_id: req.params.id,
 			};
 
