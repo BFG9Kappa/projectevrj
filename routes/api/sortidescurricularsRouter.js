@@ -6,6 +6,7 @@ const checkAuth = require('../../middlewares/auth');
 const checkRoleAuth = require('../../middlewares/roleAuth');
 
 router.get("/all", checkAuth, checkRoleAuth(['professor','administrador']), sortidacurricular_controller.all);
+//router.post("/create", checkAuth, checkRoleAuth(['professor','administrador']),sortidacurricular_controller.rules, sortidacurricular_controller.create);
 
 //router.get("/all", sortidacurricular_controller.all);
 router.get("/", sortidacurricular_controller.list);
