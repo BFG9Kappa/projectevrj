@@ -172,6 +172,40 @@ class sortidacurricularController {
 			}
 		}
 	}
+
+	static async duplicar(req, res, next) {
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) {
+			return res.status(402).json({ errors: errors.array() });
+		}
+
+		try {
+			const originalSortidaCurricular = await SortidaCurricular.findById(req.params.id);
+			if (!originalSortidaCurricular) {
+				const error = new Error("Sortida curricular no trobada");
+				error.status = 404;
+				throw error;
+			}
+			const sortidacurricular = new SortidaCurricular({
+				data_sortida: req.body.data_sortida,
+				email: req.body.email,
+				lloc: req.body.lloc,
+				ruta: req.body.ruta,
+				objectius: req.body.objectius,
+				grups: req.body.grups,
+				professors: req.body.professors,
+				hora_inici: req.body.hora_inici,
+				hora_arribada: req.body.hora_arribada,
+				estat: req.body.estat,
+			});
+			const duplicatedSortidaCurricular = await sortidacurricular.save();
+			return res.status(200).json(duplicatedSortidaCurricular);
+		} catch (error) {
+			return res.status(402).json({ errors: [{ msg: "Hi ha hagut algun problema duplicant la sortida curricular" }] });
+		}
+	}
+
 }
 
 module.exports = sortidacurricularController;
