@@ -41,8 +41,6 @@ class HorariController {
 				horari[h.hora][h.dia].grup = h.grup;
 				//horari[h.hora][h.dia].materia = h.materia;// .materia //h.materia + ' ' + h.aula + ' ' + h.grup;
 			});
-			//console.log(horari); // debug
-
 			//res.render('horaris/list', { list: list_horari });
 			res.render("horaris/list", { list: horari, taulahores: taulahores });
 		});

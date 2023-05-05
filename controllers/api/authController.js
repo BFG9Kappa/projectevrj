@@ -4,7 +4,10 @@ const { body, validationResult } = require("express-validator");
 
 class authController {
 	static rules = [
-		body("email").trim().notEmpty().withMessage("El correu electrònic no pot estar buit."),
+		body("email")
+			.trim()
+			.notEmpty()
+			.withMessage("El correu electrònic no pot estar buit."),
 		body("password")
 			.trim()
 			.notEmpty()
@@ -41,54 +44,54 @@ class authController {
 
 	// Recuperar els usuaris
 	static async all(req, res, next) {
-
 		try {
 			const result = await User.find().select("-password");
-		  res.status(200).json(result)
-		}
-		catch(error) {
-		  res.status(402).json({errors: [{msg:"Hi ha hagut problemes en rebre el usuaris."}]})
+			res.status(200).json(result);
+		} catch (error) {
+			res
+				.status(402)
+				.json({
+					errors: [{ msg: "Hi ha hagut problemes en rebre el usuaris." }],
+				});
 		}
 	}
 
-  // Recuperar els usuaris en pàgines
+	// Recuperar els usuaris en pàgines
 	static async list(req, res, next) {
 		// Configurar la paginació
 		const options = {
-			page: req.query.page || 1,  // Número pàgina
-			limit: 5,       // Número registres per pàgina
-			sort: { _id: -1 },   // Ordenats per id: el més nou el primer
+			page: req.query.page || 1, // Número pàgina
+			limit: 5, // Número registres per pàgina
+			sort: { _id: -1 }, // Ordenats per id: el més nou el primer
 		};
 
 		try {
 			const result = await User.paginate({}, options);
-			const users = result.docs.map(user => {
-			  const { _id, fullname, role, email } = user;
-			  return { _id, fullname, role, email };
+			const users = result.docs.map((user) => {
+				const { _id, fullname, role, email } = user;
+				return { _id, fullname, role, email };
 			});
 			const newResult = { ...result, docs: users };
 			res.status(200).json(newResult);
-		  } catch (error) {
-			res
-			  .status(402)
-			  .json({
+		} catch (error) {
+			res.status(402).json({
 				errors: [{ msg: "Ha habido problemas al recibir los usuarios." }],
-			  });
-		  }
+			});
 		}
-
-static async delete(req, res, next) {
-
-	try {
-		const usuari = await User.findByIdAndRemove(req.params.id)
-		res.status(200).json(usuari)
-	}
-	catch {
-		res.status(402).json({errors: [{msg:"Hi ha hagut algun problema eliminant el ususari."}]})
-	}
 	}
 
-
+	static async delete(req, res, next) {
+		try {
+			const usuari = await User.findByIdAndRemove(req.params.id);
+			res.status(200).json(usuari);
+		} catch {
+			res
+				.status(402)
+				.json({
+					errors: [{ msg: "Hi ha hagut algun problema eliminant el ususari." }],
+				});
+		}
+	}
 }
 
 module.exports = authController;
