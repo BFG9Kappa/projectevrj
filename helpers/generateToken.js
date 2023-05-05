@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken"); //TODO : 😎
+const jwt = require("jsonwebtoken"); //TODO
 
 const tokenSign = async (user) => {
 	//TODO: Genera Token
