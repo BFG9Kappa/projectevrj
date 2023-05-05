@@ -34,3 +34,15 @@ chmod +x seeder.sh
 npm test
 mocha test
 ```
+## Usuaris de prova
+
+#### Administrador:
+
+Email: fusese91@vrj.com
+PW: fusese
+
+#### Professors:
+
+Email: gafera90@vrj.com PW: gafera
+
+Email: afjare62@vrj.com PW: afjare
