@@ -32,8 +32,5 @@ chmod +x seeder.sh
 ### Cridar tots els tests
 ```sh
 npm test
-```
-o
-```sh
 mocha test
 ```
