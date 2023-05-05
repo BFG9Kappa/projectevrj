@@ -121,6 +121,7 @@ class absnoprevistesController {
 					hora_final_absnoprevista: req.body.hora_final_absnoprevista,
 					motiu_abs: req.body.motiu_abs,
 					document_justificatiu: req.body.document_justificatiu,
+					user: req.body.user,
 					_id: req.params.id, // Fa falta per sobreescriure el objecte.
 				});
 				res.status(200).json(NewAbsNoPrevista);
@@ -181,6 +182,7 @@ class absnoprevistesController {
 					hora_final_absnoprevista: req.body.hora_final_absnoprevista,
 					motiu_abs: req.body.motiu_abs,
 					document_justificatiu: req.body.document_justificatiu,
+					user: req.user,
 					_id: req.params.id,
 				};
 

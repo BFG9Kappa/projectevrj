@@ -106,6 +106,7 @@ class baixesmediquesController {
 					data_prevista_alta: req.body.data_prevista_alta,
 					comentari: req.body.comentari,
 					document_justificatiu_medic: req.body.document_justificatiu_medic,
+					user: req.body.user,
 					_id: req.params.id,
 				});
 				res.status(200).json(NewBaixaMedica);
@@ -132,6 +133,7 @@ class baixesmediquesController {
 				data_prevista_alta: req.body.data_prevista_alta,
 				comentari: req.body.comentari,
 				document_justificatiu_medic: req.body.document_justificatiu_medic,
+				user: req.body.user,
 				_id: req.params.id,
 			};
 
