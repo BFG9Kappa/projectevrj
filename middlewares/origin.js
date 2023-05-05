@@ -5,7 +5,7 @@ const checkOrigin = (req, res, next) => {
 			next();
 		} else {
 			res.status(409);
-			res.send({ error: "Tu por aqui no pasas!" });
+			res.send({ error: "No estas autoritzat" });
 		}
 	} catch (e) {
 		next();
