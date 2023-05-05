@@ -1,4 +1,4 @@
-const bcrypt = require("bcryptjs"); //TODO: <--- 😎
+const bcrypt = require("bcryptjs"); //TODO
 
 //TODO: Encriptamos!!
 const encrypt = async (textPlain) => {
