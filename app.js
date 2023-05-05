@@ -76,8 +76,8 @@ app.use(function (req, res, next) {
 
 // Rutes
 var indexRouter = require("./routes/indexRouter");
-//var authRouter = require("./routes/authRouter");
-var auth = require("./routes/auth");
+var authRouter = require("./routes/authRouter"); // Login Node
+//var auth = require("./routes/auth"); // Login React
 var horariRouter = require("./routes/horariRouter");
 var baixesmediquesRouter = require("./routes/baixesmediquesRouter");
 var absnoprevistesRouter = require("./routes/absnoprevistesRouter");
@@ -86,8 +86,8 @@ var sortidescurricularsRouter = require("./routes/sortidescurricularsRouter");
 var users = require("./routes/users");
 
 app.use("/home", indexRouter);
-app.use("/auth", auth);
-//app.use("/auth", authRouter);
+//app.use("/auth", auth); // Login React
+app.use("/auth", authRouter); // Login Node
 app.use("/horaris", horariRouter);
 app.use("/baixesmediques", baixesmediquesRouter);
 app.use("/absnoprevistes", absnoprevistesRouter);
