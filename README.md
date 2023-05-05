@@ -14,8 +14,12 @@ Modificar fitxer .env amb les credencials de la base de dades.
 ### Cridar seeder de forma individual
 ```sh
 cd dataSeeders
+node usuarisSeeder.js
 node horarisSeeder.js
+node absprevistesSeeder.js
+node absnoprevistesSeeder.js
 node baixesmediquesSeeder.js
+node sortidescurricularsSeeder.js
 ```
 ### Cridar seeder de forma global
 ```sh
