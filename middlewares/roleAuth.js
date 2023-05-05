@@ -9,8 +9,10 @@ const checkRoleAuth = (roles) => async (req, res, next) => {
 
 		var validar = false;
 
-		for (const rol of roles) {
-			if (rol == userData.role) {
+		for (const rol of roles) 
+		{
+			if(rol == userData.role)
+			{
 				validar = true;
 			}
 		}
@@ -20,12 +22,12 @@ const checkRoleAuth = (roles) => async (req, res, next) => {
 			next();
 		} else {
 			res.status(409);
-			res.send({ error: "No estas autoritzat" });
+			res.send({ error: "No tienes permisos" });
 		}
 	} catch (e) {
 		console.log(e);
 		res.status(409);
-		res.send({ error: "No estas autoritzat" });
+		res.send({ error: "Tu por aqui no pasas!" });
 	}
 };
 
