@@ -29,19 +29,20 @@
 
 				// Convertir data absencia
 				var dAbsencia = null;
+				var dd, mm, yyyy;
 				if (dAbsenciaRaw !== '') {
 					dAbsencia = new Date(dAbsenciaRaw);
-					var dd = dAbsencia.getDate();
-					var mm = dAbsencia.getMonth() + 1;
-					var yyyy = dAbsencia.getFullYear();
+					dd = dAbsencia.getDate();
+					mm = dAbsencia.getMonth() + 1;
+					yyyy = dAbsencia.getFullYear();
 					dAbsencia = dd + '/' + mm + '/' + yyyy;
 				}
 
 				// Extreure data actual
 				var dActual = new Date();
-				var dd = String(dActual.getDate()).padStart(2, '0');
-				var mm = String(dActual.getMonth() + 1).padStart(2, '0'); //January is 0!
-				var yyyy = dActual.getFullYear();
+				dd = String(dActual.getDate()).padStart(2, '0');
+				mm = String(dActual.getMonth() + 1).padStart(2, '0'); //January is 0!
+				yyyy = dActual.getFullYear();
 				dActual = dd + '/' + mm + '/' + yyyy;
 
 				// Crear un nou objecte de document jsPDF
@@ -131,7 +132,7 @@
 
 				// Num pagina
 				var pageCount = doc.internal.getNumberOfPages(); // Total num pagines
-				for (i = 0; i < pageCount; i++) {
+				for (let i = 0; i < pageCount; i++) {
 					doc.setPage(i);
 					let pageCurrent = doc.internal.getCurrentPageInfo().pageNumber; // Pagina actual
 					doc.setFontSize(11);

@@ -96,27 +96,20 @@ class sortidacurricularController {
 			});
 	}
 
-	static create_post(req, res) {
+	static async create_post(req, res) {
 		const errors = validationResult(req);
 		//console.log(errors.array());
 		// Tenim errors en les dades enviades
 		if (!errors.isEmpty()) {
-			var sortidacurricular = {
-				data_sortida: req.body.data_sortida,
-				email: req.body.email,
-				lloc: req.body.lloc,
-				ruta: req.body.ruta,
-				objectius: req.body.objectius,
-				grups: req.body.grups,
-				professors: req.body.professors,
-				hora_inici: req.body.hora_inici,
-				hora_arribada: req.body.hora_arribada,
-				estat: req.body.estat,
+			const professors = await User.find({ role: "professor" });
+			const sortidacurricular = {
+				...req.body,
 				_id: req.params.id,
 			};
 			res.render("sortidescurriculars/new", {
 				errors: errors.array(),
 				sortidacurricular: sortidacurricular,
+				professors: professors,
 			});
 		} else {
 			SortidaCurricular.create(
