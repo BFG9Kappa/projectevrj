@@ -46,3 +46,8 @@ PW: fusese
 Email: gafera90@vrj.com PW: gafera
 
 Email: afjare62@vrj.com PW: afjare
+
+## Canviar de Login entre Express i React
+Comenta o descomenta el login escollit a l'arxiu app.js.
+
+![Screenshot 2023-05-06 at 02-30-35 projectevrj_app js at master · BFG9Kappa_projectevrj](https://user-images.githubusercontent.com/45820087/236588561-f9d36922-d2db-436a-ab07-ec8376449527.png)
